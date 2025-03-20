@@ -4,9 +4,6 @@ from pocketflow import Node, Flow
 from utils import fake_stream_llm, stream_llm
 
 class StreamNode(Node):
-    def __init__(self, max_retries=1, wait=0):
-        super().__init__(max_retries=max_retries, wait=wait)
-
     def prep(self, shared):
         # Create interrupt event
         interrupt_event = threading.Event()

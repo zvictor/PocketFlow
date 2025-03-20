@@ -39,3 +39,14 @@ Parallel took:   1.00 seconds
 
 - **Parallel**: Total time ≈ longest single item time
   - Good for: I/O-bound tasks, independent operations 
+
+## Tech Dive Deep
+
+- **Python's GIL** prevents true CPU-bound parallelism, but LLM calls are I/O-bound
+- **Async/await** overlaps waiting time between requests
+  - Example: `await client.chat.completions.create(...)`
+  - See: [OpenAI's async usage](https://github.com/openai/openai-python?tab=readme-ov-file#async-usage)
+
+For maximum performance and cost efficiency, consider using batch APIs:
+- [OpenAI's Batch API](https://platform.openai.com/docs/guides/batch) lets you process multiple prompts in a single request
+- Reduces overhead and can be more cost-effective for large workloads 
