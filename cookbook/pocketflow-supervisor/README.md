@@ -1,4 +1,4 @@
-# Supervisor Agent
+# Research Supervisor
 
 This project demonstrates a supervisor that oversees an unreliable [research agent](../pocketflow-agent) to ensure high-quality answers.
 
