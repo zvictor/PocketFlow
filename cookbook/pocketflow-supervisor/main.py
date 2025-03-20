@@ -2,7 +2,7 @@ import sys
 from flow import create_agent_flow
 
 def main():
-    """Simple function to process a question."""
+    """Simple function to process a question with supervised answers."""
     # Default question
     default_question = "Who won the Nobel Prize in Physics 2024?"
     
@@ -13,7 +13,7 @@ def main():
             question = arg[2:]
             break
     
-    # Create the agent flow
+    # Create the agent flow with supervision
     agent_flow = create_agent_flow()
     
     # Process the question

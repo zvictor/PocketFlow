@@ -129,6 +129,42 @@ Provide a comprehensive answer using the research results.
         shared["answer"] = exec_res
         
         print(f"✅ Answer generated successfully")
+
+class SupervisorNode(Node):
+    def prep(self, shared):
+        """Get the current answer for evaluation."""
+        return shared["answer"]
+    
+    def exec(self, answer):
+        """Check if the answer is valid or nonsensical."""
+        print(f"    🔍 Supervisor checking answer quality...")
         
-        # We're done - no need to continue the flow
-        return "done" 
+        # Check for obvious markers of the nonsense answers
+        nonsense_markers = [
+            "coffee break", 
+            "purple unicorns", 
+            "made up", 
+            "42", 
+            "Who knows?"
+        ]
+        
+        # Check if the answer contains any nonsense markers
+        is_nonsense = any(marker in answer for marker in nonsense_markers)
+        
+        if is_nonsense:
+            return {"valid": False, "reason": "Answer appears to be nonsensical or unhelpful"}
+        else:
+            return {"valid": True, "reason": "Answer appears to be legitimate"}
+    
+    def post(self, shared, prep_res, exec_res):
+        """Decide whether to accept the answer or restart the process."""
+        if exec_res["valid"]:
+            print(f"    ✅ Supervisor approved answer: {exec_res['reason']}")
+        else:
+            print(f"    ❌ Supervisor rejected answer: {exec_res['reason']}")
+            # Clean up the bad answer
+            shared["answer"] = None
+            # Add a note about the rejected answer
+            context = shared.get("context", "")
+            shared["context"] = context + "\n\nNOTE: Previous answer attempt was rejected by supervisor."
+            return "retry" 

@@ -1,6 +1,12 @@
-# PocketFlow Research Agent - Tutorial for Dummy
+# Research Agent
 
-This project demonstrates a simple yet powerful LLM-powered research agent built with PocketFlow, a minimalist LLM framework in just 100 lines of code! This implementation is based directly on the tutorial post [LLM Agents are simply Graph — Tutorial For Dummies](https://zacharyhuang.substack.com/p/llm-agent-internal-as-a-graph-tutorial).
+This project demonstrates a simple yet powerful LLM-powered research agent. This implementation is based directly on the tutorial: [LLM Agents are simply Graph — Tutorial For Dummies](https://zacharyhuang.substack.com/p/llm-agent-internal-as-a-graph-tutorial).
+
+## Features
+
+- Performs web searches to gather information
+- Makes decisions about when to search vs. when to answer
+- Generates comprehensive answers based on research findings
 
 ## Getting Started
 
