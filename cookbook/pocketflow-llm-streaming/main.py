@@ -1,7 +1,7 @@
 import time
 import threading
 from pocketflow import Node, Flow
-from utils import fake_stream_llm
+from utils import fake_stream_llm, stream_llm
 
 class StreamNode(Node):
     def __init__(self, max_retries=1, wait=0):
