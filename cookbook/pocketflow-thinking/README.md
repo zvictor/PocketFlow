@@ -69,7 +69,7 @@ For comparison:
 - [GPT-o1 pro with thinking](https://chatgpt.com/share/67dcb1bf-ceb0-8000-823a-8ce894032e37): Correct answer after 1.5 min
 
 
-Below is an example of how Claude 3.7 Sonnet uses thinking mode to solve this complex problem, and get the correct result:
+Below is an example of how Claude 3.7 Sonnet (without native thinking) to solve this complex problem, and get the correct result:
 
 ```
 🤔 Processing question: Break a stick, then break the longer piece again. What's the probability of forming a triangle?

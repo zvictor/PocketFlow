@@ -1,22 +1,33 @@
 from pocketflow import Flow
-from nodes import EmbedDocumentsNode, CreateIndexNode, EmbedQueryNode, RetrieveDocumentNode
+from nodes import GetUserQuestionNode, RetrieveNode, AnswerNode, EmbedNode
 
-def get_offline_flow():
-    # Create offline flow for document indexing
-    embed_docs_node = EmbedDocumentsNode()
-    create_index_node = CreateIndexNode()
-    embed_docs_node >> create_index_node
-    offline_flow = Flow(start=embed_docs_node)
-    return offline_flow
+def create_chat_flow():
+    # Create the nodes
+    question_node = GetUserQuestionNode()
+    retrieve_node = RetrieveNode()
+    answer_node = AnswerNode()
+    embed_node = EmbedNode()
+    
+    # Connect the flow:
+    # 1. Start with getting a question
+    # 2. Retrieve relevant conversations
+    # 3. Generate an answer
+    # 4. Optionally embed old conversations
+    # 5. Loop back to get the next question
 
-def get_online_flow():
-    # Create online flow for document retrieval
-    embed_query_node = EmbedQueryNode()
-    retrieve_doc_node = RetrieveDocumentNode()
-    embed_query_node >> retrieve_doc_node
-    online_flow = Flow(start=embed_query_node)
-    return online_flow
+    # Main flow path
+    question_node - "retrieve" >> retrieve_node
+    retrieve_node - "answer" >> answer_node
+    
+    # When we need to embed old conversations
+    answer_node - "embed" >> embed_node
+    
+    # Loop back for next question
+    answer_node - "question" >> question_node
+    embed_node - "question" >> question_node
+    
+    # Create the flow starting with question node
+    return Flow(start=question_node)
 
-# Initialize flows
-offline_flow = get_offline_flow()
-online_flow = get_online_flow() 
+# Initialize the flow
+chat_flow = create_chat_flow() 
