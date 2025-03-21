@@ -64,8 +64,10 @@ This problem demonstrates why extended thinking is valuable:
 
 For comparison:
 - [Claude 3.7 Sonnet (without thinking)](https://claude.ai/share/31bf938c-94dd-42f6-bfac-e82ba3616dbc): Wrong answer
-- [GPT-4o with thinking](https://chatgpt.com/share/67dcb1bf-ceb0-8000-823a-8ce894032e37): Correct answer after 1.5 min
 - [Claude 3.7 Sonnet with thinking](https://claude.ai/share/0863f9fd-ae75-4a0c-84ee-f7443d2fcf4a): Correct answer after 4.5 min
+- [GPT-o1 with thinking](https://chatgpt.com/c/67dcbad0-75c8-8000-a538-ee6df8083832): Correct answer after 0.5 min
+- [GPT-o1 pro with thinking](https://chatgpt.com/share/67dcb1bf-ceb0-8000-823a-8ce894032e37): Correct answer after 1.5 min
+
 
 Below is an example of how Claude 3.7 Sonnet uses thinking mode to solve this complex problem, and get the correct result:
 
