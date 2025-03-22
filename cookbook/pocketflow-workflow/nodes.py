@@ -43,17 +43,19 @@ sections:
         print(formatted_outline)
         print("\n=========================\n")
         
-        print(f"Parsed {len(sections)} sections: {sections}")
-            
         return "default"
 
-class WriteSimpleContent(BatchNode):
+class WriteSimpleContent(Node):
     def prep(self, shared):
-        # Return the list of sections to process
+        # Get the list of sections to process
         return shared.get("sections", [])
     
-    def exec(self, section):
-        prompt = f"""
+    def exec(self, sections):
+        all_sections_content = []
+        section_contents = {}
+        
+        for section in sections:
+            prompt = f"""
 Write a short paragraph (MAXIMUM 100 WORDS) about this section:
 
 {section}
@@ -64,21 +66,18 @@ Requirements:
 - Keep it very concise (no more than 100 words)
 - Include one brief example or analogy
 """
-        return section, call_llm(prompt)
-    
-    def post(self, shared, prep_res, exec_res_list):
-        # Create a dictionary of section: content
-        section_contents = {}
-        all_content = []
-        
-        for section, content in exec_res_list:
+            content = call_llm(prompt)
             section_contents[section] = content
-            all_content.append(f"## {section}\n\n{content}\n")
+            all_sections_content.append(f"## {section}\n\n{content}\n")
         
+        return sections, section_contents, "\n".join(all_sections_content)
+    
+    def post(self, shared, prep_res, exec_res):
+        sections, section_contents, draft = exec_res
+        
+        # Store the section contents and draft
         shared["section_contents"] = section_contents
-        
-        # Combine all content into a single draft
-        shared["draft"] = "\n".join(all_content)
+        shared["draft"] = draft
         
         print("\n===== SECTION CONTENTS =====\n")
         for section, content in section_contents.items():
