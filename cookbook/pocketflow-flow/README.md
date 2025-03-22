@@ -1,6 +1,6 @@
-# PocketFlow Text Converter
+# Text Converter Flow
 
-A practical example demonstrating how to use PocketFlow to create an interactive text converter. This example showcases important concepts like data flow between nodes, user choice-based branching, and state management using the shared store.
+This project demonstrates an interactive text transformation tool built with PocketFlow.
 
 ## Features
 
@@ -11,60 +11,62 @@ A practical example demonstrating how to use PocketFlow to create an interactive
 - Interactive command-line interface
 - Continuous flow with option to process multiple texts
 
-## Project Structure
+## Getting Started
 
-```
-.
-├── flow.py        # Nodes and flow implementation
-├── main.py        # Application entry point
-└── README.md      # Documentation
-```
+1. Install the required dependencies:
 
-## Implementation Details
-
-1. **TextInput Node**:
-   - `prep()`: Gets text input from user
-   - `post()`: Shows options menu and returns action based on choice
-
-2. **TextTransform Node**:
-   - `prep()`: Gets text and choice from shared store
-   - `exec()`: Applies the chosen transformation
-   - `post()`: Shows result and asks if continue
-
-3. **Flow Structure**:
-   - Input → Transform → (loop back to Input or exit)
-   - Demonstrates branching based on actions ("transform", "input", "exit")
-
-## How to Run
-
-1. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Run the example:
+2. Run the application:
+
 ```bash
 python main.py
 ```
 
-## What You'll Learn
+## How It Works
 
-This example demonstrates several important PocketFlow concepts:
+The workflow features an interactive loop with branching paths:
 
-- **Node Architecture**: How to structure logic using prep/exec/post pattern
-- **Flow Control**: How to use actions to control flow between nodes
-- **Shared Store**: How to share data between nodes
-- **Interactivity**: How to create interactive flows with user input
-- **Branching**: How to implement different paths based on choices
+```mermaid
+graph TD
+    Input[TextInput Node] -->|transform| Transform[TextTransform Node]
+    Transform -->|input| Input
+    Transform -->|exit| End[End]
+    Input -->|exit| End
+```
 
-## Additional Resources
+Here's what each part does:
+1. **TextInput Node**: Collects text input and handles menu choices
+2. **TextTransform Node**: Applies the selected transformation to the text
 
-- [PocketFlow Documentation](https://the-pocket.github.io/PocketFlow/)
-- [Flow Guide](https://the-pocket.github.io/PocketFlow/flow.html)
-- [Node Guide](https://the-pocket.github.io/PocketFlow/node.html) 
+## Example Output
+
+```
+Welcome to Text Converter!
+=========================
+
+Enter text to convert: Pocket Flow is a 100-line LLM framework
+
+Choose transformation:
+1. Convert to UPPERCASE
+2. Convert to lowercase
+3. Reverse text
+4. Remove extra spaces
+5. Exit
+
+Your choice (1-5): 1
+
+Result: POCKET FLOW IS A 100-LINE LLM FRAMEWORK
+
+Convert another text? (y/n): n
+
+Thank you for using Text Converter!
+```
+
+## Files
+
+- [`main.py`](./main.py): Main entry point for running the text converter
+- [`flow.py`](./flow.py): Defines the nodes and flow for text transformation
+- [`requirements.txt`](./requirements.txt): Lists the required dependencies
