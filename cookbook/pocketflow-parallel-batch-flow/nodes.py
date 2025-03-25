@@ -1,39 +1,22 @@
 """AsyncNode implementations for image processing."""
-
 import os
 import asyncio
 from PIL import Image, ImageFilter
 import numpy as np
 from pocketflow import AsyncNode
 
-class NoOp(AsyncNode):
-    """Node that does nothing, used as a terminal node."""
-    
-    async def prep_async(self, shared):
-        """No preparation needed."""
-        return None
-    
-    async def exec_async(self, prep_res):
-        """No execution needed."""
-        return None
-    
-    async def post_async(self, shared, prep_res, exec_res):
-        """No post-processing needed."""
-        return None
-
 class LoadImage(AsyncNode):
     """Node that loads an image from file."""
-    
     async def prep_async(self, shared):
         """Get image path from parameters."""
         image_path = self.params["image_path"]
-        print(f"\nLoading image: {image_path}")
+        print(f"Loading image: {image_path}")
         return image_path
     
     async def exec_async(self, image_path):
         """Load image using PIL."""
         # Simulate I/O delay
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.5)
         return Image.open(image_path)
     
     async def post_async(self, shared, prep_res, exec_res):
@@ -43,7 +26,6 @@ class LoadImage(AsyncNode):
 
 class ApplyFilter(AsyncNode):
     """Node that applies a filter to an image."""
-    
     async def prep_async(self, shared):
         """Get image and filter type."""
         image = shared["image"]
@@ -83,7 +65,6 @@ class ApplyFilter(AsyncNode):
 
 class SaveImage(AsyncNode):
     """Node that saves the processed image."""
-    
     async def prep_async(self, shared):
         """Prepare output path."""
         image = shared["filtered_image"]
@@ -101,7 +82,7 @@ class SaveImage(AsyncNode):
         image, output_path = inputs
         
         # Simulate I/O delay
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.5)
         
         image.save(output_path)
         return output_path

@@ -1,8 +1,7 @@
 import os
 import asyncio
-import numpy as np
-from PIL import Image
-from flow import create_flow
+import time
+from flow import create_flows
 
 def get_image_paths():
     """Get paths of existing images in the images directory."""
@@ -19,7 +18,7 @@ def get_image_paths():
     if not image_paths:
         raise ValueError(f"No images found in '{images_dir}' directory!")
     
-    print(f"\nFound {len(image_paths)} images:")
+    print(f"Found {len(image_paths)} images:")
     for path in image_paths:
         print(f"- {path}")
     
@@ -27,7 +26,7 @@ def get_image_paths():
 
 async def main():
     """Run the parallel image processing example."""
-    print("\nParallel Image Processor")
+    print("Parallel Image Processor")
     print("-" * 30)
     
     # Get existing image paths
@@ -36,10 +35,26 @@ async def main():
     # Create shared store with image paths
     shared = {"images": image_paths}
     
-    # Create and run flow
-    flow = create_flow()
+    # Create both flows
+    batch_flow, parallel_batch_flow = create_flows()
     
-    await flow.run_async(shared)
+    # Run and time batch flow
+    start_time = time.time()
+    print("\nRunning sequential batch flow...")
+    await batch_flow.run_async(shared)
+    batch_time = time.time() - start_time
+    
+    # Run and time parallel batch flow
+    start_time = time.time()
+    print("\nRunning parallel batch flow...")
+    await parallel_batch_flow.run_async(shared)
+    parallel_time = time.time() - start_time
+    
+    # Print timing results
+    print("\nTiming Results:")
+    print(f"Sequential batch processing: {batch_time:.2f} seconds")
+    print(f"Parallel batch processing: {parallel_time:.2f} seconds")
+    print(f"Speedup: {batch_time/parallel_time:.2f}x")
     
     print("\nProcessing complete! Check the output/ directory for results.")
 
