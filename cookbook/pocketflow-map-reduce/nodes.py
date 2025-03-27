@@ -57,7 +57,6 @@ reasons:
         # Extract YAML content
         yaml_content = response.split("```yaml")[1].split("```")[0].strip() if "```yaml" in response else response
         result = yaml.safe_load(yaml_content)
-
         
         return (filename, result)
 
