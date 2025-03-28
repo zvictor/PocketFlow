@@ -34,7 +34,7 @@ A **ParallelBatchNode** extends `Node` for parallel processing with changes to:
 
 - **`async prep(shared)`**: returns an **iterable** (e.g., list, generator).
 - **`async exec(item)`**: called **concurrently** for each item.
-- **`async post(shared, prep_res, exec_res_list)`**: receives all results when done.
+- **`async post(shared, prep_res, exec_res_list)`**: after all items are processed, receives a **list** of results (`exec_res_list`) and returns an **Action**.
 
 ### Example: Sequential Summarize File
 

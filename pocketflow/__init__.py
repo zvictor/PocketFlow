@@ -12,7 +12,7 @@ class BaseNode:
     async def _exec(self,prep_res): return await self.exec(prep_res)
     async def _run(self,shared): p=await self.prep(shared);e=await self._exec(p);return await self.post(shared,p,e)
     async def run(self,shared): 
-        if self.successors: warnings.warn("Node won't run successors. Use Flow.")  
+        if self.successors: warnings.warn("Node won't run successors. Use Flow!")  
         return await self._run(shared)
     def __rshift__(self,other): return self.add_successor(other)
     def __sub__(self,action):

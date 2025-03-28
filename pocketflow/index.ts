@@ -34,7 +34,7 @@ export class BaseNode {
     return this.exec(prepRes)
   }
 
-  async _run(shared: any): Promise<any> {
+  protected async _run(shared: any): Promise<any> {
     const p = await this.prep(shared)
     const e = await this._exec(p)
     return this.post(shared, p, e)
@@ -42,7 +42,7 @@ export class BaseNode {
 
   async run(shared: any): Promise<any> {
     if (Object.keys(this.successors).length > 0) {
-      console.warn("Node won't run successors. Use Flow.")
+      console.warn("Node won't run successors. Use Flow!")
     }
     return this._run(shared)
   }
@@ -73,15 +73,13 @@ export class Node extends BaseNode {
         }
       }
     }
-    return null
   }
 }
 
 export class SequentialBatchNode extends Node {
   protected async _exec(items: any[]): Promise<any[]> {
-    if (!items || !items.length) return []
     const results: any[] = []
-    for (const item of items) {
+    for (const item of items || []) {
       results.push(await super._exec(item))
     }
     return results
@@ -90,8 +88,7 @@ export class SequentialBatchNode extends Node {
 
 export class ParallelBatchNode extends Node {
   protected async _exec(items: any[]): Promise<any[]> {
-    if (!items || !items.length) return []
-    return Promise.all(items.map((item) => super._exec(item)))
+    return Promise.all((items || []).map((item) => super._exec(item)))
   }
 }
 
@@ -130,7 +127,8 @@ export class Flow extends BaseNode {
   async _run(shared: any): Promise<any> {
     const pr = await this.prep(shared)
     const result = await this._orch(shared)
-    return this.post(shared, pr, result)
+    // In flows, post() always receives None for exec_res
+    return this.post(shared, pr, undefined)
   }
 
   async exec(prepRes: any): Promise<never> {
@@ -141,11 +139,12 @@ export class Flow extends BaseNode {
 export class SequentialBatchFlow extends Flow {
   async _run(shared: any): Promise<any> {
     const pr = (await this.prep(shared)) || []
-    let result = null
+    let results = []
     for (const bp of pr) {
-      result = await this._orch(shared, { ...this.params, ...bp })
+      results.push(await this._orch(shared, { ...this.params, ...bp }))
     }
-    return this.post(shared, pr, result)
+    // In flows, post() always receives None for exec_res
+    return this.post(shared, pr, undefined)
   }
 }
 
@@ -155,7 +154,7 @@ export class ParallelBatchFlow extends Flow {
     const results = await Promise.all(
       pr.map((bp: any) => this._orch(shared, { ...this.params, ...bp })),
     )
-    const lastResult = results.length > 0 ? results[results.length - 1] : null
-    return this.post(shared, pr, lastResult)
+    // In flows, post() always receives None for exec_res
+    return this.post(shared, pr, undefined)
   }
 }
