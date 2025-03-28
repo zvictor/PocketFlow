@@ -16,7 +16,11 @@ Pocket Flow is a TypeScript port of the original [Python version](https://github
 
 - **[Agentic Coding](https://zacharyhuang.substack.com/p/agentic-coding-the-most-fun-way-to)**: Let AI Agents (e.g., Cursor AI) build Agents—10x productivity boost!
 
-- To install, `pnpm add pocketflow` or just copy the [source code](pocketflow/index.ts).
+## Getting started
+
+- To install in Python, `pip install pocketflow` or just copy the [source code](python/pocketflow.py) (only 65 lines!).
+
+- To install in Javascript, `pnpm add pocketflow` or just copy the [source code](typescript/pocketflow.ts).
 
 - To learn more, check out the [documentation](https://the-pocket.github.io/PocketFlow/). For an in-depth design dive, read the [essay](https://github.com/The-Pocket/.github/blob/main/profile/pocketflow.md).
 
