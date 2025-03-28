@@ -14,7 +14,7 @@ class AddNode(Node):
         return {'start': start_time, 'end': end_time, 'result': val}
 
 # Define the ParallelBatchFlow
-class TestParallelFlow(ParallelBatchFlow):
+class ParallelTestFlow(ParallelBatchFlow):
     async def prep(self, shared):
         # Prepare parameter sets for parallel execution
         shared['results'] = []
@@ -51,7 +51,7 @@ async def test_parallel_batch_flow_execution():
     add_node.post = collecting_post.__get__(add_node, AddNode) # Bind method
 
     # Create and run the ParallelBatchFlow
-    batch_flow = TestParallelFlow(start=simple_flow)
+    batch_flow = ParallelTestFlow(start=simple_flow)
     start_run_time = time.monotonic()
     await batch_flow.run(shared_data)
     end_run_time = time.monotonic()
