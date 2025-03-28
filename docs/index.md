@@ -6,9 +6,9 @@ nav_order: 1
 
 # Pocket Flow
 
-A [100-line](https://github.com/the-pocket/PocketFlow/blob/main/pocketflow/__init__.py) minimalist LLM framework for _Agents, Task Decomposition, RAG, etc_.
+A [65-line](https://github.com/zvictor/PocketFlow/blob/main/python/pocketflow.py) minimalist LLM framework for _Agents, Task Decomposition, RAG, etc_.
 
-- **Lightweight**: Just the core graph abstraction in 100 lines. ZERO dependencies, and vendor lock-in.
+- **Lightweight**: Just the core graph abstraction in 65 lines. ZERO dependencies, and vendor lock-in.
 - **Expressive**: Everything you love from larger frameworks—([Multi-](./design_pattern/multi_agent.html))[Agents](./design_pattern/agent.html), [Workflow](./design_pattern/workflow.html), [RAG](./design_pattern/rag.html), and more.
 - **Agentic-Coding**: Intuitive enough for AI agents to help humans build complex LLM applications.
 
