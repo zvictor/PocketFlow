@@ -5,7 +5,7 @@ from pocketflow import Node, ParallelBatchNode
 
 # Helper classes similar to TypeScript tests
 
-class TestProcessingNode(Node):
+class ProcessingNode(Node):
     async def exec(self, item):
         key, value = item['key'], item['value']
         await asyncio.sleep(0.01)  # Simulate async work
@@ -26,7 +26,7 @@ class ThrottledParallelNode(ParallelBatchNode):
             # A simpler way for testing is to override _exec itself.
             # Let's stick to overriding exec for this test class for simplicity,
             # acknowledging it's slightly different from the TS Semaphore class structure.
-            processing_node = TestProcessingNode()
+            processing_node = ProcessingNode()
             return await processing_node.exec(item) # Use a separate node instance for processing logic
 
 @pytest.mark.asyncio
@@ -38,7 +38,7 @@ async def test_process_items_in_parallel():
     ]
 
     node = ParallelBatchNode(max_retries=1)
-    processing_node = TestProcessingNode()
+    processing_node = ProcessingNode()
     # Assign the exec method directly for testing _exec
     node.exec = processing_node.exec
 
@@ -61,7 +61,7 @@ async def test_respect_concurrency_limits():
         def __init__(self, concurrency=2, max_retries=1, wait=0):
              super().__init__(max_retries=max_retries, wait=wait)
              self.semaphore = asyncio.Semaphore(concurrency)
-             self.processing_node = TestProcessingNode() # Internal node for logic
+             self.processing_node = ProcessingNode() # Internal node for logic
 
         async def _exec_single_with_semaphore(self, item):
              async with self.semaphore:
@@ -120,7 +120,7 @@ async def test_maintain_order_of_results():
     ]
 
     node = ParallelBatchNode(max_retries=1)
-    processing_node = TestProcessingNode()
+    processing_node = ProcessingNode()
     # Assign exec method
     node.exec = processing_node.exec
 
@@ -173,7 +173,7 @@ async def test_use_fallback_when_retries_exhausted():
 @pytest.mark.asyncio
 async def test_handle_empty_input():
     node = ParallelBatchNode(max_retries=1)
-    processing_node = TestProcessingNode()
+    processing_node = ProcessingNode()
     node.exec = processing_node.exec
 
     results = await node._exec([])
