@@ -2,20 +2,20 @@
   "name": "pocketflow",
   "version": "0.0.2",
   "type": "module",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/pocketflow.d.ts",
   "exports": {
     ".": {
       "types": {
-        "import": "./dist/index.d.ts",
-        "require": "./dist/index.d.cts"
+        "import": "./dist/pocketflow.d.ts",
+        "require": "./dist/pocketflow.d.cts"
       },
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./dist/pocketflow.js",
+      "require": "./dist/pocketflow.cjs"
     }
   },
-  "repository": "github:The-Pocket/PocketFlow-Typescript",
+  "repository": "github:zvictor/PocketFlow",
   "bugs": {
-    "url": "https://github.com/The-Pocket/PocketFlow-Typescript/issues"
+    "url": "https://github.com/zvictor/PocketFlow/issues"
   },
   "description": "Minimalist LLM framework",
   "keywords": [

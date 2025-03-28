@@ -7,6 +7,6 @@ export const tsup: Options = {
   format: ['cjs', 'esm'],
   minify: true,
   bundle: true,
-  entryPoints: ['pocketflow/index.ts'],
+  entryPoints: ['pocketflow.ts'],
   outDir: 'dist',
 }
