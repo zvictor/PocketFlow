@@ -159,11 +159,11 @@ describe('Fallback Tests', () => {
       throw Object.assign(err, { context: { itemId: 123 } })
     }
 
-    node.execFallback = async (_, exc: any) => {
+    node.execFallback = async (_: any, exc: any) => {
       return JSON.stringify({ error: exc })
     }
 
-    node.post = async (sharedStorage, _, execResult) => {
+    node.post = async (sharedStorage: any, _: any, execResult: string) => {
       sharedStorage['results'].push({
         attempts: 1,
         result: JSON.parse(execResult),
@@ -196,7 +196,7 @@ describe('Fallback Tests', () => {
       throw new Error(`Attempt ${attemptCount}`)
     }
 
-    node.execFallback = async (_, exc) => {
+    node.execFallback = async (_: any, exc: Error) => {
       return exc.message
     }
 
