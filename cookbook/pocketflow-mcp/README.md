@@ -22,9 +22,17 @@ This project shows how to build an agent that performs addition using PocketFlow
    python main.py
    ```
 
-## MCP vs Basic Function Calling
+## MCP vs Function Calling
 
-### Basic Function Calling
+To compare both approaches, this demo provides local function alternatives that don't require MCP:
+
+- To use traditional function calling instead of MCP, replace:
+  - `get_tools()` with `local_get_tools()`
+  - `call_tool()` with `local_call_tool()`
+
+This allows you to see the difference between the two approaches while keeping the same workflow.
+
+### Function Calling
 - Functions are directly embedded in application code
 - Each new tool requires modifying the application
 - Tools are defined within the application itself
