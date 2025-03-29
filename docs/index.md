@@ -65,4 +65,4 @@ We **do not** provide built-in utilities. Instead, we offer _examples_—please 
 
 ## Ready to build your Apps?
 
-Check out [Agentic Coding Guidance](./guide.md), the fastest way to develop LLM projects with Pocket Flow!
+Check out [Agentic Coding Guidance](./agentic_coding.md), the fastest way to develop LLM projects with Pocket Flow!
