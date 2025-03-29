@@ -13,6 +13,9 @@
       "require": "./dist/brainyflow.cjs"
     }
   },
+  "files": [
+    "dist"
+  ],
   "repository": "github:zvictor/brainyFlow",
   "bugs": {
     "url": "https://github.com/zvictor/brainyFlow/issues"
