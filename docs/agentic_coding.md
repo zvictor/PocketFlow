@@ -45,20 +45,20 @@ Agentic Coding should be a collaboration between Human System Design and Agent I
      - If using **RAG**, specify what to embed, noting that there's usually both offline (indexing) and online (retrieval) workflows.
    - Outline the flow and draw it in a mermaid diagram. For example:
 
-     ```mermaid
-     flowchart LR
-         start[Start] --> batch[Batch]
-         batch --> check[Check]
-         check -->|OK| process
-         check -->|Error| fix[Fix]
-         fix --> check
+```mermaid
+flowchart LR
+    start[Start] --> batch[Batch]
+    batch --> check[Check]
+    check -->|OK| process
+    check -->|Error| fix[Fix]
+    fix --> check
 
-         subgraph process[Process]
-           step1[Step 1] --> step2[Step 2]
-         end
+    subgraph process[Process]
+      step1[Step 1] --> step2[Step 2]
+    end
 
-         process --> endNode[End]
-     ```
+    process --> endNode[End]
+```
 
 3. **Utilities**: Based on the Flow Design, identify and implement necessary utility functions.
    {% hint style="success" %}
