@@ -1,7 +1,7 @@
 import pytest
 import asyncio
 import time
-from pocketflow import Node, ParallelBatchNode
+from brainyflow import Node, ParallelBatchNode
 
 # Helper classes similar to TypeScript tests
 

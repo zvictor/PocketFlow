@@ -1,6 +1,6 @@
 import pytest
 import asyncio
-from pocketflow import Node, SequentialBatchNode
+from brainyflow import Node, SequentialBatchNode
 
 # Helper Nodes similar to TypeScript tests
 

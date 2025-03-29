@@ -4,9 +4,9 @@ title: 'Home'
 nav_order: 1
 ---
 
-# Pocket Flow
+# Brainy Flow
 
-A [65-line](https://github.com/zvictor/PocketFlow/blob/main/python/pocketflow.py) minimalist LLM framework for _Agents, Task Decomposition, RAG, etc_.
+A [65-line](https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py) minimalist LLM framework for _Agents, Task Decomposition, RAG, etc_.
 
 - **Lightweight**: Just the core graph abstraction in 65 lines. ZERO dependencies, and vendor lock-in.
 - **Expressive**: Everything you love from larger frameworks—([Multi-](./design_pattern/multi_agent.html))[Agents](./design_pattern/agent.html), [Workflow](./design_pattern/workflow.html), [RAG](./design_pattern/rag.html), and more.
@@ -65,4 +65,4 @@ We **do not** provide built-in utilities. Instead, we offer _examples_—please 
 
 ## Ready to build your Apps?
 
-Check out [Agentic Coding Guidance](./agentic_coding.md), the fastest way to develop LLM projects with Pocket Flow!
+Check out [Agentic Coding Guidance](./agentic_coding.md), the fastest way to develop LLM projects with Brainy Flow!
