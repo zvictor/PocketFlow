@@ -37,6 +37,11 @@ This project shows how to build an agent that performs addition using PocketFlow
 
 ## How It Works
 
+```mermaid
+flowchart LR
+    tools[GetToolsNode] -->|decide| decide[DecideToolNode]
+    decide -->|execute| execute[ExecuteToolNode]
+```
 
 The agent uses PocketFlow to create a workflow where:
 1. It takes user input about numbers
@@ -48,4 +53,3 @@ The agent uses PocketFlow to create a workflow where:
 - [`main.py`](./main.py): Implementation of the addition agent using PocketFlow
 - [`utils.py`](./utils.py): Helper functions for API calls and MCP integration
 - [`simple_server.py`](./simple_server.py): MCP server that provides the addition tool
-- [`simple_client.py`](./simple_client.py): Example client that connects to the MCP server
