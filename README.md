@@ -4,8 +4,8 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 [![Docs](https://img.shields.io/badge/docs-latest-blue)](https://the-pocket.github.io/PocketFlow/)
- <a href="https://discord.gg/hUHHE9Sa6T">
-    <img src="https://img.shields.io/discord/1346833819172601907?logo=discord&style=flat">
+<a href="https://discord.gg/hUHHE9Sa6T">
+<img src="https://img.shields.io/discord/1346833819172601907?logo=discord&style=flat">
 </a>
 
 Pocket Flow is a TypeScript port of the original [Python version](https://github.com/The-Pocket/PocketFlow) - a minimalist LLM framework.
@@ -24,7 +24,7 @@ Pocket Flow is a TypeScript port of the original [Python version](https://github
 
 ## Why Pocket Flow?
 
-Current LLM frameworks are bloated... You only need 100 lines for LLM Framework!
+Current LLM frameworks are bloated... You only need 65 lines for LLM Framework!
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/The-Pocket/.github/main/assets/meme.jpg" width="400"/>
@@ -36,7 +36,7 @@ Current LLM frameworks are bloated... You only need 100 lines for LLM Framework!
 | SmolAgent      |      Agent      |   Some <br><sup><sub>(e.g., CodeAgent, VisitWebTool)</sub></sup>   |  Some <br><sup><sub>(e.g., DuckDuckGo, Hugging Face, etc.)</sub></sup>   |                    8K                    |                   +198MB                    |
 | LangGraph      |  Agent, Graph   |       Some <br><sup><sub>(e.g., Semantic Search)</sub></sup>       | Some <br><sup><sub>(e.g., PostgresStore, SqliteSaver, etc.) </sub></sup> |                   37K                    |                    +51MB                    |
 | AutoGen        |      Agent      |   Some <br><sup><sub>(e.g., Tool Agent, Chat Agent)</sub></sup>    | Many <sup><sub>[Optional]<br> (e.g., OpenAI, Pinecone, etc.)</sub></sup> | 7K <br><sup><sub>(core-only)</sub></sup> | +26MB <br><sup><sub>(core-only)</sub></sup> |
-| **PocketFlow** |    **Graph**    |                              **None**                              |                                 **None**                                 |                 **100**                  |                  **+56KB**                  |
+| **PocketFlow** |    **Graph**    |                              **None**                              |                                 **None**                                 |                  **65**                  |                 **few KB**                  |
 
 </div>
 
@@ -44,6 +44,7 @@ Current LLM frameworks are bloated... You only need 100 lines for LLM Framework!
 
 The [single file](pocketflow/index.ts) capture the core abstraction of LLM frameworks: Graph!
 <br>
+
 <div align="center">
   <img src="https://raw.githubusercontent.com/The-Pocket/.github/main/assets/abstraction.png" width="900"/>
 </div>
@@ -51,6 +52,7 @@ The [single file](pocketflow/index.ts) capture the core abstraction of LLM frame
 
 From there, it's easy to implement popular design patterns like ([Multi-](https://the-pocket.github.io/PocketFlow/design_pattern/multi_agent.html))[Agents](https://the-pocket.github.io/PocketFlow/design_pattern/agent.html), [Workflow](https://the-pocket.github.io/PocketFlow/design_pattern/workflow.html), [RAG](https://the-pocket.github.io/PocketFlow/design_pattern/rag.html), etc.
 <br>
+
 <div align="center">
   <img src="https://raw.githubusercontent.com/The-Pocket/.github/main/assets/design.png" width="900"/>
 </div>
@@ -105,5 +107,4 @@ From there, it's easy to implement popular design patterns like ([Multi-](https:
 - Want to learn **Agentic Coding**?
   - To setup, read this [post](https://zacharyhuang.substack.com/p/agentic-coding-the-most-fun-way-to)!
   - Check out [my YouTube](https://www.youtube.com/@ZacharyLLM?sub_confirmation=1)! Read this [Guide](https://the-pocket.github.io/PocketFlow/guide.html)!
-  
 - Want to build your own LLM App? Start with [this template](https://github.com/The-Pocket/PocketFlow-Template-Typescript)!
