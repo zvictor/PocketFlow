@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { Node, SequentialBatchNode } from '../pocketflow/index'
+import { Node, SequentialBatchNode } from '../brainyflow'
 
 class TestProcessingNode extends Node {
   async exec(item: any) {

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { Node, ParallelBatchNode } from '../pocketflow/index'
+import { Node, ParallelBatchNode } from '../brainyflow'
 
 interface SharedState {
   _batch_results?: any[]

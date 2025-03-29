@@ -45,20 +45,20 @@ Agentic Coding should be a collaboration between Human System Design and Agent I
      - If using **RAG**, specify what to embed, noting that there's usually both offline (indexing) and online (retrieval) workflows.
    - Outline the flow and draw it in a mermaid diagram. For example:
 
-     ```mermaid
-     flowchart LR
-         start[Start] --> batch[Batch]
-         batch --> check[Check]
-         check -->|OK| process
-         check -->|Error| fix[Fix]
-         fix --> check
+```mermaid
+flowchart LR
+    start[Start] --> batch[Batch]
+    batch --> check[Check]
+    check -->|OK| process
+    check -->|Error| fix[Fix]
+    fix --> check
 
-         subgraph process[Process]
-           step1[Step 1] --> step2[Step 2]
-         end
+    subgraph process[Process]
+      step1[Step 1] --> step2[Step 2]
+    end
 
-         process --> endNode[End]
-     ```
+    process --> endNode[End]
+```
 
 3. **Utilities**: Based on the Flow Design, identify and implement necessary utility functions.
    {% hint style="success" %}
@@ -134,7 +134,7 @@ export async function callLLM(prompt: string): Promise<string> {
 
 4. **Node Design**: Plan how each node will read and write data, and use utility functions.
 
-   - One core design principle for PocketFlow is to use a [shared store](./core_abstraction/communication.md), so start with a shared store design:
+   - One core design principle for BrainyFlow is to use a [shared store](./core_abstraction/communication.md), so start with a shared store design:
      - For simple systems, use an in-memory dictionary.
      - For more complex systems or when persistence is required, use a database.
      - **Don't Repeat Yourself**: Use in-memory references or foreign keys.
@@ -211,7 +211,7 @@ my_project/
 
 ```python
 # nodes.py
-from pocketflow import Node
+from brainyflow import Node
 from utils.call_llm import call_llm
 
 class GetQuestionNode(Node):
@@ -245,7 +245,7 @@ class AnswerNode(Node):
 
 ```typescript
 // nodes.ts
-import { Node } from 'pocketflow'
+import { Node } from 'brainyflow'
 import { callLLM } from './utils/callLLM'
 
 class GetQuestionNode extends Node {
@@ -290,7 +290,7 @@ class AnswerNode extends Node {
 
 ```python
 # flow.py
-from pocketflow import Flow
+from brainyflow import Flow
 from nodes import GetQuestionNode, AnswerNode
 
 def create_qa_flow():
@@ -312,7 +312,7 @@ def create_qa_flow():
 
 ```typescript
 // flow.ts
-import { Flow } from 'pocketflow'
+import { Flow } from 'brainyflow'
 import { AnswerNode, GetQuestionNode } from './nodes'
 
 export function createQaFlow(): Flow {

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { Flow, Node } from '../pocketflow/index'
+import { Flow, Node } from '../brainyflow'
 
 class FallbackNode extends Node {
   constructor(

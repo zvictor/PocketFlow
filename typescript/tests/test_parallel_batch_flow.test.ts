@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { Flow, Node, ParallelBatchFlow } from '../pocketflow/index'
+import { Flow, Node, ParallelBatchFlow } from '../brainyflow'
 
 class BatchProcessorNode extends Node {
   async prep(sharedStorage: Record<string, any>): Promise<any> {

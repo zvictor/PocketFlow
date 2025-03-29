@@ -1,0 +1,39 @@
+name: Publish TypeScript Package
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'typescript/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '23'
+    - name: Install pnpm
+      run: npm install -g pnpm
+    - name: Install
+      working-directory: typescript
+      run: |
+        pnpm install
+    - name: Run tests
+      working-directory: typescript
+      run: |
+        cd typescript
+        node --import=tsx --experimental-test-snapshots --test-concurrency=1 --test tests/*.test.ts
+    - name: Create Release Pull Request or Publish to npm
+      id: changesets
+      working-directory: typescript
+      uses: changesets/action@v1
+      with:
+        publish: pnpm release
+        commit: "chore: update versions"
+        title: "chore: update versions"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

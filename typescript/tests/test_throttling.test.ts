@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import pLimit from 'p-limit'
-import { Node, ParallelBatchNode } from '../pocketflow/index'
+import { Node, ParallelBatchNode } from '../brainyflow'
 
 describe('Throttling Tests', () => {
   it('should respect concurrency limits with p-limit', async () => {

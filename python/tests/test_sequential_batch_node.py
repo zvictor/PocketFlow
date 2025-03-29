@@ -1,10 +1,10 @@
 import pytest
 import asyncio
-from pocketflow import Node, SequentialBatchNode
+from brainyflow import Node, SequentialBatchNode
 
 # Helper Nodes similar to TypeScript tests
 
-class TestProcessingNode(Node):
+class ProcessingNode(Node):
     async def exec(self, item):
         key = item.get('key')
         value = item.get('value')
@@ -119,7 +119,7 @@ async def test_handle_mixed_success_error_items():
 @pytest.mark.asyncio
 async def test_handle_empty_input():
     node = SequentialBatchNode()
-    processing_node_instance = TestProcessingNode()
+    processing_node_instance = ProcessingNode()
     node.exec = processing_node_instance.exec
 
     results = await node._exec([])

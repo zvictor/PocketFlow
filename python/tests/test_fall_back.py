@@ -1,6 +1,6 @@
 import unittest
 import asyncio
-from pocketflow import Node, Flow, ParallelBatchNode
+from brainyflow import Node, Flow, ParallelBatchNode
 
 class FallbackNode(Node):
     def __init__(self, should_fail=True, max_retries=1, custom_fallback=None):

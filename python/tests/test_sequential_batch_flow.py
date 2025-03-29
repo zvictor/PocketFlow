@@ -1,6 +1,6 @@
 import pytest
 import asyncio
-from pocketflow import Node, Flow, SequentialBatchFlow
+from brainyflow import Node, Flow, SequentialBatchFlow
 
 # --- Helper Nodes and Flows ---
 
