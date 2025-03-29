@@ -4,16 +4,13 @@ import asyncio
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
-def call_llm(messages):
+def call_llm(prompt):    
     client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY", "your-api-key"))
-    
-    response = client.chat.completions.create(
+    r = client.chat.completions.create(
         model="gpt-4o",
-        messages=messages,
-        temperature=0.7
+        messages=[{"role": "user", "content": prompt}]
     )
-    
-    return response.choices[0].message.content
+    return r.choices[0].message.content
 
 def get_tools(server_script_path):
     """Get available tools from an MCP server.
@@ -32,7 +29,41 @@ def get_tools(server_script_path):
     
     return asyncio.run(_get_tools())
 
-def call_tool(server_script_path, tool_name, arguments):
+def local_get_tools(server_script_path=None):
+    """A simple dummy implementation of get_tools without MCP."""
+    tools = [
+        {
+            "name": "add",
+            "description": "Add two numbers together",
+            "inputSchema": {
+                "properties": {
+                    "a": {"type": "integer"},
+                    "b": {"type": "integer"}
+                },
+                "required": ["a", "b"]
+            }
+        }
+    ]
+
+    class DictObject(dict):
+        """A simple class that behaves both as a dictionary and as an object with attributes."""
+        def __init__(self, data):
+            super().__init__(data)
+            for key, value in data.items():
+                if isinstance(value, dict):
+                    self[key] = DictObject(value)
+                elif isinstance(value, list) and value and isinstance(value[0], dict):
+                    self[key] = [DictObject(item) for item in value]
+        
+        def __getattr__(self, key):
+            try:
+                return self[key]
+            except KeyError:
+                raise AttributeError(f"'DictObject' object has no attribute '{key}'")
+
+    return [DictObject(tool) for tool in tools]
+
+def call_tool(server_script_path=None, tool_name=None, arguments=None):
     """Call a tool on an MCP server.
     """
     async def _call_tool():
@@ -49,11 +80,22 @@ def call_tool(server_script_path, tool_name, arguments):
     
     return asyncio.run(_call_tool())
 
+def local_call_tool(server_script_path=None, tool_name=None, arguments=None):
+    """A simple dummy implementation of call_tool without MCP."""
+    # Simple implementation of tools
+    if tool_name == "add":
+        if "a" in arguments and "b" in arguments:
+            return arguments["a"] + arguments["b"]
+        else:
+            return "Error: Missing required arguments 'a' or 'b'"
+    else:
+        return f"Error: Unknown tool '{tool_name}'"
+
 if __name__ == "__main__":
-    # Test the LLM call
-    messages = [{"role": "user", "content": "In a few words, what's the meaning of life?"}]
-    response = call_llm(messages)
-    print(f"Prompt: {messages[0]['content']}")
+    print("=== Testing call_llm ===")
+    prompt = "In a few words, what is the meaning of life?"
+    print(f"Prompt: {prompt}")
+    response = call_llm(prompt)
     print(f"Response: {response}")
 
         # Find available tools
