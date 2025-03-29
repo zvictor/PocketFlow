@@ -1,7 +1,7 @@
 import pytest
 import asyncio
 import time
-from pocketflow import Node, ParallelBatchFlow, Flow
+from brainyflow import Node, ParallelBatchFlow, Flow
 
 # Helper Nodes for testing
 class AddNode(Node):

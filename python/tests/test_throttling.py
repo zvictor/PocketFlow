@@ -1,7 +1,7 @@
 import pytest
 import asyncio
 import time
-from pocketflow import Node, ParallelBatchNode
+from brainyflow import Node, ParallelBatchNode
 
 @pytest.mark.asyncio
 async def test_throttling_with_semaphore():

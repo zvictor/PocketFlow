@@ -1,26 +1,26 @@
 {
-  "name": "pocketflow",
+  "name": "brainyflow",
   "version": "0.0.2",
   "type": "module",
-  "types": "./dist/pocketflow.d.ts",
+  "types": "./dist/brainyflow.d.ts",
   "exports": {
     ".": {
       "types": {
-        "import": "./dist/pocketflow.d.ts",
-        "require": "./dist/pocketflow.d.cts"
+        "import": "./dist/brainyflow.d.ts",
+        "require": "./dist/brainyflow.d.cts"
       },
-      "import": "./dist/pocketflow.js",
-      "require": "./dist/pocketflow.cjs"
+      "import": "./dist/brainyflow.js",
+      "require": "./dist/brainyflow.cjs"
     }
   },
-  "repository": "github:zvictor/PocketFlow",
+  "repository": "github:zvictor/brainyFlow",
   "bugs": {
-    "url": "https://github.com/zvictor/PocketFlow/issues"
+    "url": "https://github.com/zvictor/brainyFlow/issues"
   },
   "description": "Minimalist LLM framework",
   "keywords": [
     "AI",
-    "Pocket",
+    "brainy",
     "Flow",
     "Workflow",
     "LLM"

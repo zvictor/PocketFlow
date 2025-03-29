@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/discord/1346833819172601907?logo=discord&style=flat">
 </a>
 
-Pocket Flow is a TypeScript port of the original [Python version](https://github.com/The-Pocket/PocketFlow) - a minimalist LLM framework.
+Brainy Flow is a [65-line](https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py) minimalist LLM framework.
 
 - **Lightweight**: Zero bloat, zero dependencies, zero vendor lock-in.
 
@@ -18,15 +18,15 @@ Pocket Flow is a TypeScript port of the original [Python version](https://github
 
 ## Getting started
 
-- To install in Python, `pip install pocketflow` or just copy the [source code](python/pocketflow.py) (only 65 lines!).
+- To install in Python, `pip install brainyflow` or just copy the [source code](python/brainyflow.py) (only 65 lines!).
 
-- To install in Javascript, `pnpm add pocketflow` or just copy the [source code](typescript/pocketflow.ts).
+- To install in Javascript, `pnpm add brainyflow` or just copy the [source code](typescript/brainyflow.ts).
 
 - To learn more, check out the [documentation](https://brainy.gitbook.io/flow/). For an in-depth design dive, read the [essay](https://github.com/The-Pocket/.github/blob/main/profile/pocketflow.md).
 
 - 🎉 We now have a [discord](https://discord.gg/hUHHE9Sa6T)!
 
-## Why Pocket Flow?
+## Why Brainy Flow?
 
 Current LLM frameworks are bloated... You only need 65 lines for LLM Framework!
 
@@ -40,13 +40,13 @@ Current LLM frameworks are bloated... You only need 65 lines for LLM Framework!
 | SmolAgent      |      Agent      |   Some <br><sup><sub>(e.g., CodeAgent, VisitWebTool)</sub></sup>   |  Some <br><sup><sub>(e.g., DuckDuckGo, Hugging Face, etc.)</sub></sup>   |                    8K                    |                   +198MB                    |
 | LangGraph      |  Agent, Graph   |       Some <br><sup><sub>(e.g., Semantic Search)</sub></sup>       | Some <br><sup><sub>(e.g., PostgresStore, SqliteSaver, etc.) </sub></sup> |                   37K                    |                    +51MB                    |
 | AutoGen        |      Agent      |   Some <br><sup><sub>(e.g., Tool Agent, Chat Agent)</sub></sup>    | Many <sup><sub>[Optional]<br> (e.g., OpenAI, Pinecone, etc.)</sub></sup> | 7K <br><sup><sub>(core-only)</sub></sup> | +26MB <br><sup><sub>(core-only)</sub></sup> |
-| **PocketFlow** |    **Graph**    |                              **None**                              |                                 **None**                                 |                  **65**                  |                 **few KB**                  |
+| **BrainyFlow** |    **Graph**    |                              **None**                              |                                 **None**                                 |                  **65**                  |                 **few KB**                  |
 
 </div>
 
-## How does Pocket Flow work?
+## How does Brainy Flow work?
 
-The [single file](pocketflow/index.ts) capture the core abstraction of LLM frameworks: Graph!
+The single file in [python](python/brainyflow.py) or [typescript](python/brainyflow.ts) capture the core abstraction of LLM frameworks: Graph!
 <br>
 
 <div align="center">
@@ -67,48 +67,29 @@ From there, it's easy to implement popular design patterns like ([Multi-](https:
   
 |  Name  | Difficulty    |  Description  |  
 | :-------------:  | :-------------: | :--------------------- |  
-| [Chat](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-chat) | ☆☆☆ <br> *Dummy*   | A basic chat bot with conversation history |
-| [RAG](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-rag) | ☆☆☆ <br> *Dummy*   | A simple Retrieval-augmented Generation process |
-| [Workflow](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-workflow) | ☆☆☆ <br> *Dummy*   | A writing workflow that outlines, writes content, and applies styling |
-| [Map-Reduce](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-map-reduce) | ☆☆☆ <br> *Dummy* | A resume qualification processor using map-reduce pattern for batch evaluation |
-| [Agent](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-agent) | ☆☆☆ <br> *Dummy*   | A research agent that can search the web and answer questions |
-| [Streaming](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-llm-streaming) | ☆☆☆ <br> *Dummy*   | A real-time LLM streaming demo with user interrupt capability |
-| [Multi-Agent](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-multi-agent) | ★☆☆ <br> *Beginner* | A Taboo word game for asynchronous communication between two agents |
-| [Supervisor](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-supervisor) | ★☆☆ <br> *Beginner* | Research agent is getting unreliable... Let's build a supervision process|
-| [Parallel](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-parallel-batch) | ★☆☆ <br> *Beginner*   | A parallel execution demo that shows 3x speedup |
-| [Thinking](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-thinking) | ★☆☆ <br> *Beginner*   | Solve complex reasoning problems through Chain-of-Thought |
-| [Memory](https://github.com/The-Pocket/PocketFlow/tree/main/cookbook/pocketflow-chat-memory) | ★☆☆ <br> *Beginner* | A chat bot with short-term and long-term memory |
+| [Chat](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-chat) | ☆☆☆ <br> *Dummy*   | A basic chat bot with conversation history |
+| [RAG](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-rag) | ☆☆☆ <br> *Dummy*   | A simple Retrieval-augmented Generation process |
+| [Workflow](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-workflow) | ☆☆☆ <br> *Dummy*   | A writing workflow that outlines, writes content, and applies styling |
+| [Map-Reduce](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-map-reduce) | ☆☆☆ <br> *Dummy* | A resume qualification processor using map-reduce pattern for batch evaluation |
+| [Agent](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-agent) | ☆☆☆ <br> *Dummy*   | A research agent that can search the web and answer questions |
+| [Streaming](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-llm-streaming) | ☆☆☆ <br> *Dummy*   | A real-time LLM streaming demo with user interrupt capability |
+| [Multi-Agent](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-multi-agent) | ★☆☆ <br> *Beginner* | A Taboo word game for asynchronous communication between two agents |
+| [Supervisor](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-supervisor) | ★☆☆ <br> *Beginner* | Research agent is getting unreliable... Let's build a supervision process|
+| [Parallel](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-parallel-batch) | ★☆☆ <br> *Beginner*   | A parallel execution demo that shows 3x speedup |
+| [Thinking](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-thinking) | ★☆☆ <br> *Beginner*   | Solve complex reasoning problems through Chain-of-Thought |
+| [Memory](https://github.com/zvictor/BrainyFlow/tree/main/examples/python-chat-memory) | ★☆☆ <br> *Beginner* | A chat bot with short-term and long-term memory |
 
 </div>
 
-👀 Want to see other tutorials for dummies? [Create an issue!](https://github.com/The-Pocket/PocketFlow/issues/new)
+👀 Want to see other tutorials for dummies? [Create an issue!](https://github.com/zvictor/BrainyFlow/issues/new)
 
-## How to Use Pocket Flow?
+## How to Use Brainy Flow?
 
 🚀 Through **Agentic Coding**—the fastest LLM App development paradigm-where _humans design_ and _agents code_!
 
-<br>
-<div align="center">
-  <a href="https://youtu.be/Cf38Bi8U0Js" target="_blank">
-    <img src="https://raw.githubusercontent.com/The-Pocket/.github/main/assets/tutorial.png" width="500" alt="IMAGE ALT TEXT" style="cursor: pointer;">
-  </a>
-</div>
-<br>
-
-✨ Below are examples of more complex LLM Apps:
-
-<div align="center">
-  
-|  App Name     |  Difficulty    | Topics  | Human Design | Agent Code |
-| :-------------:  | :-------------: | :---------------------: |  :---: |  :---: |
-| [Build Cursor with Cursor](https://github.com/The-Pocket/Tutorial-Cursor) <br> <sup><sub>We'll reach the singularity soon ...</sup></sub> | ★★★ <br> *Advanced*   | [Agent](https://brainy.gitbook.io/flow/design_pattern/agent) | [Design Doc](https://github.com/The-Pocket/Tutorial-Cursor/blob/main/docs/design.md) | [Flow Code](https://github.com/The-Pocket/Tutorial-Cursor/blob/main/flow.py)
-| [Ask AI Paul Graham](https://github.com/The-Pocket/Tutorial-YC-Partner) <br> <sup><sub>Ask AI Paul Graham, in case you don't get in</sup></sub> | ★★☆ <br> *Medium*   | [RAG](https://brainy.gitbook.io/flow/design_pattern/rag) <br> [Map Reduce](https://brainy.gitbook.io/flow/design_pattern/mapreduce) <br> [TTS](https://brainy.gitbook.io/flow/utility_function/text_to_speech) | [Design Doc](https://github.com/The-Pocket/Tutorial-AI-Paul-Graham/blob/main/docs/design.md) | [Flow Code](https://github.com/The-Pocket/Tutorial-AI-Paul-Graham/blob/main/flow.py)
-| [Youtube Summarizer](https://github.com/The-Pocket/Tutorial-Youtube-Made-Simple)  <br> <sup><sub> Explain YouTube Videos to you like you're 5 </sup></sub> | ★☆☆ <br> *Beginner*   | [Map Reduce](https://brainy.gitbook.io/flow/design_pattern/mapreduce) |  [Design Doc](https://github.com/The-Pocket/Tutorial-Youtube-Made-Simple/blob/main/docs/design.md) | [Flow Code](https://github.com/The-Pocket/Tutorial-Youtube-Made-Simple/blob/main/flow.py)
-| [Cold Opener Generator](https://github.com/The-Pocket/Tutorial-Cold-Email-Personalization)  <br> <sup><sub> Instant icebreakers that turn cold leads hot </sup></sub> | ★☆☆ <br> *Beginner*   | [Map Reduce](https://brainy.gitbook.io/flow/design_pattern/mapreduce) <br> [Web Search](https://brainy.gitbook.io/flow/utility_function/websearch) |  [Design Doc](https://github.com/The-Pocket/Tutorial-Cold-Email-Personalization/blob/master/docs/design.md) | [Flow Code](https://github.com/The-Pocket/Tutorial-Cold-Email-Personalization/blob/master/flow.py)
-
-</div>
+<br />
 
 - Want to learn **Agentic Coding**?
   - To setup, read this [post](https://zacharyhuang.substack.com/p/agentic-coding-the-most-fun-way-to)!
   - Check out [my YouTube](https://www.youtube.com/@ZacharyLLM?sub_confirmation=1)! Read this [Guide](https://brainy.gitbook.io/flow/agentic_coding)!
-- Want to build your own LLM App? Start with [this template](https://github.com/The-Pocket/PocketFlow-Template-Typescript)!
+- Want to build your own LLM App? Start with our [Python template](https://github.com/zvictor/Brainyflow-Template-Python) or [Yypescript template](https://github.com/zvictor/Brainyflow-Template-Typescript)!
