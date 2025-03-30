@@ -4,6 +4,7 @@ This project demonstrates a simplified RAG system that retrieves relevant docume
 
 ## Features
 
+- Document chunking for better retrieval granularity
 - Simple vector-based document retrieval
 - Two-stage pipeline (offline indexing, online querying)
 - FAISS-powered similarity search
@@ -57,6 +58,7 @@ The magic happens through a two-stage pipeline implemented with PocketFlow:
 ```mermaid
 graph TD
     subgraph OfflineFlow[Offline Document Indexing]
+        ChunkDocs[ChunkDocumentsNode] --> EmbedDocs[EmbedDocumentsNode]
         EmbedDocs[EmbedDocumentsNode] --> CreateIndex[CreateIndexNode]
     end
     
@@ -66,14 +68,19 @@ graph TD
 ```
 
 Here's what each part does:
-1. **EmbedDocumentsNode**: Converts documents into vector representations
-2. **CreateIndexNode**: Creates a searchable FAISS index from embeddings
-3. **EmbedQueryNode**: Converts user query into the same vector space
-4. **RetrieveDocumentNode**: Finds the most similar document using vector search
+1. **ChunkDocumentsNode**: Splits documents into smaller chunks for more granular retrieval
+2. **EmbedDocumentsNode**: Converts document chunks into vector representations
+3. **CreateIndexNode**: Creates a searchable FAISS index from embeddings
+4. **EmbedQueryNode**: Converts user query into the same vector space
+5. **RetrieveDocumentNode**: Finds the most similar document chunk using vector search
 
 ## Example Output
 
 ```
+==================================================
+PocketFlow RAG Document Retrieval
+==================================================
+✅ Created 5 chunks from 5 documents
 ✅ Created 5 document embeddings
 🔍 Creating search index...
 ✅ Index created with 5 vectors
@@ -88,4 +95,4 @@ Here's what each part does:
 - [`main.py`](./main.py): Main entry point for running the RAG demonstration
 - [`flow.py`](./flow.py): Configures the flows that connect the nodes
 - [`nodes.py`](./nodes.py): Defines the nodes for document processing and retrieval
-- [`utils.py`](./utils.py): Utility functions including the embedding function
+- [`utils.py`](./utils.py): Utility functions including chunking and embedding functions

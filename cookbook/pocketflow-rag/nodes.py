@@ -1,9 +1,31 @@
 from pocketflow import Node, Flow, BatchNode
 import numpy as np
 import faiss
-from utils import get_embedding, get_openai_embedding
+from utils import get_embedding, get_openai_embedding, fixed_size_chunk
 
 # Nodes for the offline flow
+class ChunkDocumentsNode(BatchNode):
+    def prep(self, shared):
+        """Read texts from shared store"""
+        return shared["texts"]
+    
+    def exec(self, text):
+        """Chunk a single text into smaller pieces"""
+        return fixed_size_chunk(text)
+    
+    def post(self, shared, prep_res, exec_res_list):
+        """Store chunked texts in the shared store"""
+        # Flatten the list of lists into a single list of chunks
+        all_chunks = []
+        for chunks in exec_res_list:
+            all_chunks.extend(chunks)
+        
+        # Replace the original texts with the flat list of chunks
+        shared["texts"] = all_chunks
+        
+        print(f"✅ Created {len(all_chunks)} chunks from {len(prep_res)} documents")
+        return "default"
+    
 class EmbedDocumentsNode(BatchNode):
     def prep(self, shared):
         """Read texts from shared store and return as an iterable"""

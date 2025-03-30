@@ -41,6 +41,11 @@ def get_openai_embedding(text):
     # Convert to numpy array for consistency with other embedding functions
     return np.array(embedding, dtype=np.float32)
 
+def fixed_size_chunk(text, chunk_size=2000):
+    chunks = []
+    for i in range(0, len(text), chunk_size):
+        chunks.append(text[i : i + chunk_size])
+    return chunks
 
 if __name__ == "__main__":
     # Test the embedding function
