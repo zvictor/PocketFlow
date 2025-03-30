@@ -6,13 +6,35 @@
   </picture>
 <p>
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-[![Docs](https://img.shields.io/badge/docs-latest-blue)](https://brainy.gitbook.io/flow/)
-<a href="https://discord.gg/hUHHE9Sa6T">
-<img src="https://img.shields.io/discord/1346833819172601907?logo=discord&style=flat">
-</a>
+<p align="center">
+  A <a href="https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py">65-line</a> minimalist LLM framework 🤯
+  <br />
+  <sub>Let AI Agents build Agents with zero bloat, zero dependencies, zero vendor lock-in 😮</sub>
+</p>
 
-Brainy Flow is a [65-line](https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py) minimalist LLM framework.
+<p align="center">
+
+  <a href="https://pypi.org/project/brainyflow">
+   <img src="https://img.shields.io/pypi/dw/brainyflow?logo=python&label=Python&style=flat-square" alt="python version">
+  </a>
+  <a href="https://npm.com/packages/brainyflow">
+   <img src="https://img.shields.io/npm/d18m/brainyflow?logo=typescript&label=Typescript&style=flat-square" alt="typescript version">
+  </a>
+  <a href="https://discord.gg/hUHHE9Sa6T">
+    <img src="https://img.shields.io/discord/1346833819172601907?logo=discord&style=flat-square" alt="Discord">
+  </a>
+  <a href="https://github.com/zvictor/brainyflow">
+    <img src="https://img.shields.io/github/stars/zvictor/BrainyFlow?logo=github&style=flat-square" alt="GitHub Repository">
+  </a>
+  <a href="https://github.com/sponsors/zvictor">
+    <img src="https://img.shields.io/github/sponsors/zvictor?logo=github&style=flat-square" alt="GitHub Sponsors">
+  </a>
+</p>
+
+## Features
+
+- **Multi-language**: <img src="https://iconduck.com/vectors/vctrahatphfa/media/svg/download" width="16" height="16" alt="Python Logo" style="vertical-align: middle; margin: 0 2px;">
+ Python and <img src="https://iconduck.com/vectors/vctrk180y7wy/media/svg/download" width="16" height="16" alt="Typescript Logo" style="vertical-align: middle; margin: 0 2px;"> Typescript support.
 
 - **Lightweight**: Zero bloat, zero dependencies, zero vendor lock-in.
 
@@ -24,7 +46,7 @@ Brainy Flow is a [65-line](https://github.com/zvictor/BrainyFlow/blob/main/pytho
 
 - To install in Python, `pip install brainyflow` or just copy the [source code](python/brainyflow.py) (only 65 lines!).
 
-- To install in Javascript, `pnpm add brainyflow` or just copy the [source code](typescript/brainyflow.ts).
+- To install in Javascript, `npm install brainyflow` or just copy the [source code](typescript/brainyflow.ts).
 
 - To learn more, check out the [documentation](https://brainy.gitbook.io/flow/). For an in-depth design dive, read the [essay](https://github.com/The-Pocket/.github/blob/main/profile/pocketflow.md).
 
@@ -96,4 +118,8 @@ From there, it's easy to implement popular design patterns like ([Multi-](https:
 - Want to learn **Agentic Coding**?
   - To setup, read this [post](https://zacharyhuang.substack.com/p/agentic-coding-the-most-fun-way-to)!
   - Check out [my YouTube](https://www.youtube.com/@ZacharyLLM?sub_confirmation=1)! Read this [Guide](https://brainy.gitbook.io/flow/agentic_coding)!
-- Want to build your own LLM App? Start with our [Python template](https://github.com/zvictor/Brainyflow-Template-Python) or [Yypescript template](https://github.com/zvictor/Brainyflow-Template-Typescript)!
+- Want to build your own LLM App? Start with our [Python template](https://github.com/zvictor/Brainyflow-Template-Python) or [Typescript template](https://github.com/zvictor/Brainyflow-Template-Typescript)!
+
+## Acknowledgement
+
+We would like to extend our deepest gratitude to the creators and contributors of the PocketFlow framework, from which BrainyFlow originated as a fork.
