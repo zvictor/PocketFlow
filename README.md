@@ -9,7 +9,7 @@
 <p align="center">
   A <a href="https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py">65-line</a> minimalist LLM framework 🤯
   <br />
-  <sub>Let AI Agents build Agents with zero bloat, zero dependencies, zero vendor lock-in 😮</sub>
+  <sub>Let Agents build Agents with zero bloat, zero dependencies, zero vendor lock-in 😮</sub>
 </p>
 
 <p align="center">
@@ -33,14 +33,17 @@
 
 ## Features
 
-- **Multi-language**: <img src="https://iconduck.com/vectors/vctrahatphfa/media/svg/download" width="16" height="16" alt="Python Logo" style="vertical-align: middle; margin: 0 2px;">
- Python and <img src="https://iconduck.com/vectors/vctrk180y7wy/media/svg/download" width="16" height="16" alt="Typescript Logo" style="vertical-align: middle; margin: 0 2px;"> Typescript support.
+- **Multi-language**: <a href="https://pypi.org/project/brainyflow">
+<img src="https://iconduck.com/vectors/vctrahatphfa/media/svg/download" width="16" height="16" alt="Python Logo" style="vertical-align: middle; margin: 0 2px;"></a> Python and <a href="https://npm.com/packages/brainyflow"><img src="https://iconduck.com/vectors/vctrk180y7wy/media/svg/download" width="16" height="16" alt="Typescript Logo" style="vertical-align: middle; margin: 0 2px;"></a> Typescript support.
 
 - **Lightweight**: Zero bloat, zero dependencies, zero vendor lock-in.
 
 - **Expressive**: Everything you love—([Multi-](https://brainy.gitbook.io/flow/design_pattern/multi_agent))[Agents](https://brainy.gitbook.io/flow/design_pattern/agent), [Workflow](https://brainy.gitbook.io/flow/design_pattern/workflow), [RAG](https://brainy.gitbook.io/flow/design_pattern/rag), and more.
 
 - **[Agentic Coding](https://zacharyhuang.substack.com/p/agentic-coding-the-most-fun-way-to)**: Let AI Agents (e.g., Cursor AI) build Agents—10x productivity boost!
+
+
+![divider](https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/divider.png)
 
 ## Getting started
 
@@ -51,6 +54,8 @@
 - To learn more, check out the [documentation](https://brainy.gitbook.io/flow/). For an in-depth design dive, read the [essay](https://github.com/The-Pocket/.github/blob/main/profile/pocketflow.md).
 
 - 🎉 We now have a [discord](https://discord.gg/hUHHE9Sa6T)!
+
+![divider](https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/divider.png)
 
 ## Why Brainy Flow?
 
@@ -69,6 +74,8 @@ Current LLM frameworks are bloated... You only need 65 lines for LLM Framework!
 | **BrainyFlow** |    **Graph**    |                              **None**                              |                                 **None**                                 |                  **65**                  |                 **few KB**                  |
 
 </div>
+
+![divider](https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/divider.png)
 
 ## How does Brainy Flow work?
 
@@ -109,6 +116,8 @@ From there, it's easy to implement popular design patterns like ([Multi-](https:
 
 👀 Want to see other tutorials for dummies? [Create an issue!](https://github.com/zvictor/BrainyFlow/issues/new)
 
+![divider](https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/divider.png)
+
 ## How to Use Brainy Flow?
 
 🚀 Through **Agentic Coding**—the fastest LLM App development paradigm-where _humans design_ and _agents code_!
@@ -120,6 +129,22 @@ From there, it's easy to implement popular design patterns like ([Multi-](https:
   - Check out [my YouTube](https://www.youtube.com/@ZacharyLLM?sub_confirmation=1)! Read this [Guide](https://brainy.gitbook.io/flow/agentic_coding)!
 - Want to build your own LLM App? Start with our [Python template](https://github.com/zvictor/Brainyflow-Template-Python) or [Typescript template](https://github.com/zvictor/Brainyflow-Template-Typescript)!
 
+![divider](https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/divider.png)
+
 ## Acknowledgement
 
-We would like to extend our deepest gratitude to the creators and contributors of the PocketFlow framework, from which BrainyFlow originated as a fork.
+We would like to extend our deepest gratitude to the creators and contributors of the PocketFlow framework, from which brainyFlow originated as a fork.
+
+
+## Sponsors
+
+<p align="center"><a style="color: inherit" href="https://github.com/sponsors/zvictor?utm_source=brainyflow&utm_medium=sponsorship&utm_campaign=brainyflow&utm_id=brainyflow"><img width="150px" src="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/brain.png" alt="Brainyflow's logo" /><br />
+    brainyFlow runs on 65 lines of code and your generosity! 💰<br />
+    Help us deliver more AI with less code (but maybe more coffee). ☕<br /><br />
+    Your support helps keep it minimal, powerful, and dependency-free! 🚀
+  </a>
+</p>
+
+
+![divider](https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/divider.png)
+
