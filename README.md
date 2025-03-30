@@ -1,6 +1,10 @@
-<div align="center">
-  <img src="https://raw.githubusercontent.com/The-Pocket/.github/main/assets/title.png" width="600"/>
-</div>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/logo-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/logo-light.png">
+    <img width="280px" alt="Brainyflow's logo" src="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/logo.png">
+  </picture>
+<p>
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 [![Docs](https://img.shields.io/badge/docs-latest-blue)](https://brainy.gitbook.io/flow/)
