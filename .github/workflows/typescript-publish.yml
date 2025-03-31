@@ -2,9 +2,9 @@ name: Publish TypeScript Package
 
 on:
   push:
-    branches: ['main']
-    paths:
-      - 'typescript/**'
+    branches: ['*']
+    # paths:
+    #   - 'typescript/**'
 
 jobs:
   deploy:
