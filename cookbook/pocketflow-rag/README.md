@@ -16,10 +16,16 @@ This project demonstrates a simplified RAG system that retrieves relevant docume
    ```
    Or update it directly in `utils.py`
 
-2. Install and run:
+2. Install and run with the default query:
    ```bash
    pip install -r requirements.txt
    python main.py
+   ```
+
+3. Run the application with a sample query:
+
+   ```bash
+   python main.py --"How does the Q-Mesh protocol achieve high transaction speeds?"
    ```
 
 ## How It Works
