@@ -2,7 +2,7 @@
   <img id="logo" width="320px" src="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/logo-dark.png" alt="brainyflow's logo" />
 <p>
 
-<h1 style="max-width: 700px; margin: auto;">A <a href="https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py">65-line</a> minimalist LLM framework 🤯</h1>
+<h1 style="max-width: 700px; margin: auto;">A 65-line minimalist AI framework 🤯</h1>
 <h2>Let Agents build Agents with zero bloat, zero dependencies, zero vendor lock-in 😮</h2>
 
 <img src="https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/divider.png" alt="divider" width="100%" style="max-width: 920px">
@@ -14,7 +14,7 @@
   <a href="https://pypi.org/project/brainyflow">PyPI 📦</a>
   <a href="https://www.npmjs.com/package/brainyflow">NPM 📦</a>
   <a href="https://github.com/zvictor/brainyflow">Github 🕸</a>
-  <a href="https://github.com/zvictor/brainyflow">docs.txt 📜</a>
+  <a href="/docs.txt">docs.txt 📜</a>
 </nav>
 
 <style>
@@ -38,10 +38,10 @@
 
 <div class="glass">
   <p class="horizontal">
-    More AI with less coding! 🚀
+    It's time for much more AI, with much less coding! 🚀
   <p>
 
   <div class="vertical">
-    More AI with less coding! 🚀
+    It's time for much more AI, with much less coding! 🚀
   </div>
 </div>
