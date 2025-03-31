@@ -40,7 +40,7 @@ jobs:
             fullpath="$DOCS_DIR/$filepath"
             if [ -f "$fullpath" ]; then
               echo "Processing: $fullpath"
-              printf "\n\n================================================nFile: $fullpath\n================================================n" >> "$OUTPUT_FILE"
+              printf "\n\n================================================\nFile: $fullpath\n================================================\n" >> "$OUTPUT_FILE"
               cat "$fullpath" >> "$OUTPUT_FILE"
               printf "\n\n" >> "$OUTPUT_FILE"
             else
