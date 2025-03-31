@@ -1,6 +1,6 @@
 {
   "name": "brainyflow",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "type": "module",
   "types": "./dist/brainyflow.d.ts",
   "exports": {
@@ -14,7 +14,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "repository": "github:zvictor/brainyFlow",
   "bugs": {
@@ -34,7 +35,7 @@
     "url": "https://github.com/zvictor"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && cp ../README.md ./README.md",
     "prepack": "pnpm run build",
     "test": "NODE_OPTIONS='--experimental-vm-modules --import=tsx node' node --test **/*.test.ts",
     "release": "pnpm run build && changeset publish"
@@ -47,5 +48,8 @@
     "tsup": "8.4.0",
     "typescript": "^5.8.2"
   },
-  "packageManager": "pnpm@10.7.0"
+  "packageManager": "pnpm@10.7.0",
+  "publishConfig": {
+    "access": "public"
+  }
 }

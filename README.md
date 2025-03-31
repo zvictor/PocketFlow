@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/logo-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/logo-light.png">
-    <img width="280px" alt="Brainyflow's logo" src="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/logo.png">
+    <source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@main/.github/media/logo-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@main/.github/media/logo-light.png">
+    <img width="280px" alt="Brainyflow's logo" src="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@main/.github/media/logo-light.png">
   </picture>
 <p>
 
@@ -143,7 +143,7 @@ We do not take responsibility for how the generated output is used, including bu
 
 <p align="center">
   <a style="color: inherit" href="https://github.com/sponsors/zvictor?utm_source=brainyflow&utm_medium=sponsorship&utm_campaign=brainyflow&utm_id=brainyflow">
-    <img width="150px" src="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/brain.png" alt="Brainyflow's logo" />
+    <img width="150px" src="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@main/.github/media/brain.png" alt="Brainyflow's logo" />
   </a><br /><br />
   BrainyFlow runs on 65 lines of code and your generosity! 💰<br />
     <a style="color: inherit" href="https://github.com/sponsors/zvictor?utm_source=brainyflow&utm_medium=sponsorship&utm_campaign=brainyflow&utm_id=brainyflow">

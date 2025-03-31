@@ -9,6 +9,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to push tags and commit version updates
+    environment: npm
+
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -24,7 +28,6 @@ jobs:
       - name: Run tests
         working-directory: typescript
         run: |
-          cd typescript
           node --import=tsx --experimental-test-snapshots --test-concurrency=1 --test tests/*.test.ts
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -34,3 +37,6 @@ jobs:
           commit: 'chore: update versions'
           title: 'chore: update versions'
           cwd: ./typescript
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
