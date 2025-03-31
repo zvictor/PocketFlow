@@ -2,7 +2,7 @@
   <img id="logo" width="320px" src="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/logo-dark.png" alt="brainyflow's logo" />
 <p>
 
-<h1 style="max-width: 700px; margin: auto;">A 65-line minimalist AI framework 🤯</h1>
+<h1 style="max-width: 700px; margin: auto;">More AI, with less coding! 🚀</h1>
 <h2>Let Agents build Agents with zero bloat, zero dependencies, zero vendor lock-in 😮</h2>
 
 <img src="https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/divider.png" alt="divider" width="100%" style="max-width: 920px">
@@ -17,7 +17,7 @@
   <a href="/docs.txt">docs.txt 📜</a>
 </nav>
 
-<style>
+<!-- <style>
   .vertical {
     display: flex;
     text-align: center;
@@ -34,14 +34,14 @@
       display: none;
     }
   }
-</style>
+</style> -->
 
 <div class="glass">
   <p class="horizontal">
-    It's time for much more AI, with much less coding! 🚀
+  <strong style="color: var(--theme-color); font-size: 1.1em;">But wtf "brainyFlow" actually is?</strong><br />
+    It's a a 65-line only 🤯 minimalist AI framework.<br />
+    It provides a simple interface for building Agents that reduces complexity and turns LLMs much more powerful!
   <p>
-
-  <div class="vertical">
-    It's time for much more AI, with much less coding! 🚀
-  </div>
+  <!-- <div class="vertical">
+  </div> -->
 </div>
