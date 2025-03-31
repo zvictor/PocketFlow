@@ -3,7 +3,10 @@ name: Update Docs on gh-pages
 on:
   push:
     branches:
-      - main
+      - '*'
+    #   - main
+    # paths:
+    #   - 'docs/**'
 
 permissions:
   contents: write # Needed to push to gh-pages branch
@@ -23,11 +26,41 @@ jobs:
       - name: Create temporary directory for gh-pages content
         run: mkdir gh-pages-content
 
-      - name: Run Repomix on docs folder
-        run: npx repomix docs -o gh-pages-content/docs.txt -i "docs/utility_function/,docs/SUMMARY.md"
-        # This command processes the 'docs/' directory,
-        # ignores 'docs/utility_function/' and 'docs/SUMMARY.md',
-        # and saves the output to 'gh-pages-content/docs.txt'.
+      - name: Concatenate docs based on SUMMARY.md order
+        run: |
+          OUTPUT_FILE="gh-pages-content/docs.txt"
+          SUMMARY_FILE="docs/SUMMARY.md"
+          DOCS_DIR="docs"
+
+          # Create the output file or clear it if it exists
+          echo "Generating combined documentation file: $OUTPUT_FILE" > "$OUTPUT_FILE"
+          echo "Source: $SUMMARY_FILE" >> "$OUTPUT_FILE"
+          echo "Timestamp: $(date)" >> "$OUTPUT_FILE"
+          echo "==================================================" >> "$OUTPUT_FILE"
+          echo "" >> "$OUTPUT_FILE"
+
+
+          # Extract markdown file paths from SUMMARY.md, filter, and process
+          grep -oE '\[.*\]\(([^)]+\.md)\)' "$SUMMARY_FILE" | \
+          sed -E 's/\[.*\]\(([^)]+\.md)\)/\1/' | \
+          grep -vE '^utility_function/' | \
+          while IFS= read -r filepath; do
+            fullpath="$DOCS_DIR/$filepath"
+            if [ -f "$fullpath" ]; then
+              echo "Processing: $fullpath"
+              echo "<!-- === File Start: $fullpath === -->" >> "$OUTPUT_FILE"
+              echo "" >> "$OUTPUT_FILE"
+              cat "$fullpath" >> "$OUTPUT_FILE"
+              echo "" >> "$OUTPUT_FILE"
+              echo "<!-- === File End: $fullpath === -->" >> "$OUTPUT_FILE"
+              echo "" >> "$OUTPUT_FILE"
+              echo "" >> "$OUTPUT_FILE"
+            else
+              echo "Warning: File not found in $DOCS_DIR - $filepath (skipped)"
+            fi
+          done
+
+          echo "Finished concatenating files based on $SUMMARY_FILE"
 
       - name: Deploy docs.txt to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
