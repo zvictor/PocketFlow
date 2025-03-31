@@ -28,12 +28,9 @@ jobs:
           node --import=tsx --experimental-test-snapshots --test-concurrency=1 --test tests/*.test.ts
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        working-directory: typescript
         uses: changesets/action@v1
         with:
           publish: pnpm release
           commit: 'chore: update versions'
           title: 'chore: update versions'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          cwd: ./typescript
