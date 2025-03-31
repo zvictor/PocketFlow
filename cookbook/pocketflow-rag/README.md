@@ -1,6 +1,7 @@
 # Retrieval Augmented Generation (RAG)
 
-This project demonstrates a simplified RAG system that retrieves relevant documents based on user queries and generates answers using an LLM.
+This project demonstrates a simplified RAG system that retrieves relevant documents based on user queries and generates answers using an LLM. This implementation is based directly on the tutorial: [Retrieval Augmented Generation (RAG) from Scratch — Tutorial For Dummies](https://zacharyhuang.substack.com/p/retrieval-augmented-generation-rag).
+
 
 ## Features
 
