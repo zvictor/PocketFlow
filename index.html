@@ -178,21 +178,12 @@
   <body>
     <div id="app"></div>
     <script>
-      var colors = [
-        "#6ec25a",
-        // "#ffc74c",
-        "#f39340",
-        "#e23e51",
-        "#a359a9",
-        "#2295c4",
-      ];
-
       window.$docsify = {
         name: "Brainyflow",
         repo: "https://github.com/zvictor/brainyflow",
         maxLevel: 3,
         coverpage: true,
-        themeColor: colors[Math.floor(Math.random() * colors.length)],
+        // themeColor: colors[Math.floor(Math.random() * colors.length)],
         hideSidebar: true,
       };
     </script>
@@ -203,5 +194,84 @@
     <script src="//unpkg.com/prismjs@1/components/prism-bash.min.js"></script>
     <!-- <script src="//unpkg.com/prismjs@1/components/prism-graphql.min.js"></script> -->
     <script src="//unpkg.com/prismjs@1/components/prism-typescript.min.js"></script>
+    <script>
+      (function () {
+        var colors = [
+          "#6ec25a",
+          // "#ffc74c",
+          "#f39340",
+          "#e23e51",
+          "#a359a9",
+          "#2295c4",
+        ];
+
+        // Convert hex to RGB for smoother transitions
+        function hexToRgb(hex) {
+          var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+          return result
+            ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16),
+              }
+            : null;
+        }
+
+        // Convert RGB to hex
+        function rgbToHex(r, g, b) {
+          return (
+            "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
+          );
+        }
+
+        var currentIndex = 0;
+        var nextIndex = 1;
+        var transitionDuration = 5000; // 5 seconds per transition
+        var startTime;
+
+        function updateColor(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var progress = (timestamp - startTime) / transitionDuration;
+
+          if (progress >= 1) {
+            // Move to next color
+            currentIndex = nextIndex;
+            nextIndex = (nextIndex + 1) % colors.length;
+            startTime = null;
+            window.$docsify.themeColor = colors[currentIndex];
+          } else {
+            // Interpolate between colors
+            var currentColor = hexToRgb(colors[currentIndex]);
+            var nextColor = hexToRgb(colors[nextIndex]);
+
+            var r = Math.round(
+              currentColor.r + (nextColor.r - currentColor.r) * progress
+            );
+            var g = Math.round(
+              currentColor.g + (nextColor.g - currentColor.g) * progress
+            );
+            var b = Math.round(
+              currentColor.b + (nextColor.b - currentColor.b) * progress
+            );
+
+            window.$docsify.themeColor = rgbToHex(r, g, b);
+
+            // Update CSS variable for immediate visual effect
+            document.documentElement.style.setProperty(
+              "--theme-color",
+              window.$docsify.themeColor
+            );
+          }
+
+          requestAnimationFrame(updateColor);
+        }
+
+        // Start the animation after the page has loaded
+        window.addEventListener("load", function () {
+          window.$docsify.themeColor = colors[currentIndex];
+          requestAnimationFrame(updateColor);
+        });
+      })();
+    </script>
   </body>
 </html>
