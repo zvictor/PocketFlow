@@ -11,27 +11,17 @@ def call_llm(prompt):
     return r.choices[0].message.content
 
 def get_simple_embedding(text):
-    """
-    A simple embedding function that converts text to vector.
-    
-    In a real application, you would use a proper embedding model like OpenAI,
-    Hugging Face, or other embedding services. For this example, we'll use a 
-    simple approach based on character frequencies for demonstration purposes.
-    """
-    # Create a simple embedding (128-dimensional) based on character frequencies
-    # This is just for demonstration - not a real embedding algorithm!
+    # Create a 128-dim vector to store character frequencies
     embedding = np.zeros(128, dtype=np.float32)
     
-    # Generate a deterministic but distributed embedding based on character frequency
-    for i, char in enumerate(text):
-        # Use modulo to distribute values across the embedding dimensions
-        pos = ord(char) % 128
-        embedding[pos] += 1.0
+    # Count character frequencies in the text
+    for char in text:
+        embedding[ord(char) % 128] += 1.0
     
-    # Normalize the embedding
+    # Normalize the vector to unit length
     norm = np.linalg.norm(embedding)
     if norm > 0:
-        embedding = embedding / norm
+        embedding /= norm
     
     return embedding
 
