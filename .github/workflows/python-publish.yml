@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write # Required for trusted publishing
-    environment: PyPI
+    environment: pypi
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
