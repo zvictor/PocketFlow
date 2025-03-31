@@ -1,9 +1,9 @@
-<div style="text-align: center; margin: 20px 0;">
-  <p>To start, select the reality that fits you best. Our inclusive documentation fits both carbon and silicon based beings:</p>
-  <nav>
-    <a href="https://brainy.gitbook.io/flow" class="active">I'm Carbon-Based 🐥</a> | 
-    <a href="/docs.txt">I'm Metal-Based 🤖</a>
-  </nav>
+<div style="text-align: center; margin: 50px 0;">
+  <p>To start, select the reality that fits you best.<br />Our inclusive documentation fits both carbon and silicon based beings:</p>
+    <nav style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 30px 0;">
+      <a href="https://brainy.gitbook.io/flow" class="active">I'm Carbon-Based 🐥</a>
+      <a href="/docs.txt">I'm Metal-Based 🤖</a>
+    </nav>
 </div>
 
 ![divider](https://raw.githubusercontent.com/zvictor/brainyflow/main/.github/media/divider.png ":size=100%")
