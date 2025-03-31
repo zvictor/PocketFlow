@@ -1,8 +1,5 @@
 ---
-layout: default
 title: 'Structured Output'
-parent: 'Design Pattern'
-nav_order: 5
 ---
 
 # Structured Output

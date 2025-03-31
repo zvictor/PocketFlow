@@ -1,8 +1,5 @@
 ---
-layout: default
 title: 'Batch'
-parent: 'Core Abstraction'
-nav_order: 4
 ---
 
 # Batch

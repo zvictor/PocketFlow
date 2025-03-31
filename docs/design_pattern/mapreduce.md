@@ -1,8 +1,5 @@
 ---
-layout: default
 title: 'Map Reduce'
-parent: 'Design Pattern'
-nav_order: 4
 ---
 
 # Map Reduce

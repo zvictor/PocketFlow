@@ -1,8 +1,5 @@
 ---
-layout: default
 title: 'Communication'
-parent: 'Core Abstraction'
-nav_order: 3
 ---
 
 # Communication

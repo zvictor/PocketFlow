@@ -1,8 +1,5 @@
 ---
-layout: default
 title: '(Advanced) Throttling'
-parent: 'Core Abstraction'
-nav_order: 5
 ---
 
 # (Advanced) Throttling

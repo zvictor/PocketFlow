@@ -1,8 +1,5 @@
 ---
-layout: default
 title: 'Workflow'
-parent: 'Design Pattern'
-nav_order: 2
 ---
 
 # Workflow

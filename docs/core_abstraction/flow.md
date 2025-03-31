@@ -1,8 +1,5 @@
 ---
-layout: default
 title: 'Flow'
-parent: 'Core Abstraction'
-nav_order: 2
 ---
 
 # Flow

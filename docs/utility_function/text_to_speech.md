@@ -1,8 +1,5 @@
 ---
-layout: default
 title: 'Text-to-Speech'
-parent: 'Utility Function'
-nav_order: 7
 ---
 
 # Text-to-Speech

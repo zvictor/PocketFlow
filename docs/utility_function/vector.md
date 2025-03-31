@@ -1,8 +1,5 @@
 ---
-layout: default
 title: 'Vector Databases'
-parent: 'Utility Function'
-nav_order: 6
 ---
 
 # Vector Databases

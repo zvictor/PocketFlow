@@ -1,8 +1,5 @@
 ---
-layout: default
 title: 'Viz and Debug'
-parent: 'Utility Function'
-nav_order: 2
 ---
 
 # Visualization and Debugging

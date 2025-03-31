@@ -1,8 +1,5 @@
 ---
-layout: default
 title: 'LLM Wrapper'
-parent: 'Utility Function'
-nav_order: 1
 ---
 
 # LLM Wrappers
