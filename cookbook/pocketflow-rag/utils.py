@@ -10,21 +10,6 @@ def call_llm(prompt):
     )
     return r.choices[0].message.content
 
-def get_simple_embedding(text):
-    # Create a 128-dim vector to store character frequencies
-    embedding = np.zeros(128, dtype=np.float32)
-    
-    # Count character frequencies in the text
-    for char in text:
-        embedding[ord(char) % 128] += 1.0
-    
-    # Normalize the vector to unit length
-    norm = np.linalg.norm(embedding)
-    if norm > 0:
-        embedding /= norm
-    
-    return embedding
-
 def get_embedding(text):
     client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY", "your-api-key"))
     
@@ -57,32 +42,6 @@ if __name__ == "__main__":
     text1 = "The quick brown fox jumps over the lazy dog."
     text2 = "Python is a popular programming language for data science."
     
-    # Test the simple embedding function
-    # emb1 = get_embedding(text1)
-    # emb2 = get_embedding(text2)
-    
-    # print(f"Embedding 1 shape: {emb1.shape}")
-    # print(f"Embedding 2 shape: {emb2.shape}")
-    
-    # # Calculate similarity (dot product)
-    # similarity = np.dot(emb1, emb2)
-    # print(f"Similarity between texts: {similarity:.4f}")
-    
-    # # Compare with a different text
-    # text3 = "Machine learning is a subset of artificial intelligence."
-    # emb3 = get_embedding(text3)
-    # similarity13 = np.dot(emb1, emb3)
-    # similarity23 = np.dot(emb2, emb3)
-    
-    # print(f"Similarity between text1 and text3: {similarity13:.4f}")
-    # print(f"Similarity between text2 and text3: {similarity23:.4f}")
-    
-    # # These simple comparisons should show higher similarity 
-    # # between related concepts (text2 and text3) than between
-    # # unrelated texts (text1 and text3)
-    
-    # Test OpenAI embeddings (requires API key)
-    print("\nTesting OpenAI embeddings (requires API key):")
     oai_emb1 = get_embedding(text1)
     oai_emb2 = get_embedding(text2)
     print(f"OpenAI Embedding 1 shape: {oai_emb1.shape}")
