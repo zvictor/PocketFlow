@@ -3,8 +3,8 @@ name: Publish Python Package
 on:
   push:
     branches: ['*']
-    # paths:
-    #   - 'python/**'
+    paths:
+      - 'python/**'
 
 jobs:
   deploy:
