@@ -145,7 +145,7 @@ We would like to extend our deepest gratitude to the creators and contributors o
   BrainyFlow runs on 65 lines of code and your generosity! 💰<br />
     <a style="color: inherit" href="https://github.com/sponsors/zvictor?utm_source=brainyflow&utm_medium=sponsorship&utm_campaign=brainyflow&utm_id=brainyflow">
       Help us deliver more AI with less code (but maybe more coffee)
-    </a>. ☕<br /><br />
+    </a> ☕<br /><br />
     <a style="color: inherit" href="https://github.com/sponsors/zvictor?utm_source=brainyflow&utm_medium=sponsorship&utm_campaign=brainyflow&utm_id=brainyflow">Your support</a> helps keep it minimal, powerful, and dependency-free! 🚀
   </a>
 </p>

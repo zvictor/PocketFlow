@@ -3,6 +3,8 @@
 ## Introduction
 
 - [Home](index.md)
+- [Installation](installation.md)
+- [Getting Started](getting_started.md)
 
 ## Core Abstraction
 
