@@ -16,7 +16,7 @@
     <!-- Theme: Simple Dark https://jhildenbiddle.github.io/docsify-themeable/#/themes -->
     <link
       rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css"
+      href="//unpkg.com/docsify-themeable@0/dist/css/theme-simple-dark.css"
     />
 
     <meta
@@ -34,7 +34,7 @@
     />
     <meta
       property="og:image"
-      content="https://cdn.jsdelivr.net/gh/zvictor/brainyflow@master/.github/media/banner.jpg"
+      content="https://raw.githubusercontent.com/zvictor/brainyflow/main/.github/media/banner-dark.jpg"
     />
 
     <!-- Twitter Meta Tags -->
@@ -92,7 +92,7 @@
 
       .cover {
         font-family: "Bitter", var(--base-font-family);
-        background: url("https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/waves.svg")
+        background: url("https://raw.githubusercontent.com/zvictor/brainyflow/main/.github/media/waves.svg")
             0 bottom / 100% var(--background-height) no-repeat no-repeat,
           linear-gradient(#222, var(--base-background-color) 30%, #fff 300%) !important;
         color: #dddddd;
@@ -114,7 +114,12 @@
       .glass {
         margin-top: 30px;
         padding: 30px;
-        background: rgba(0, 0, 0, 0.5);
+        /* background: rgba(0, 0, 0, 0.5); */
+        background: linear-gradient(
+          rgba(33, 33, 33, 0.9) 0%,
+          rgba(33, 33, 33, 0.7) 60%,
+          rgba(0, 0, 0, 0.25) 100%
+        );
         border-radius: 16px;
         backdrop-filter: blur(3.2px);
         -webkit-backdrop-filter: blur(3.2px);
@@ -192,11 +197,11 @@
       };
     </script>
     <!-- Docsify v4 -->
-    <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-    <script src="//cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
-    <!-- <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-graphql.min.js"></script> -->
-    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+    <script src="//unpkg.com/docsify@4"></script>
+    <script src="//unpkg.com/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+    <script src="//unpkg.com/docsify-copy-code"></script>
+    <script src="//unpkg.com/prismjs@1/components/prism-bash.min.js"></script>
+    <!-- <script src="//unpkg.com/prismjs@1/components/prism-graphql.min.js"></script> -->
+    <script src="//unpkg.com/prismjs@1/components/prism-typescript.min.js"></script>
   </body>
 </html>
