@@ -24,7 +24,6 @@ jobs:
       - name: Run tests
         working-directory: typescript
         run: |
-          cd typescript
           node --import=tsx --experimental-test-snapshots --test-concurrency=1 --test tests/*.test.ts
       - name: Create Release Pull Request or Publish to npm
         id: changesets
