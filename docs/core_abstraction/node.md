@@ -57,9 +57,9 @@ my_node = SummarizeFile(max_retries=3, wait=10)
 ```typescript
 const myNode = new SummarizeFile({ maxRetries: 3, wait: 10 })
 ```
+
 {% endtab %}
 {% endtabs %}
-
 
 When an exception occurs in `exec()`, the Node automatically retries until:
 

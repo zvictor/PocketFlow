@@ -34,8 +34,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./gh-pages-content # Directory containing only docs.txt
-          publish_branch: gh-pages        # Target branch
-          keep_files: true                # Keep existing files in gh-pages branch
+          publish_branch: gh-pages # Target branch
+          keep_files: true # Keep existing files in gh-pages branch
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'Update docs.txt from main branch [skip ci]'

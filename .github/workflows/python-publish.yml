@@ -2,7 +2,7 @@ name: Publish Python Package
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
     paths:
       - 'python/**'
 
@@ -10,53 +10,53 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install build twine
-    - name: Run tests
-      run: |
-        cd python
-        python -m pytest tests/ -v
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 10 # Match user's pnpm version
-        run_install: false
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+      - name: Run tests
+        run: |
+          cd python
+          python -m pytest tests/ -v
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10 # Match user's pnpm version
+          run_install: false
 
-    - name: Version Python package using Changesets
-      # This step runs changesets to update python/package.json,
-      # then extracts that version and updates setup.py
-      working-directory: python
-      run: |
-        echo "Running changeset version..."
-        pnpm dlx @changesets/cli version
-        echo "Extracting version from python/package.json..."
-        NEW_VERSION=$(grep '"version":' package.json | cut -d '"' -f 4)
-        if [ -z "$NEW_VERSION" ]; then
-          echo "Error: Could not extract version from package.json"
-          exit 1
-        fi
-        echo "Updating setup.py to version $NEW_VERSION..."
-        # Use a temporary file for sed compatibility on different systems (like macOS)
-        sed -i.bak "s/version=['\"].*['\"]/version='$NEW_VERSION'/" setup.py
-        rm setup.py.bak # Remove backup file
-        echo "setup.py content after update:"
-        cat setup.py
+      - name: Version Python package using Changesets
+        # This step runs changesets to update python/package.json,
+        # then extracts that version and updates setup.py
+        working-directory: python
+        run: |
+          echo "Running changeset version..."
+          pnpm dlx @changesets/cli version
+          echo "Extracting version from python/package.json..."
+          NEW_VERSION=$(grep '"version":' package.json | cut -d '"' -f 4)
+          if [ -z "$NEW_VERSION" ]; then
+            echo "Error: Could not extract version from package.json"
+            exit 1
+          fi
+          echo "Updating setup.py to version $NEW_VERSION..."
+          # Use a temporary file for sed compatibility on different systems (like macOS)
+          sed -i.bak "s/version=['\"].*['\"]/version='$NEW_VERSION'/" setup.py
+          rm setup.py.bak # Remove backup file
+          echo "setup.py content after update:"
+          cat setup.py
 
-    - name: Build Python package
-      working-directory: python
-      run: |
-        python -m pip install --upgrade pip
-        pip install build twine
-        python -m build
-    - name: Publish to PyPI
-      working-directory: python
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        skip-existing: true
+      - name: Build Python package
+        working-directory: python
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+          python -m build
+      - name: Publish to PyPI
+        working-directory: python
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true

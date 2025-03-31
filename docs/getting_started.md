@@ -28,6 +28,7 @@ graph LR
 ```
 
 This flow would involve:
+
 - `GetQuestionNode` writing the user's question to the `shared` store.
 - `AnswerNode` reading the question from the `shared` store, calling an LLM utility, and writing the answer back to the `shared` store.
 
