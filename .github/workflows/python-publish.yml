@@ -12,6 +12,7 @@ jobs:
     permissions:
       id-token: write # Required for trusted publishing
     environment: pypi
+
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python

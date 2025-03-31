@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='brainyflow',
-    version='0.1.0',
+    version='0.1.1',
     py_modules=['brainyflow'],
     author="Victor Duarte",
     description="Minimalist AI framework in 65 Lines. Enable LLMs to Program Themselves.",
