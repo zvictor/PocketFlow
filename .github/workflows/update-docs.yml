@@ -32,14 +32,6 @@ jobs:
           SUMMARY_FILE="docs/SUMMARY.md"
           DOCS_DIR="docs"
 
-          # Create the output file or clear it if it exists
-          echo "Generating combined documentation file: $OUTPUT_FILE" > "$OUTPUT_FILE"
-          echo "Source: $SUMMARY_FILE" >> "$OUTPUT_FILE"
-          echo "Timestamp: $(date)" >> "$OUTPUT_FILE"
-          echo "==================================================" >> "$OUTPUT_FILE"
-          echo "" >> "$OUTPUT_FILE"
-
-
           # Extract markdown file paths from SUMMARY.md, filter, and process
           grep -oE '\[.*\]\(([^)]+\.md)\)' "$SUMMARY_FILE" | \
           sed -E 's/\[.*\]\(([^)]+\.md)\)/\1/' | \
@@ -48,13 +40,9 @@ jobs:
             fullpath="$DOCS_DIR/$filepath"
             if [ -f "$fullpath" ]; then
               echo "Processing: $fullpath"
-              echo "<!-- === File Start: $fullpath === -->" >> "$OUTPUT_FILE"
-              echo "" >> "$OUTPUT_FILE"
+              printf "\n\n================================================nFile: $fullpath\n================================================n" >> "$OUTPUT_FILE"
               cat "$fullpath" >> "$OUTPUT_FILE"
-              echo "" >> "$OUTPUT_FILE"
-              echo "<!-- === File End: $fullpath === -->" >> "$OUTPUT_FILE"
-              echo "" >> "$OUTPUT_FILE"
-              echo "" >> "$OUTPUT_FILE"
+              printf "\n\n" >> "$OUTPUT_FILE"
             else
               echo "Warning: File not found in $DOCS_DIR - $filepath (skipped)"
             fi
