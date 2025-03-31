@@ -14,7 +14,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "repository": "github:zvictor/brainyFlow",
   "bugs": {
@@ -37,7 +38,7 @@
     "build": "tsup",
     "prepack": "pnpm run build",
     "test": "NODE_OPTIONS='--experimental-vm-modules --import=tsx node' node --test **/*.test.ts",
-    "release": "pnpm run build && changeset publish"
+    "release": "pnpm run build && changeset publish --force"
   },
   "devDependencies": {
     "@changesets/cli": "2.28.1",
