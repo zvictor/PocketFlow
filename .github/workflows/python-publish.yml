@@ -64,6 +64,11 @@ jobs:
           echo "setup.py content after update:"
           cat setup.py
 
+      - name: Prepare README
+        working-directory: python
+        run: |
+          cp ../README.md .
+
       - name: Build Python package
         working-directory: python
         run: |
