@@ -1,0 +1,42 @@
+name: Update Docs on gh-pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write # Needed to push to gh-pages branch
+
+jobs:
+  build-and-deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a recent LTS version
+
+      - name: Create temporary directory for gh-pages content
+        run: mkdir gh-pages-content
+
+      - name: Run Repomix on docs folder
+        run: npx repomix docs -o gh-pages-content/docs.txt -i "docs/utility_function/,docs/SUMMARY.md"
+        # This command processes the 'docs/' directory,
+        # ignores 'docs/utility_function/' and 'docs/SUMMARY.md',
+        # and saves the output to 'gh-pages-content/docs.txt'.
+
+      - name: Deploy docs.txt to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages-content # Directory containing only docs.txt
+          publish_branch: gh-pages        # Target branch
+          keep_files: true                # Keep existing files in gh-pages branch
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Update docs.txt from main branch [skip ci]'
+          # force_orphan: false (default) - Updates existing branch
