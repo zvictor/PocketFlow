@@ -35,13 +35,24 @@ jobs:
         working-directory: python
         run: |
           echo "Running changeset version..."
+          # Run changesets. This might create/update package.json in the current dir (python/)
           pnpm dlx @changesets/cli version
+
+          # Check if package.json exists and contains a version line after changesets ran
+          if ! grep -q '"version":' package.json; then
+            echo "Warning: No version found in python/package.json after 'changeset version'."
+            echo "This usually means there were no changesets to apply."
+            echo "Exiting step gracefully as no version bump occurred."
+            exit 0 # Exit successfully, no publish needed for this run
+          fi
+
           echo "Extracting version from python/package.json..."
           NEW_VERSION=$(grep '"version":' package.json | cut -d '"' -f 4)
           if [ -z "$NEW_VERSION" ]; then
-            echo "Error: Could not extract version from package.json"
+            echo "Error: Could not extract version from python/package.json even though it was found."
             exit 1
           fi
+
           echo "Updating setup.py to version $NEW_VERSION..."
           # Use a temporary file for sed compatibility on different systems (like macOS)
           sed -i.bak "s/version=['\"].*['\"]/version='$NEW_VERSION'/" setup.py
