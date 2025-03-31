@@ -1,98 +1,66 @@
 # Retrieval Augmented Generation (RAG)
 
-This project demonstrates a simplified RAG system that retrieves relevant documents based on user queries.
+This project demonstrates a simplified RAG system that retrieves relevant documents based on user queries and generates answers using an LLM.
 
 ## Features
 
-- Document chunking for better retrieval granularity
-- Simple vector-based document retrieval
-- Two-stage pipeline (offline indexing, online querying)
-- FAISS-powered similarity search
+- Document chunking for processing long texts
+- FAISS-powered vector-based document retrieval
+- LLM-powered answer generation
 
-## Getting Started
+## How to Run
 
-1. Install the required dependencies:
+1. Set your API key:
+   ```bash
+   export OPENAI_API_KEY="your-api-key-here"
+   ```
+   Or update it directly in `utils.py`
 
-```bash
-pip install -r requirements.txt
-```
-
-2. Run the application with a sample query:
-
-```bash
-python main.py --"Large Language Model"
-```
-
-3. Or run without arguments to use the default query:
-
-```bash
-python main.py
-```
-
-## API Key
-
-By default, demo uses dummy embedding based on character frequencies. To use real OpenAI embedding:
-
-1. Edit nodes.py to replace the dummy `get_embedding` with `get_openai_embedding`:
-```python
-# Change this line:
-query_embedding = get_embedding(query)
-# To this:
-query_embedding = get_openai_embedding(query)
-
-# And also change this line:
-return get_embedding(text)
-# To this:
-return get_openai_embedding(text)
-```
-
-2. Make sure your OpenAI API key is set:
-```bash
-export OPENAI_API_KEY="your-api-key-here"
-```
+2. Install and run:
+   ```bash
+   pip install -r requirements.txt
+   python main.py
+   ```
 
 ## How It Works
 
-The magic happens through a two-stage pipeline implemented with PocketFlow:
+The magic happens through a two-phase pipeline implemented with PocketFlow:
 
 ```mermaid
 graph TD
     subgraph OfflineFlow[Offline Document Indexing]
-        ChunkDocs[ChunkDocumentsNode] --> EmbedDocs[EmbedDocumentsNode]
-        EmbedDocs[EmbedDocumentsNode] --> CreateIndex[CreateIndexNode]
+        ChunkDocs[ChunkDocumentsNode] --> EmbedDocs[EmbedDocumentsNode] --> CreateIndex[CreateIndexNode]
     end
     
-    subgraph OnlineFlow[Online Query Processing]
-        EmbedQuery[EmbedQueryNode] --> RetrieveDoc[RetrieveDocumentNode]
+    subgraph OnlineFlow[Online Processing]
+        EmbedQuery[EmbedQueryNode] --> RetrieveDoc[RetrieveDocumentNode] --> GenerateAnswer[GenerateAnswerNode]
     end
 ```
 
 Here's what each part does:
-1. **ChunkDocumentsNode**: Splits documents into smaller chunks for more granular retrieval
+1. **ChunkDocumentsNode**: Breaks documents into smaller chunks for better retrieval
 2. **EmbedDocumentsNode**: Converts document chunks into vector representations
 3. **CreateIndexNode**: Creates a searchable FAISS index from embeddings
 4. **EmbedQueryNode**: Converts user query into the same vector space
-5. **RetrieveDocumentNode**: Finds the most similar document chunk using vector search
+5. **RetrieveDocumentNode**: Finds the most similar document using vector search
+6. **GenerateAnswerNode**: Uses an LLM to generate an answer based on the retrieved content
 
 ## Example Output
 
 ```
-==================================================
-PocketFlow RAG Document Retrieval
-==================================================
 ✅ Created 5 chunks from 5 documents
 ✅ Created 5 document embeddings
 🔍 Creating search index...
 ✅ Index created with 5 vectors
-🔍 Embedding query: Large Language Model
+🔍 Embedding query: How to install PocketFlow?
 🔎 Searching for relevant documents...
-📄 Retrieved document (index: 3, distance: 0.3296)
-📄 Most relevant text: "PocketFlow is a 100-line Large Language Model Framework."
+📄 Retrieved document (index: 0, distance: 0.3427)
+📄 Most relevant text: "Pocket Flow is a 100-line minimalist LLM framework
+        Lightweight: Just 100 lines. Zero bloat, zero dependencies, zero vendor lock-in.
+        Expressive: Everything you love—(Multi-)Agents, Workflow, RAG, and more.
+        Agentic Coding: Let AI Agents (e.g., Cursor AI) build Agents—10x productivity boost!
+        To install, pip install pocketflow or just copy the source code (only 100 lines)."
+
+🤖 Generated Answer:
+To install PocketFlow, use the command `pip install pocketflow` or simply copy its 100 lines of source code.
 ```
-
-## Files
-
-- [`main.py`](./main.py): Main entry point for running the RAG demonstration
-- [`flow.py`](./flow.py): Configures the flows that connect the nodes
-- [`nodes.py`](./nodes.py): Defines the nodes for document processing and retrieval
-- [`utils.py`](./utils.py): Utility functions including chunking and embedding functions

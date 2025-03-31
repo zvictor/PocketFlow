@@ -1,7 +1,7 @@
 from pocketflow import Node, Flow, BatchNode
 import numpy as np
 import faiss
-from utils import get_embedding, get_openai_embedding, fixed_size_chunk
+from utils import call_llm, get_embedding, get_simple_embedding, fixed_size_chunk
 
 # Nodes for the offline flow
 class ChunkDocumentsNode(BatchNode):
@@ -114,4 +114,30 @@ class RetrieveDocumentNode(Node):
         shared["retrieved_document"] = exec_res
         print(f"📄 Retrieved document (index: {exec_res['index']}, distance: {exec_res['distance']:.4f})")
         print(f"📄 Most relevant text: \"{exec_res['text']}\"")
+        return "default"
+    
+class GenerateAnswerNode(Node):
+    def prep(self, shared):
+        """Get query, retrieved document, and any other context needed"""
+        return shared["query"], shared["retrieved_document"]
+    
+    def exec(self, inputs):
+        """Generate an answer using the LLM"""
+        query, retrieved_doc = inputs
+        
+        prompt = f"""
+Briefly answer the following question based on the context provided:
+Question: {query}
+Context: {retrieved_doc['text']}
+Answer:
+"""
+        
+        answer = call_llm(prompt)
+        return answer
+    
+    def post(self, shared, prep_res, exec_res):
+        """Store generated answer in shared store"""
+        shared["generated_answer"] = exec_res
+        print("\n🤖 Generated Answer:")
+        print(exec_res)
         return "default"
