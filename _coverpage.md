@@ -38,7 +38,7 @@
 
 <div class="glass">
   <p class="horizontal">
-  <strong style="color: var(--theme-color); font-size: 1.1em;">But wtf <em>brainyFlow</em> actually is?</strong><br />
+  <p style="font-size: 1.2em; font-weight: bolder; margin: 10px 0">WTF is <em>brainyFlow</em> ?</p>
     It's a 65-line only 🤯 minimalist AI framework.<br />
     It provides a simple interface for building Agents that reduces complexity and turns LLMs much more powerful!
   <p>

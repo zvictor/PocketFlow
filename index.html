@@ -104,17 +104,13 @@
       }
 
       .glass {
+        color: #111;
         margin-top: 30px;
         padding: 30px;
         /* background: rgba(0, 0, 0, 0.5); */
-        background: linear-gradient(
-          rgba(33, 33, 33, 0.9) 0%,
-          rgba(33, 33, 33, 0.7) 60%,
-          rgba(0, 0, 0, 0.25) 100%
-        );
         border-radius: 16px;
-        backdrop-filter: blur(3.2px);
-        -webkit-backdrop-filter: blur(3.2px);
+        /* backdrop-filter: blur(3.2px);
+        -webkit-backdrop-filter: blur(3.2px); */
         text-align: left;
         /* font-size: var(--font-size-l); */
         /* font-weight: bolder; */
@@ -216,10 +212,16 @@
           );
         }
 
+        // Create RGBA string with transparency
+        function rgbaString(r, g, b, alpha) {
+          return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
         var currentIndex = 0;
         var nextIndex = 1;
-        var transitionDuration = 5000; // 5 seconds per transition
+        var transitionDuration = 15000; // 5 seconds per transition
         var startTime;
+        var glassAlpha = 0.75; // Transparency level for .glass elements
 
         function updateColor(timestamp) {
           if (!startTime) startTime = timestamp;
@@ -248,11 +250,17 @@
 
             window.$docsify.themeColor = rgbToHex(r, g, b);
 
-            // Update CSS variable for immediate visual effect
+            // Update CSS variables for immediate visual effect
             document.documentElement.style.setProperty(
               "--theme-color",
               window.$docsify.themeColor
             );
+
+            // Update .glass background color with transparency
+            var glassBackgroundColor = rgbaString(r, g, b, glassAlpha);
+            document.querySelectorAll(".glass").forEach(function (element) {
+              element.style.background = `${glassBackgroundColor}`;
+            });
           }
 
           requestAnimationFrame(updateColor);
@@ -261,6 +269,19 @@
         // Start the animation after the page has loaded
         window.addEventListener("load", function () {
           window.$docsify.themeColor = colors[currentIndex];
+
+          // Initial setting for .glass elements
+          var initialColor = hexToRgb(colors[currentIndex]);
+          var glassBackgroundColor = rgbaString(
+            initialColor.r,
+            initialColor.g,
+            initialColor.b,
+            glassAlpha
+          );
+          document.querySelectorAll(".glass").forEach(function (element) {
+            element.style.backgroundColor = glassBackgroundColor;
+          });
+
           requestAnimationFrame(updateColor);
         });
       })();
