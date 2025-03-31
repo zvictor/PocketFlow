@@ -14,7 +14,7 @@
   <a href="https://pypi.org/project/brainyflow">PyPI <img src="https://iconduck.com/vectors/vctrahatphfa/media/svg/download" width="17" height="17" alt="Python Logo" style="vertical-align: sub; margin: 0 2px;"></a>
   <a href="https://www.npmjs.com/package/brainyflow">NPM <img src="https://iconduck.com/vectors/vctrk180y7wy/media/svg/download" width="17" height="17" alt="Typescript Logo" style="vertical-align: sub; margin: 0 2px;"></a>
   <a href="https://github.com/zvictor/brainyflow">Github <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-white-icon.svg" width="17" height="17" alt="Github Logo" style="vertical-align: sub; margin: 0 2px;"></a>
-  <a href="/docs.txt">docs.txt 📜</a>
+  <a href="https://flow.brainy.sh/docs.txt">docs.txt 📜</a>
 </nav>
 
 <!-- <style>
