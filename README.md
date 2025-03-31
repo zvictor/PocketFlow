@@ -7,7 +7,7 @@
 <p>
 
 <p align="center">
-  A <a href="https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py">65-line</a> minimalist LLM framework 🤯
+  A <a href="https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py">65-line</a> minimalist AI framework 🤯
   <br />
   <sub>Let Agents build Agents with zero bloat, zero dependencies, zero vendor lock-in 😮</sub>
 </p>
@@ -135,6 +135,10 @@ From there, it's easy to implement popular design patterns like ([Multi-](https:
 
 We would like to extend our deepest gratitude to the creators and contributors of the PocketFlow framework, from which brainyFlow originated as a fork.
 
+## Liability Disclaimer
+
+BrainyFlow is provided "as is" without any warranties or guarantees.  
+We do not take responsibility for how the generated output is used, including but not limited to its accuracy, legality, or any potential consequences arising from its use.
 
 ## Sponsors
 

@@ -30,5 +30,12 @@ yarn add brainyflow
 
 Since BrainyFlow is lightweight and dependency-free, you can also install it by simply copying the source code file directly into your project:
 
-- **Python**: Copy [`python/brainyflow.py`](https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py)
-- **TypeScript**: Copy [`typescript/brainyflow.ts`](https://github.com/zvictor/BrainyFlow/blob/main/typescript/brainyflow.ts)
+{% tabs %}
+{% tab title="Python" %}
+Copy [`python/brainyflow.py`](https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py)
+{% endtab %}
+
+{% tab title="TypeScript" %}
+Copy [`typescript/brainyflow.ts`](https://github.com/zvictor/BrainyFlow/blob/main/typescript/brainyflow.ts)
+{% endtab %}
+{% endtabs %}

@@ -6,7 +6,7 @@ nav_order: 1
 
 # Brainy Flow
 
-A [65-line](https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py) minimalist LLM framework for _Agents, Task Decomposition, RAG, etc_.
+A [65-line](https://github.com/zvictor/BrainyFlow/blob/main/python/brainyflow.py) minimalist AI framework for _Agents, Task Decomposition, RAG, etc_.
 
 - **Lightweight**: Just the core graph abstraction in 65 lines. ZERO dependencies, and vendor lock-in.
 - **Expressive**: Everything you love from larger frameworks—([Multi-](./design_pattern/multi_agent.html))[Agents](./design_pattern/agent.html), [Workflow](./design_pattern/workflow.html), [RAG](./design_pattern/rag.html), and more.
