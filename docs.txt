@@ -1,7 +1,9 @@
 
 
-================================================nFile: docs/index.md
-================================================n---
+================================================
+File: docs/index.md
+================================================
+---
 title: 'Home'
 ---
 
@@ -71,8 +73,10 @@ Check out [Agentic Coding Guidance](./agentic_coding.md), the fastest way to dev
 
 
 
-================================================nFile: docs/installation.md
-================================================n# Installation
+================================================
+File: docs/installation.md
+================================================
+# Installation
 
 BrainyFlow is currently available for both Python and TypeScript.
 
@@ -117,8 +121,10 @@ Copy [`typescript/brainyflow.ts`](https://github.com/zvictor/BrainyFlow/blob/mai
 
 
 
-================================================nFile: docs/getting_started.md
-================================================n# Getting Started
+================================================
+File: docs/getting_started.md
+================================================
+# Getting Started
 
 Welcome to BrainyFlow! This guide will help you get started with the framework.
 
@@ -181,8 +187,10 @@ While BrainyFlow doesn't include built-in utilities, check the [Utility Function
 
 
 
-================================================nFile: docs/core_abstraction/node.md
-================================================n---
+================================================
+File: docs/core_abstraction/node.md
+================================================
+---
 title: 'Node'
 ---
 
@@ -388,8 +396,10 @@ console.log('Summary stored:', shared['summary'])
 
 
 
-================================================nFile: docs/core_abstraction/flow.md
-================================================n---
+================================================
+File: docs/core_abstraction/flow.md
+================================================
+---
 title: 'Flow'
 ---
 
@@ -682,8 +692,10 @@ flowchart LR
 
 
 
-================================================nFile: docs/core_abstraction/communication.md
-================================================n---
+================================================
+File: docs/core_abstraction/communication.md
+================================================
+---
 title: 'Communication'
 ---
 
@@ -927,8 +939,10 @@ flow.run(shared) // The node summarizes doc2, not doc1
 
 
 
-================================================nFile: docs/core_abstraction/batch.md
-================================================n---
+================================================
+File: docs/core_abstraction/batch.md
+================================================
+---
 title: 'Batch'
 ---
 
@@ -1243,8 +1257,10 @@ const outerFlow = new DirectoryBatchFlow(innerFlow)
 
 
 
-================================================nFile: docs/core_abstraction/throttling.md
-================================================n---
+================================================
+File: docs/core_abstraction/throttling.md
+================================================
+---
 title: '(Advanced) Throttling'
 ---
 
@@ -1480,8 +1496,10 @@ For batch processing patterns, see [Batch Processing](./batch.md).
 
 
 
-================================================nFile: docs/design_pattern/agent.md
-================================================n---
+================================================
+File: docs/design_pattern/agent.md
+================================================
+---
 title: 'Agent'
 ---
 
@@ -1823,8 +1841,10 @@ flow.run({ query: 'Who won the Nobel Prize in Physics 2024?' })
 
 
 
-================================================nFile: docs/design_pattern/workflow.md
-================================================n---
+================================================
+File: docs/design_pattern/workflow.md
+================================================
+---
 title: 'Workflow'
 ---
 
@@ -1939,8 +1959,10 @@ For _dynamic cases_, consider using [Agents](./agent.md).
 
 
 
-================================================nFile: docs/design_pattern/rag.md
-================================================n---
+================================================
+File: docs/design_pattern/rag.md
+================================================
+---
 title: 'RAG'
 ---
 
@@ -2379,8 +2401,10 @@ OnlineFlow.run(shared)
 
 
 
-================================================nFile: docs/design_pattern/mapreduce.md
-================================================n---
+================================================
+File: docs/design_pattern/mapreduce.md
+================================================
+---
 title: 'Map Reduce'
 ---
 
@@ -2519,8 +2543,10 @@ console.log('\nFinal Summary:\n', shared.all_files_summary)
 
 
 
-================================================nFile: docs/design_pattern/structure.md
-================================================n---
+================================================
+File: docs/design_pattern/structure.md
+================================================
+---
 title: 'Structured Output'
 ---
 
@@ -2683,8 +2709,10 @@ dialogue: |
 
 
 
-================================================nFile: docs/design_pattern/multi_agent.md
-================================================n---
+================================================
+File: docs/design_pattern/multi_agent.md
+================================================
+---
 title: '(Advanced) Multi-Agents'
 ---
 
@@ -3064,8 +3092,10 @@ Game Over - Correct guess!
 
 
 
-================================================nFile: docs/agentic_coding.md
-================================================n---
+================================================
+File: docs/agentic_coding.md
+================================================
+---
 title: 'Agentic Coding'
 ---
 
