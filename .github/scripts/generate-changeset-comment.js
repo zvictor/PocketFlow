@@ -9,7 +9,7 @@ ${title}
 `)
 }
 
-function generateChangesetComment(context, packageType) {
+export function generateChangesetComment(context, packageType) {
   const packageName = packageType.toLocaleLowerCase()
   const directory = packageName
   const isTypescript = packageName === 'typescript'
@@ -41,5 +41,3 @@ function generateChangesetComment(context, packageType) {
   
   This will help document your changes and ensure proper versioning.`
 }
-
-module.exports = { generateChangesetComment }
