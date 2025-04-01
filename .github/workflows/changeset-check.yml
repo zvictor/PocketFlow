@@ -89,7 +89,7 @@ jobs:
           script: |
             const humanId = require('human-id')
 
-            const getNewChangesetTemplate = (changedPackages: string[], title: string) =>
+            const getNewChangesetTemplate = (changedPackages, title) =>
               encodeURIComponent(`---
             ${changedPackages.map((x) => `"${x}": patch`).join("\n")}
             ---
