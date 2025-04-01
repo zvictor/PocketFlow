@@ -39,7 +39,7 @@ jobs:
           run_install: false
 
       - name: Install human-id
-        run: pnpm install human-id
+        run: pnpm add human-id
 
       # Need to determine which paths were changed to conditionally run the checks
       - uses: dorny/paths-filter@v3

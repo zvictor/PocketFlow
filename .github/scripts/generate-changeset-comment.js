@@ -1,4 +1,4 @@
-import humanId from 'human-id'
+import { humanId } from 'human-id'
 
 function getNewChangesetTemplate(packageName, title) {
   return encodeURIComponent(`---
