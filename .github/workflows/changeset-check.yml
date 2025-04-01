@@ -38,8 +38,6 @@ jobs:
           version: 10
           run_install: false # We don't need to install root dependencies for this check
 
-      - run: pnpm add human-id
-
       # Need to determine which paths were changed to conditionally run the checks
       # This uses the dorny/paths-filter action to check changed files
       - uses: dorny/paths-filter@v3
@@ -81,55 +79,95 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Find existing Python comment
+        if: steps.filter.outputs.python == 'true'
+        uses: peter-evans/find-comment@v2
+        id: find-python-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Missing Python Changeset
+
+      - name: Find existing TypeScript comment
+        if: steps.filter.outputs.typescript == 'true'
+        uses: peter-evans/find-comment@v2
+        id: find-typescript-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Missing TypeScript Changeset
+
       - name: Comment on PR if Python changes missing changeset
         if: steps.filter.outputs.python == 'true' && steps.python-check.outputs.hasChangesets == 'false'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const humanId = require('human-id')
-
-            const getNewChangesetTemplate = (changedPackages, title) =>
+            // Generate a random ID for the changeset file
+            function generateId() {
+              const adjectives = ['rare', 'calm', 'tasty', 'healthy', 'afraid', 'strange', 'two', 'happy'];
+              const nouns = ['ghosts', 'snails', 'rocks', 'cows', 'walls', 'cars', 'lizards', 'lions'];
+              const verbs = ['talk', 'dream', 'sparkle', 'smile', 'exist', 'rush', 'sing', 'jump'];
+              
+              const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+              const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+              const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
+              
+              return `${randomAdjective}-${randomNoun}-${randomVerb}`.toLowerCase();
+            }
+            
+            const getNewChangesetTemplate = (title) =>
               encodeURIComponent(`---
-            ${changedPackages.map((x) => `"${x}": patch`).join("\n")}
-            ---
+"python-package": patch
+---
 
-            ${title}
-            `);
+${title}
+`);
 
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `## Missing Python Changeset 🐍
-              
-              Changes to the Python package were detected, but no changeset was found.
-              Merging this PR will not cause a version bump for the Python package.
-              
-              If these changes should not result in a new version, you're good to go. **If these changes should result in a version bump, you need to add a changeset.**
+            const changesetUrl = `${
+              context.payload.pull_request.head.repo.html_url
+            }/new/${
+              context.payload.pull_request.head.ref
+            }?filename=python/.changeset/${generateId()}.md&value=${getNewChangesetTemplate(
+              context.payload.pull_request.title
+            )}`;
+            
+            const commentBody = `## Missing Python Changeset 🐍
+            
+            Changes to the Python package were detected, but no changeset was found.
+            Merging this PR will not cause a version bump for the Python package.
+            
+            If these changes should not result in a new version, you're good to go. **If these changes should result in a version bump, you need to add a changeset.**
 
-              [Click here to learn what changesets are, and how to add one](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md).
+            [Click here to learn what changesets are, and how to add one](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md).
 
-              [Click here if you're a maintainer who wants to add a changeset to this PR](${
-                context.payload.pull_request.head.repo.html_url
-              }/new/${
-                context.payload.pull_request.head.ref
-              }?filename=python/.changeset/${humanId({
-                separator: "-",
-                capitalize: false,
-              })}.md&value=${getNewChangesetTemplate(
-                changedPackages,
-                context.payload.pull_request.title
-              )})
-              
-              Alternatively, you can add a changeset by running:
-              \`\`\`
-              cd python
-              pnpm changeset
-              \`\`\`
-              
-              This will help document your changes and ensure proper versioning.`
-            })
+            [Click here if you're a maintainer who wants to add a changeset to this PR](${changesetUrl})
+            
+            Alternatively, you can add a changeset by running:
+            \`\`\`
+            cd python
+            pnpm changeset
+            \`\`\`
+            
+            This will help document your changes and ensure proper versioning.`;
+            
+            const commentId = ${{ steps.find-python-comment.outputs.comment-id }};
+            
+            if (commentId) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: commentId,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            }
 
       - name: Comment on PR if TypeScript changes missing changeset
         if: steps.filter.outputs.typescript == 'true' && steps.typescript-check.outputs.hasChangesets == 'false'
@@ -137,22 +175,71 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `## Missing TypeScript Changeset 📝
+            // Generate a random ID for the changeset file
+            function generateId() {
+              const adjectives = ['rare', 'calm', 'tasty', 'healthy', 'afraid', 'strange', 'two', 'happy'];
+              const nouns = ['ghosts', 'snails', 'rocks', 'cows', 'walls', 'cars', 'lizards', 'lions'];
+              const verbs = ['talk', 'dream', 'sparkle', 'smile', 'exist', 'rush', 'sing', 'jump'];
               
-              Changes to the TypeScript package were detected, but no changeset was found.
+              const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+              const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+              const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
               
-              Please add a changeset by running:
-              \`\`\`
-              cd typescript
-              pnpm changeset
-              \`\`\`
-              
-              This will help document your changes and ensure proper versioning.`
-            })
+              return `${randomAdjective}-${randomNoun}-${randomVerb}`.toLowerCase();
+            }
+            
+            const getNewChangesetTemplate = (title) =>
+              encodeURIComponent(`---
+"typescript-package": patch
+---
+
+${title}
+`);
+
+            const changesetUrl = `${
+              context.payload.pull_request.head.repo.html_url
+            }/new/${
+              context.payload.pull_request.head.ref
+            }?filename=typescript/.changeset/${generateId()}.md&value=${getNewChangesetTemplate(
+              context.payload.pull_request.title
+            )}`;
+            
+            const commentBody = `## Missing TypeScript Changeset 📝
+            
+            Changes to the TypeScript package were detected, but no changeset was found.
+            Merging this PR will not cause a version bump for the TypeScript package.
+            
+            If these changes should not result in a new version, you're good to go. **If these changes should result in a version bump, you need to add a changeset.**
+
+            [Click here to learn what changesets are, and how to add one](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md).
+
+            [Click here if you're a maintainer who wants to add a changeset to this PR](${changesetUrl})
+            
+            Alternatively, you can add a changeset by running:
+            \`\`\`
+            cd typescript
+            pnpm changeset
+            \`\`\`
+            
+            This will help document your changes and ensure proper versioning.`;
+            
+            const commentId = ${{ steps.find-typescript-comment.outputs.comment-id }};
+            
+            if (commentId) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: commentId,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            }
 
       - name: Fail if changesets are missing
         if: (steps.filter.outputs.python == 'true' && steps.python-check.outputs.hasChangesets == 'false') || (steps.filter.outputs.typescript == 'true' && steps.typescript-check.outputs.hasChangesets == 'false')
