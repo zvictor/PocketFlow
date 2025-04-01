@@ -89,10 +89,10 @@ jobs:
               Changes to the Python package were detected, but no changeset was found.
               
               Please add a changeset by running:
-              ```
+              \`\`\`
               cd python
               pnpm changeset
-              ```
+              \`\`\`
               
               This will help document your changes and ensure proper versioning.`
             })
@@ -112,10 +112,10 @@ jobs:
               Changes to the TypeScript package were detected, but no changeset was found.
               
               Please add a changeset by running:
-              ```
+              \`\`\`
               cd typescript
               pnpm changeset
-              ```
+              \`\`\`
               
               This will help document your changes and ensure proper versioning.`
             })
