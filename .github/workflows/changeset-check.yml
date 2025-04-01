@@ -19,19 +19,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        # Fetch depth 0 is required for changeset action to correctly compare branches
         with:
           fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '23' # Match the version used in typescript-publish.yml
+          node-version: '23'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 10 # Match user's pnpm version
+          version: 10
           run_install: false # We don't need to install root dependencies for this check
 
       # Need to determine which paths were changed to conditionally run the checks
@@ -48,17 +47,75 @@ jobs:
       - name: Check for Python changesets
         # Only run this step if python files were changed
         if: steps.filter.outputs.python == 'true'
+        id: python-check
         uses: changesets/action@v1
         with:
           cwd: ./python
+          version: false
+          publish: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check for TypeScript changesets
         # Only run this step if typescript files were changed
         if: steps.filter.outputs.typescript == 'true'
+        id: typescript-check
         uses: changesets/action@v1
         with:
           cwd: ./typescript
+          version: false
+          publish: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on PR if Python changes missing changeset
+        if: steps.filter.outputs.python == 'true' && steps.python-check.outputs.hasChangesets == 'false'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Missing Python Changeset 🐍
+              
+              Changes to the Python package were detected, but no changeset was found.
+              
+              Please add a changeset by running:
+              ```
+              cd python
+              pnpm changeset
+              ```
+              
+              This will help document your changes and ensure proper versioning.`
+            })
+
+      - name: Comment on PR if TypeScript changes missing changeset
+        if: steps.filter.outputs.typescript == 'true' && steps.typescript-check.outputs.hasChangesets == 'false'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Missing TypeScript Changeset 📝
+              
+              Changes to the TypeScript package were detected, but no changeset was found.
+              
+              Please add a changeset by running:
+              ```
+              cd typescript
+              pnpm changeset
+              ```
+              
+              This will help document your changes and ensure proper versioning.`
+            })
+
+      - name: Fail if changesets are missing
+        if: (steps.filter.outputs.python == 'true' && steps.python-check.outputs.hasChangesets == 'false') || (steps.filter.outputs.typescript == 'true' && steps.typescript-check.outputs.hasChangesets == 'false')
+        run: |
+          echo "❌ Missing changesets detected. Please add changesets to document your changes."
+          exit 1
