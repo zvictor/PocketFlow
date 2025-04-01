@@ -1,0 +1,162 @@
+name: Check for Changesets
+
+on:
+  pull_request:
+    branches:
+      - '*'
+    paths:
+      - 'python/**'
+      - 'typescript/**'
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check for missing changesets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+          run_install: false
+
+      - name: Install human-id
+        run: pnpm add human-id
+
+      # Need to determine which paths were changed to conditionally run the checks
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            python:
+              - 'python/**'
+            typescript:
+              - 'typescript/**'
+
+      - name: Check for Python changesets
+        # Only run this step if python files were changed
+        if: steps.filter.outputs.python == 'true'
+        id: python-check
+        uses: changesets/action@v1
+        continue-on-error: true
+        with:
+          cwd: ./python
+          version: false
+          publish: false
+          setupGitUser: true
+          createGithubReleases: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for TypeScript changesets
+        # Only run this step if typescript files were changed
+        if: steps.filter.outputs.typescript == 'true'
+        id: typescript-check
+        uses: changesets/action@v1
+        continue-on-error: true
+        with:
+          cwd: ./typescript
+          version: false
+          publish: false
+          setupGitUser: true
+          createGithubReleases: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Find existing Python comment
+        if: steps.filter.outputs.python == 'true'
+        uses: peter-evans/find-comment@v2
+        id: find-python-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Missing Python Changeset
+
+      - name: Find existing TypeScript comment
+        if: steps.filter.outputs.typescript == 'true'
+        uses: peter-evans/find-comment@v2
+        id: find-typescript-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Missing TypeScript Changeset
+
+      - name: Comment on PR if Python changes missing changeset
+        if: steps.filter.outputs.python == 'true' && steps.python-check.outputs.hasChangesets == 'false'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const tools = await import('${{ github.workspace }}/.github/scripts/generate-changeset-comment.js');
+
+            const commentBody = tools.generateChangesetComment(context, 'Python');
+
+            const commentId = ${{ steps.find-python-comment.outputs.comment-id }};
+
+            if (commentId) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: commentId,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            }
+
+      - name: Comment on PR if TypeScript changes missing changeset
+        if: steps.filter.outputs.typescript == 'true' && steps.typescript-check.outputs.hasChangesets == 'false'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const tools = await import('${{ github.workspace }}/.github/scripts/generate-changeset-comment.js');
+
+            const commentBody = tools.generateChangesetComment(context, 'TypeScript');
+
+            const commentId = ${{ steps.find-typescript-comment.outputs.comment-id }};
+
+            if (commentId) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: commentId,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            }
+
+      - name: Fail if changesets are missing
+        if: (steps.filter.outputs.python == 'true' && steps.python-check.outputs.hasChangesets == 'false') || (steps.filter.outputs.typescript == 'true' && steps.typescript-check.outputs.hasChangesets == 'false')
+        run: |
+          echo "❌ Missing changesets detected. Please add changesets to document your changes."
+          exit 1
