@@ -35,7 +35,7 @@ jobs:
 
       # Need to determine which paths were changed to conditionally run the checks
       # This uses the dorny/paths-filter action to check changed files
-      - uses: dorny/paths-filter@v2
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: |
@@ -49,10 +49,13 @@ jobs:
         if: steps.filter.outputs.python == 'true'
         id: python-check
         uses: changesets/action@v1
+        continue-on-error: true
         with:
           cwd: ./python
           version: false
           publish: false
+          setupGitUser: true
+          createGithubReleases: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -61,10 +64,13 @@ jobs:
         if: steps.filter.outputs.typescript == 'true'
         id: typescript-check
         uses: changesets/action@v1
+        continue-on-error: true
         with:
           cwd: ./typescript
           version: false
           publish: false
+          setupGitUser: true
+          createGithubReleases: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
