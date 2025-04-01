@@ -1,7 +1,8 @@
 import sys
+import asyncio
 from flow import create_chain_of_thought_flow
 
-def main():
+async def main():
     # Default question
     default_question = "Break a stick, then break the longer piece again. What's the probability of forming a triangle?"
     
@@ -27,7 +28,7 @@ def main():
     }
     
     # Run the flow
-    cot_flow.run(shared)
+    await cot_flow.run(shared)
     
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

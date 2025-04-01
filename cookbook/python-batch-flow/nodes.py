@@ -7,15 +7,15 @@ from brainyflow import Node
 class LoadImage(Node):
     """Node that loads an image file."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         """Get image path from parameters."""
         return os.path.join("images", self.params["input"])
     
-    def exec(self, image_path):
+    async def exec(self, image_path):
         """Load the image using PIL."""
         return Image.open(image_path)
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Store the image in shared store."""
         shared["image"] = exec_res
         return "apply_filter"
@@ -23,11 +23,11 @@ class LoadImage(Node):
 class ApplyFilter(Node):
     """Node that applies a filter to an image."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         """Get image and filter type."""
         return shared["image"], self.params["filter"]
     
-    def exec(self, inputs):
+    async def exec(self, inputs):
         """Apply the specified filter."""
         image, filter_type = inputs
         
@@ -44,7 +44,7 @@ class ApplyFilter(Node):
         else:
             raise ValueError(f"Unknown filter: {filter_type}")
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Store the filtered image."""
         shared["filtered_image"] = exec_res
         return "save"
@@ -52,7 +52,7 @@ class ApplyFilter(Node):
 class SaveImage(Node):
     """Node that saves the processed image."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         """Get filtered image and prepare output path."""
         # Create output directory if it doesn't exist
         os.makedirs("output", exist_ok=True)
@@ -64,13 +64,13 @@ class SaveImage(Node):
         
         return shared["filtered_image"], output_path
     
-    def exec(self, inputs):
+    async def exec(self, inputs):
         """Save the image to file."""
         image, output_path = inputs
         image.save(output_path, "JPEG")
         return output_path
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Print success message."""
         print(f"Saved filtered image to: {exec_res}")
         return "default" 

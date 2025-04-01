@@ -1,6 +1,6 @@
 from flow import create_embedding_flow
 
-def main():
+async def main():
     # Create the flow
     flow = create_embedding_flow()
     
@@ -11,7 +11,7 @@ def main():
     shared = {"text": text}
     
     # Run the flow
-    flow.run(shared)
+    await flow.run(shared)
     
     # Print results
     print("Text:", text)
@@ -19,4 +19,4 @@ def main():
     print("First 5 values:", shared["embedding"][:5])
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

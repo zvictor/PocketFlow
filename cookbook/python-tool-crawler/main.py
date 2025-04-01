@@ -1,7 +1,8 @@
 import os
+import asyncio
 from flow import create_flow
 
-def main():
+async def main():
     """Run the web crawler flow"""
     
     # Get website URL from user
@@ -18,9 +19,9 @@ def main():
     
     # Create and run flow
     flow = create_flow()
-    flow.run(shared)
+    await flow.run(shared)
     
     # Results are in shared["report"]
     
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

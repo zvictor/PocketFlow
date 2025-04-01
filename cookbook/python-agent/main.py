@@ -1,7 +1,8 @@
 import sys
+import asyncio
 from flow import create_agent_flow
 
-def main():
+async def main():
     """Simple function to process a question."""
     # Default question
     default_question = "Who won the Nobel Prize in Physics 2024?"
@@ -19,9 +20,9 @@ def main():
     # Process the question
     shared = {"question": question}
     print(f"🤔 Processing question: {question}")
-    agent_flow.run(shared)
+    await agent_flow.run(shared)
     print("\n🎯 Final Answer:")
     print(shared.get("answer", "No answer found"))
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

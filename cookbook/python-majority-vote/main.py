@@ -5,12 +5,12 @@ from utils import call_llm
 import yaml
 
 class MajorityVoteNode(BatchNode):
-    def prep(self, shared):
+    async def prep(self, shared):
         question = shared.get("question", "(No question provided)")
         attempts_count = shared.get("num_tries", 3)
         return [question for _ in range(attempts_count)]
 
-    def exec(self, single_question: str):
+    async def exec(self, single_question: str):
         prompt = f"""
 You are a helpful assistant. Please answer the user's question below.
 Question: {single_question}
@@ -32,10 +32,10 @@ answer: 0.123 # Final answer as a decimal with 3 decimal places
         # Return only the 'answer' field for the majority vote.
         return str(parsed['answer'])
     
-    def exec_fallback(self, prep_res, exc):
+    async def exec_fallback(self, prep_res, exc):
         return None
 
-    def post(self, shared, prep_res, exec_res_list):
+    async def post(self, shared, prep_res, exec_res_list):
         # Count frequency for non-None answers
         exec_res_list = [res for res in exec_res_list if res is not None]
         counter = collections.Counter(exec_res_list)
@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
     majority_node = MajorityVoteNode()
     flow = Flow(start=majority_node)
-    flow.run(shared)
+    await flow.run(shared)
 
     print("\n=== Final Answer ===")
     print(shared["majority_answer"])

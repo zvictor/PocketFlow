@@ -1,7 +1,7 @@
 import sys
 from flow import create_agent_flow
 
-def main():
+async def main():
     """Simple function to process a question with supervised answers."""
     # Default question
     default_question = "Who won the Nobel Prize in Physics 2024?"
@@ -24,4 +24,4 @@ def main():
     print(shared.get("answer", "No answer found"))
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

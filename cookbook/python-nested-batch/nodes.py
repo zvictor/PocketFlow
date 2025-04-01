@@ -4,20 +4,20 @@ from brainyflow import Node
 class LoadGrades(Node):
     """Node that loads grades from a student's file."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         """Get file path from parameters."""
         class_name = self.params["class"]
         student_file = self.params["student"]
         return os.path.join("school", class_name, student_file)
     
-    def exec(self, file_path):
+    async def exec(self, file_path):
         """Load and parse grades from file."""
         with open(file_path, 'r') as f:
             # Each line is a grade
             grades = [float(line.strip()) for line in f]
         return grades
     
-    def post(self, shared, prep_res, grades):
+    async def post(self, shared, prep_res, grades):
         """Store grades in shared store."""
         shared["grades"] = grades
         return "calculate"
@@ -25,15 +25,15 @@ class LoadGrades(Node):
 class CalculateAverage(Node):
     """Node that calculates average grade."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         """Get grades from shared store."""
         return shared["grades"]
     
-    def exec(self, grades):
+    async def exec(self, grades):
         """Calculate average."""
         return sum(grades) / len(grades)
     
-    def post(self, shared, prep_res, average):
+    async def post(self, shared, prep_res, average):
         """Store and print result."""
         # Store in results dictionary
         if "results" not in shared:

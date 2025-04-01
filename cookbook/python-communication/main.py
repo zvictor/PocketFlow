@@ -1,10 +1,10 @@
 from flow import create_flow
 
-def main():
+async def main():
     """Run the communication example."""
     flow = create_flow()
     shared = {}
-    flow.run(shared)
+    await flow.run(shared)
 
 if __name__ == "__main__":
-    main() 
+    asyncio.run(main()) 

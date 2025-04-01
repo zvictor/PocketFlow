@@ -3,11 +3,11 @@ from utils import call_llm
 import yaml
 
 class ResumeParserNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Return resume text from shared state"""
         return shared["resume_text"]
     
-    def exec(self, resume_text):
+    async def exec(self, resume_text):
         """Extract structured data from resume using prompt engineering"""
         prompt = f"""
 Please extract the following information from this resume and format it as YAML:
@@ -48,7 +48,7 @@ skills:
         
         return structured_result
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Store and display structured resume data in YAML"""
         shared["structured_data"] = exec_res
         
@@ -71,4 +71,4 @@ if __name__ == "__main__":
 
     
     flow = Flow(start=ResumeParserNode())
-    flow.run(shared)
+    await flow.run(shared)

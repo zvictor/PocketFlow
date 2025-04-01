@@ -3,7 +3,7 @@ import yaml
 from utils import call_llm
 
 class ChainOfThoughtNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         # Gather problem and previous thoughts
         problem = shared.get("problem", "")
         thoughts = shared.get("thoughts", [])
@@ -29,7 +29,7 @@ class ChainOfThoughtNode(Node):
             "total_thoughts_estimate": total_thoughts_estimate
         }
     
-    def exec(self, prep_res):
+    async def exec(self, prep_res):
         problem = prep_res["problem"]
         thoughts_text = prep_res["thoughts_text"]
         current_thought_number = prep_res["current_thought_number"] 
@@ -88,7 +88,7 @@ total_thoughts: number
         return thought_data
 
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         # Add the new thought to the list
         if "thoughts" not in shared:
             shared["thoughts"] = []

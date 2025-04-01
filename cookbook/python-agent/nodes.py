@@ -3,7 +3,7 @@ from utils import call_llm, search_web
 import yaml
 
 class DecideAction(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Prepare the context and question for the decision-making process."""
         # Get the current context (default to "No previous search" if none exists)
         context = shared.get("context", "No previous search")
@@ -12,7 +12,7 @@ class DecideAction(Node):
         # Return both for the exec step
         return question, context
         
-    def exec(self, inputs):
+    async def exec(self, inputs):
         """Call the LLM to decide whether to search or answer."""
         question, context = inputs
         
@@ -63,7 +63,7 @@ IMPORTANT: Make sure to:
         
         return decision
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Save the decision and determine the next step in the flow."""
         # If LLM decided to search, save the search query
         if exec_res["action"] == "search":
@@ -77,18 +77,18 @@ IMPORTANT: Make sure to:
         return exec_res["action"]
 
 class SearchWeb(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Get the search query from the shared store."""
         return shared["search_query"]
         
-    def exec(self, search_query):
+    async def exec(self, search_query):
         """Search the web for the given query."""
         # Call the search utility function
         print(f"🌐 Searching the web for: {search_query}")
         results = search_web(search_query)
         return results
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Save the search results and go back to the decision node."""
         # Add the search results to the context in the shared store
         previous = shared.get("context", "")
@@ -100,11 +100,11 @@ class SearchWeb(Node):
         return "decide"
 
 class AnswerQuestion(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Get the question and context for answering."""
         return shared["question"], shared.get("context", "")
         
-    def exec(self, inputs):
+    async def exec(self, inputs):
         """Call the LLM to generate a final answer."""
         question, context = inputs
         
@@ -124,7 +124,7 @@ Provide a comprehensive answer using the research results.
         answer = call_llm(prompt)
         return answer
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Save the final answer and complete the flow."""
         # Save the answer in the shared store
         shared["answer"] = exec_res
@@ -132,4 +132,4 @@ Provide a comprehensive answer using the research results.
         print(f"✅ Answer generated successfully")
         
         # We're done - no need to continue the flow
-        return "done" 
+        return "done"

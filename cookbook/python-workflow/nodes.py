@@ -3,10 +3,10 @@ from utils import call_llm
 import yaml
 
 class GenerateOutline(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         return shared["topic"]
     
-    def exec(self, topic):
+    async def exec(self, topic):
         prompt = f"""
 Create a simple outline for an article about {topic}.
 Include at most 3 main sections (no subsections).
@@ -24,7 +24,7 @@ sections:
         structured_result = yaml.safe_load(yaml_str)
         return structured_result
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         # Store the structured data
         shared["outline_yaml"] = exec_res
         
@@ -46,11 +46,11 @@ sections:
         return "default"
 
 class WriteSimpleContent(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         # Get the list of sections to process
         return shared.get("sections", [])
     
-    def exec(self, sections):
+    async def exec(self, sections):
         all_sections_content = []
         section_contents = {}
         
@@ -72,7 +72,7 @@ Requirements:
         
         return sections, section_contents, "\n".join(all_sections_content)
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         sections, section_contents, draft = exec_res
         
         # Store the section contents and draft
@@ -89,13 +89,13 @@ Requirements:
         return "default"
 
 class ApplyStyle(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """
         Get the draft from shared data
         """
         return shared["draft"]
     
-    def exec(self, draft):
+    async def exec(self, draft):
         """
         Apply a specific style to the article
         """
@@ -112,7 +112,7 @@ class ApplyStyle(Node):
         """
         return call_llm(prompt)
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """
         Store the final article in shared data
         """

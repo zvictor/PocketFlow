@@ -18,7 +18,7 @@ def create_base_flow():
 class ImageBatchFlow(BatchFlow):
     """BatchFlow for processing multiple images with different filters."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         """Generate parameters for each image-filter combination."""
         # List of images to process
         images = ["cat.jpg", "dog.jpg", "bird.jpg"]

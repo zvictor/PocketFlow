@@ -4,11 +4,11 @@ from nodes import CSVProcessor
 class ShowStats(Node):
     """Node to display the final statistics."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         """Get statistics from shared store."""
         return shared["statistics"]
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Display the statistics."""
         stats = prep_res
         print("\nFinal Statistics:")

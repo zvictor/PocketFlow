@@ -4,7 +4,7 @@ from utils.call_llm import call_llm
 from utils.get_embedding import get_embedding
 
 class GetUserQuestionNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Initialize messages if first run"""
         if "messages" not in shared:
             shared["messages"] = []
@@ -12,7 +12,7 @@ class GetUserQuestionNode(Node):
         
         return None
     
-    def exec(self, _):
+    async def exec(self, _):
         """Get user input interactively"""
         # Get interactive input from user
         user_input = input("\nYou: ")
@@ -23,7 +23,7 @@ class GetUserQuestionNode(Node):
             
         return user_input
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         # If exec_res is None, the user wants to exit
         if exec_res is None:
             print("\nGoodbye!")
@@ -35,7 +35,7 @@ class GetUserQuestionNode(Node):
         return "retrieve"
 
 class AnswerNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Prepare context for the LLM"""
         if not shared.get("messages"):
             return None
@@ -62,7 +62,7 @@ class AnswerNode(Node):
         
         return context
     
-    def exec(self, messages):
+    async def exec(self, messages):
         """Generate a response using the LLM"""
         if messages is None:
             return None
@@ -71,7 +71,7 @@ class AnswerNode(Node):
         response = call_llm(messages)
         return response
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Process the LLM response"""
         if prep_res is None or exec_res is None:
             return None  # End the conversation
@@ -91,7 +91,7 @@ class AnswerNode(Node):
         return "question"
 
 class EmbedNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Extract the oldest conversation pair for embedding"""
         if len(shared["messages"]) <= 6:
             return None
@@ -103,7 +103,7 @@ class EmbedNode(Node):
         
         return oldest_pair
     
-    def exec(self, conversation):
+    async def exec(self, conversation):
         """Embed a conversation"""
         if not conversation:
             return None
@@ -121,7 +121,7 @@ class EmbedNode(Node):
             "embedding": embedding
         }
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Store the embedding and add to index"""
         if not exec_res:
             # If there's nothing to embed, just continue with the next question
@@ -143,7 +143,7 @@ class EmbedNode(Node):
         return "question"
 
 class RetrieveNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Get the current query for retrieval"""
         if not shared.get("messages"):
             return None
@@ -164,7 +164,7 @@ class RetrieveNode(Node):
             "vector_items": shared["vector_items"]
         }
     
-    def exec(self, inputs):
+    async def exec(self, inputs):
         """Find the most relevant past conversation"""
         if not inputs:
             return None
@@ -192,7 +192,7 @@ class RetrieveNode(Node):
             "distance": distances[0]
         }
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Store the retrieved conversation"""
         if exec_res is not None:
             shared["retrieved_conversation"] = exec_res["conversation"]

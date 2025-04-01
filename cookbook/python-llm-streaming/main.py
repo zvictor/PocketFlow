@@ -1,10 +1,11 @@
 import time
 import threading
+import asyncio
 from brainyflow import Node, Flow
 from utils import fake_stream_llm, stream_llm
 
 class StreamNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         # Create interrupt event
         interrupt_event = threading.Event()
 
@@ -21,7 +22,7 @@ class StreamNode(Node):
         chunks = fake_stream_llm(prompt)
         return chunks, interrupt_event, listener_thread
 
-    def exec(self, prep_res):
+    async def exec(self, prep_res):
         chunks, interrupt_event, listener_thread = prep_res
         for chunk in chunks:
             if interrupt_event.is_set():
@@ -34,16 +35,20 @@ class StreamNode(Node):
                 time.sleep(0.1)  # simulate latency
         return interrupt_event, listener_thread
 
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         interrupt_event, listener_thread = exec_res
         # Join the interrupt listener so it doesn't linger
         interrupt_event.set()
         listener_thread.join()
         return "default"
 
-# Usage:
-node = StreamNode()
-flow = Flow(start=node)
+async def main():
+    # Usage:
+    node = StreamNode()
+    flow = Flow(start=node)
 
-shared = {"prompt": "What's the meaning of life?"}
-flow.run(shared)
+    shared = {"prompt": "What's the meaning of life?"}
+    await flow.run(shared)
+
+if __name__ == "__main__":
+    asyncio.run(main())

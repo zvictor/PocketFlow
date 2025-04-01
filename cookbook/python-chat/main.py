@@ -1,8 +1,9 @@
+import asyncio
 from brainyflow import Node, Flow
 from utils import call_llm
 
 class ChatNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         # Initialize messages if this is the first run
         if "messages" not in shared:
             shared["messages"] = []
@@ -21,7 +22,7 @@ class ChatNode(Node):
         # Return all messages for the LLM
         return shared["messages"]
 
-    def exec(self, messages):
+    async def exec(self, messages):
         if messages is None:
             return None
         
@@ -29,7 +30,7 @@ class ChatNode(Node):
         response = call_llm(messages)
         return response
 
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         if prep_res is None or exec_res is None:
             print("\nGoodbye!")
             return None  # End the conversation
@@ -49,7 +50,10 @@ chat_node - "continue" >> chat_node  # Loop back to continue conversation
 
 flow = Flow(start=chat_node)
 
+async def main():
+    shared = {}
+    await flow.run(shared)
+
 # Start the chat
 if __name__ == "__main__":
-    shared = {}
-    flow.run(shared)
+    asyncio.run(main())

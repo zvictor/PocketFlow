@@ -1,14 +1,14 @@
 from brainyflow import Node, Flow
 
 class TextInput(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Get text input from user."""
         if "text" not in shared:
             text = input("\nEnter text to convert: ")
             shared["text"] = text
         return shared["text"]
 
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         print("\nChoose transformation:")
         print("1. Convert to UPPERCASE")
         print("2. Convert to lowercase")
@@ -25,10 +25,10 @@ class TextInput(Node):
         return "transform"
 
 class TextTransform(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         return shared["text"], shared["choice"]
     
-    def exec(self, inputs):
+    async def exec(self, inputs):
         text, choice = inputs
         
         if choice == "1":
@@ -42,7 +42,7 @@ class TextTransform(Node):
         else:
             return "Invalid option!"
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         print("\nResult:", exec_res)
         
         if input("\nConvert another text? (y/n): ").lower() == 'y':

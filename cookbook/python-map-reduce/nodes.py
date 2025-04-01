@@ -6,7 +6,7 @@ import os
 class ReadResumesNode(Node):
     """Map phase: Read all resumes from the data directory into shared storage."""
     
-    def exec(self, _):
+    async def exec(self, _):
         resume_files = {}
         data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
         
@@ -18,7 +18,7 @@ class ReadResumesNode(Node):
         
         return resume_files
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         shared["resumes"] = exec_res
         return "default"
 
@@ -26,10 +26,10 @@ class ReadResumesNode(Node):
 class EvaluateResumesNode(BatchNode):
     """Batch processing: Evaluate each resume to determine if the candidate qualifies."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         return list(shared["resumes"].items())
     
-    def exec(self, resume_item):
+    async def exec(self, resume_item):
         """Evaluate a single resume."""
         filename, content = resume_item
         
@@ -60,7 +60,7 @@ reasons:
         
         return (filename, result)
 
-    def post(self, shared, prep_res, exec_res_list):
+    async def post(self, shared, prep_res, exec_res_list):
         shared["evaluations"] = {filename: result for filename, result in exec_res_list}
         return "default"
 
@@ -68,10 +68,10 @@ reasons:
 class ReduceResultsNode(Node):
     """Reduce node: Count and print out how many candidates qualify."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         return shared["evaluations"]
     
-    def exec(self, evaluations):
+    async def exec(self, evaluations):
         qualified_count = 0
         total_count = len(evaluations)
         qualified_candidates = []
@@ -90,7 +90,7 @@ class ReduceResultsNode(Node):
         
         return summary
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         shared["summary"] = exec_res
         
         print("\n===== Resume Qualification Summary =====")

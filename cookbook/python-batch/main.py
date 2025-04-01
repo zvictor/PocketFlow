@@ -1,9 +1,10 @@
 import os
+import asyncio
 from brainyflow import BatchNode, Flow
 from utils import call_llm
 
 class TranslateTextNode(BatchNode):
-    def prep(self, shared):
+    async def prep(self, shared):
         text = shared.get("text", "(No text provided)")
         languages = shared.get("languages", ["Chinese", "Spanish", "Japanese", "German", 
                               "Russian", "Portuguese", "French", "Korean"])
@@ -11,7 +12,7 @@ class TranslateTextNode(BatchNode):
         # Create batches for each language translation
         return [(text, lang) for lang in languages]
 
-    def exec(self, data_tuple):
+    async def exec(self, data_tuple):
         text, language = data_tuple
         
         prompt = f"""
@@ -30,7 +31,7 @@ Translated:"""
 
         return {"language": language, "translation": result}
 
-    def post(self, shared, prep_res, exec_res_list):
+    async def post(self, shared, prep_res, exec_res_list):
         # Create output directory if it doesn't exist
         output_dir = shared.get("output_dir", "translations")
         os.makedirs(output_dir, exist_ok=True)
@@ -46,7 +47,7 @@ Translated:"""
             
             print(f"Saved translation to {filename}")
 
-if __name__ == "__main__":
+async def main():
     # read the text from ../../README.md
     with open("../../README.md", "r") as f:
         text = f.read()
@@ -61,8 +62,11 @@ if __name__ == "__main__":
     # Run the translation flow
     translate_node = TranslateTextNode(max_retries=3)
     flow = Flow(start=translate_node)
-    flow.run(shared)
+    await flow.run(shared)
 
     print("\n=== Translation Complete ===")
     print(f"Translations saved to: {shared['output_dir']}")
     print("============================")
+
+if __name__ == "__main__":
+    asyncio.run(main())

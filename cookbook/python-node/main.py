@@ -1,6 +1,6 @@
 from flow import flow
 
-def main():
+async def main():
     # Example text to summarize
     text = """
     BrainyFlow is a minimalist LLM framework that models workflows as a Nested Directed Graph.
@@ -13,11 +13,11 @@ def main():
     shared = {"data": text}
     
     # Run the flow
-    flow.run(shared)
+    await flow.run(shared)
     
     # Print result
     print("\nInput text:", text)
     print("\nSummary:", shared["summary"])
 
 if __name__ == "__main__":
-    main() 
+    asyncio.run(main()) 

@@ -67,7 +67,7 @@ The example comes with a sample text about BrainyFlow, but you can modify `main.
 
 ```python
 shared = {"data": "Your text to summarize here..."}
-flow.run(shared)
+await flow.run(shared)
 print("Summary:", shared["summary"])
 ```
 

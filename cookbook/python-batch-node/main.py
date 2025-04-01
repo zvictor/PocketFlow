@@ -1,7 +1,7 @@
 import os
 from flow import create_flow
 
-def main():
+async def main():
     """Run the batch processing example."""
     # Create data directory if it doesn't exist
     os.makedirs("data", exist_ok=True)
@@ -30,7 +30,7 @@ def main():
     # Create and run flow
     print(f"Processing sales.csv in chunks...")
     flow = create_flow()
-    flow.run(shared)
+    await flow.run(shared)
 
 if __name__ == "__main__":
-    main() 
+    asyncio.run(main()) 

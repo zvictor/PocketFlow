@@ -1,7 +1,8 @@
 import sys
+import asyncio
 from flow import offline_flow, online_flow
 
-def run_rag_demo():
+async def run_rag_demo():
     """
     Run a demonstration of the RAG system.
     
@@ -76,10 +77,10 @@ def run_rag_demo():
     }
     
     # Initialize and run the offline flow (document indexing)
-    offline_flow.run(shared)
+    await offline_flow.run(shared)
     
     # Run the online flow to retrieve the most relevant document and generate an answer
-    online_flow.run(shared)
+    await online_flow.run(shared)
 
 
 if __name__ == "__main__":

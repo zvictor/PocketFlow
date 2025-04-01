@@ -1,10 +1,10 @@
 from flow import create_vision_flow
 
-def main():
+async def main():
     # Create and run flow
     flow = create_vision_flow()
     shared = {}
-    flow.run(shared)
+    await flow.run(shared)
     
     # Print results
     if "results" in shared:
@@ -14,4 +14,4 @@ def main():
             print(result["text"])
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

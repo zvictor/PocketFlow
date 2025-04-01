@@ -9,7 +9,7 @@ class CSVProcessor(BatchNode):
         super().__init__()
         self.chunk_size = chunk_size
     
-    def prep(self, shared):
+    async def prep(self, shared):
         """Split CSV file into chunks.
         
         Returns an iterator of DataFrames, each containing chunk_size rows.
@@ -21,7 +21,7 @@ class CSVProcessor(BatchNode):
         )
         return chunks
     
-    def exec(self, chunk):
+    async def exec(self, chunk):
         """Process a single chunk of the CSV.
         
         Args:
@@ -36,7 +36,7 @@ class CSVProcessor(BatchNode):
             "total_amount": chunk["amount"].sum()
         }
     
-    def post(self, shared, prep_res, exec_res_list):
+    async def post(self, shared, prep_res, exec_res_list):
         """Combine results from all chunks.
         
         Args:

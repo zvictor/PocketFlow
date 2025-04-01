@@ -4,18 +4,18 @@ import yaml
 import sys
 
 class GetToolsNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Initialize and get tools"""
         # The question is now passed from main via shared
         print("🔍 Getting available tools...")
         return "simple_server.py"
 
-    def exec(self, server_path):
+    async def exec(self, server_path):
         """Retrieve tools from the MCP server"""
         tools = get_tools(server_path)
         return tools
 
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Store tools and process to decision node"""
         tools = exec_res
         shared["tools"] = tools
@@ -38,7 +38,7 @@ class GetToolsNode(Node):
         return "decide"
 
 class DecideToolNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Prepare the prompt for LLM to process the question"""
         tool_info = shared["tool_info"]
         question = shared["question"]
@@ -73,13 +73,13 @@ IMPORTANT:
 """
         return prompt
 
-    def exec(self, prompt):
+    async def exec(self, prompt):
         """Call LLM to process the question and decide which tool to use"""
         print("🤔 Analyzing question and deciding which tool to use...")
         response = call_llm(prompt)
         return response
 
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Extract decision from YAML and save to shared context"""
         try:
             yaml_str = exec_res.split("```yaml")[1].split("```")[0].strip()
@@ -99,18 +99,18 @@ IMPORTANT:
             return None
 
 class ExecuteToolNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         """Prepare tool execution parameters"""
         return shared["tool_name"], shared["parameters"]
 
-    def exec(self, inputs):
+    async def exec(self, inputs):
         """Execute the chosen tool"""
         tool_name, parameters = inputs
         print(f"🔧 Executing tool '{tool_name}' with parameters: {parameters}")
         result = call_tool("simple_server.py", tool_name, parameters)
         return result
 
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         print(f"\n✅ Final Answer: {exec_res}")
         return "done"
 
@@ -140,4 +140,4 @@ if __name__ == "__main__":
     # Create and run flow
     flow = Flow(start=get_tools_node)
     shared = {"question": question}
-    flow.run(shared)
+    await flow.run(shared)

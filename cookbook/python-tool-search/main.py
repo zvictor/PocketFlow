@@ -1,7 +1,7 @@
 import os
 from flow import create_flow
 
-def main():
+async def main():
     """Run the web search flow"""
     
     # Get search query from user
@@ -18,9 +18,9 @@ def main():
     
     # Create and run flow
     flow = create_flow()
-    flow.run(shared)
+    await flow.run(shared)
     
     # Results are in shared["analysis"]
     
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

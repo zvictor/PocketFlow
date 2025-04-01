@@ -17,7 +17,7 @@ def create_base_flow():
 class ClassBatchFlow(BatchFlow):
     """BatchFlow for processing all students in a class."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         """Generate parameters for each student in the class."""
         # Get class folder from parameters
         class_folder = self.params["class"]
@@ -29,7 +29,7 @@ class ClassBatchFlow(BatchFlow):
         # Return parameters for each student
         return [{"student": student} for student in students]
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Calculate and print class average."""
         class_name = self.params["class"]
         class_results = shared["results"][class_name]
@@ -41,7 +41,7 @@ class ClassBatchFlow(BatchFlow):
 class SchoolBatchFlow(BatchFlow):
     """BatchFlow for processing all classes in the school."""
     
-    def prep(self, shared):
+    async def prep(self, shared):
         """Generate parameters for each class."""
         # List all class folders
         classes = [d for d in os.listdir("school") if os.path.isdir(os.path.join("school", d))]
@@ -49,7 +49,7 @@ class SchoolBatchFlow(BatchFlow):
         # Return parameters for each class
         return [{"class": class_name} for class_name in classes]
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         """Calculate and print school average."""
         all_grades = []
         for class_results in shared["results"].values():

@@ -15,7 +15,7 @@ def run_flow(topic="AI Safety"):
     
     # Run the flow
     flow = create_article_flow()
-    flow.run(shared)
+    await flow.run(shared)
     
     # Output summary
     print("\n=== Workflow Completed ===\n")

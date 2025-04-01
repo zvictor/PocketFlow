@@ -2,7 +2,7 @@ from brainyflow import Node, Flow
 from utils import call_llm
 
 class UserInputNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         # Initialize messages if this is the first run
         if "messages" not in shared:
             shared["messages"] = []
@@ -10,12 +10,12 @@ class UserInputNode(Node):
         
         return None
 
-    def exec(self, _):
+    async def exec(self, _):
         # Get user input
         user_input = input("\nYou: ")
         return user_input
 
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         user_input = exec_res
         
         # Check if user wants to exit
@@ -30,12 +30,12 @@ class UserInputNode(Node):
         return "validate"
 
 class GuardrailNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         # Get the user input from shared data
         user_input = shared.get("user_input", "")
         return user_input
     
-    def exec(self, user_input):
+    async def exec(self, user_input):
         # Basic validation checks
         if not user_input or user_input.strip() == "":
             return False, "Your query is empty. Please provide a travel-related question."
@@ -70,7 +70,7 @@ reason: [Explain why the query is valid or invalid]
         
         return is_valid, reason
     
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         is_valid, message = exec_res
         
         if not is_valid:
@@ -85,7 +85,7 @@ reason: [Explain why the query is valid or invalid]
         return "process"
 
 class LLMNode(Node):
-    def prep(self, shared):
+    async def prep(self, shared):
         # Add system message if not present
         if not any(msg.get("role") == "system" for msg in shared["messages"]):
             shared["messages"].insert(0, {
@@ -96,12 +96,12 @@ class LLMNode(Node):
         # Return all messages for the LLM
         return shared["messages"]
 
-    def exec(self, messages):
+    async def exec(self, messages):
         # Call LLM with the entire conversation history
         response = call_llm(messages)
         return response
 
-    def post(self, shared, prep_res, exec_res):
+    async def post(self, shared, prep_res, exec_res):
         # Print the assistant's response
         print(f"\nTravel Advisor: {exec_res}")
         
@@ -127,4 +127,4 @@ flow = Flow(start=user_input_node)
 # Start the chat
 if __name__ == "__main__":
     shared = {}
-    flow.run(shared)
+    await flow.run(shared)

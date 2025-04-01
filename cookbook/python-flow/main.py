@@ -1,6 +1,6 @@
 from flow import flow
 
-def main():
+async def main():
     print("\nWelcome to Text Converter!")
     print("=========================")
     
@@ -8,9 +8,9 @@ def main():
     shared = {}
     
     # Run the flow
-    flow.run(shared)
+    await flow.run(shared)
     
     print("\nThank you for using Text Converter!")
 
 if __name__ == "__main__":
-    main() 
+    asyncio.run(main()) 

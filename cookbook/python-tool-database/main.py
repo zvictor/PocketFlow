@@ -1,6 +1,6 @@
 from flow import create_database_flow
 
-def main():
+async def main():
     # Create the flow
     flow = create_database_flow()
     
@@ -11,7 +11,7 @@ def main():
     }
     
     # Run the flow
-    flow.run(shared)
+    await flow.run(shared)
     
     # Print results
     print("Database Status:", shared.get("db_status"))
@@ -26,4 +26,4 @@ def main():
         print()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

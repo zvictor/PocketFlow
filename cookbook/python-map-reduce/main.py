@@ -1,6 +1,6 @@
 from flow import create_resume_processing_flow
 
-def main():
+async def main():
     # Initialize shared store
     shared = {}
     
@@ -22,4 +22,4 @@ def main():
     print("\nResume processing complete!")
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

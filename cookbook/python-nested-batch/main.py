@@ -27,7 +27,7 @@ def create_sample_data():
                 for grade in grades:
                     f.write(f"{grade}\n")
 
-def main():
+async def main():
     """Run the nested batch example."""
     # Create sample data
     create_sample_data()
@@ -36,7 +36,7 @@ def main():
     
     # Create and run flow
     flow = create_flow()
-    flow.run({})
+    await flow.run({})
 
 if __name__ == "__main__":
-    main() 
+    asyncio.run(main()) 
