@@ -35,4 +35,4 @@
 
 ## Guides
 
-- [Agentic Coding Guide](guide.md)
+- [Agentic Coding Guide](agentic_coding.md)
