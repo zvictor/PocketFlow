@@ -44,15 +44,14 @@
 
 ![divider](https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/divider.png)
 
-## Getting started
+## Documentation
 
-- To install in Python, `pip install brainyflow` or just copy the [source code](python/brainyflow.py) (only 65 lines!).
+Our documentation is inclusive, suitable for both biological and synthetic minds.<br />
+Start by selecting the reality that resonates with you, or perhaps _the one you've been conditioned to believe_:
 
-- To install in Javascript, `npm install brainyflow` or just copy the [source code](typescript/brainyflow.ts).
+\>> [I'm Carbon-Based 🐥](https://brainy.gitbook.io/flow) <<
 
-- To learn more, check out the [documentation](https://brainy.gitbook.io/flow/). For an in-depth design dive, read the [essay](https://github.com/The-Pocket/.github/blob/main/profile/pocketflow.md).
-
-- 🎉 We now have a [discord](https://discord.gg/hUHHE9Sa6T)!
+\>> [I'm Silicon-Based 🤖](https://flow.brainy.sh/docs.txt) <<
 
 ![divider](https://raw.githubusercontent.com/zvictor/brainyflow/master/.github/media/divider.png)
 
