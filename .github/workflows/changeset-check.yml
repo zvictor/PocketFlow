@@ -105,8 +105,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const generateChangesetComment = require('./.github/scripts/generate-changeset-comment.js');
-            const commentBody = generateChangesetComment(context, 'Python');
+            const tools = await import('${{ github.workspace }}/.github/scripts/generate-changeset-comment.js');
+
+            const commentBody = tools.generateChangesetComment(context, 'Python');
 
             const commentId = ${{ steps.find-python-comment.outputs.comment-id }};
 
@@ -132,8 +133,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const generateChangesetComment = require('./.github/scripts/generate-changeset-comment.js');
-            const commentBody = generateChangesetComment(context, 'TypeScript');
+            const tools = await import('${{ github.workspace }}/.github/scripts/generate-changeset-comment.js');
+
+            const commentBody = tools.generateChangesetComment(context, 'TypeScript');
 
             const commentId = ${{ steps.find-typescript-comment.outputs.comment-id }};
 

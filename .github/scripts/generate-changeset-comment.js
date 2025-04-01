@@ -1,4 +1,4 @@
-const humanId = require('human-id')
+import humanId from 'human-id'
 
 function getNewChangesetTemplate(packageName, title) {
   return encodeURIComponent(`---
@@ -42,4 +42,4 @@ function generateChangesetComment(context, packageType) {
   This will help document your changes and ensure proper versioning.`
 }
 
-module.exports = generateChangesetComment
+module.exports = { generateChangesetComment }
