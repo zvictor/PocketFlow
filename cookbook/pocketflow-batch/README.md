@@ -1,14 +1,11 @@
-# Majority Vote Reasoning
+# Batch Translation Process
 
-This project demonstrates a majority vote implementation that enables LLMs to solve complex reasoning problems by aggregating multiple independent attempts. It's designed to improve problem-solving accuracy through consensus-based reasoning.
+This project demonstrates a batch processing implementation that enables LLMs to translate documents into multiple languages simultaneously. It's designed to efficiently handle the translation of markdown files while preserving formatting.
 
 ## Features
 
-- Improves model reliability on complex problems through multiple attempts
-- Works with models like Claude 3.7 Sonnet
-- Solves problems that single attempts often fail on
-- Provides detailed reasoning traces for verification
-- Uses a consensus approach to reduce the impact of occasional reasoning errors
+- Translates markdown content into multiple languages in parallel
+- Saves translated files to specified output directory
 
 ## Getting Started
 
@@ -22,35 +19,34 @@ pip install -r requirements.txt
 export ANTHROPIC_API_KEY="your-api-key-here"
 ```
 
-3. Run a test problem to see majority voting in action:
+3. Run the translation process:
 ```bash
 python main.py
 ```
 
 ## How It Works
 
-The implementation uses a MajorityVoteNode that processes multiple attempts and finds consensus:
+The implementation uses a `TranslateTextNode` that processes batches of translation requests:
 
 ```mermaid
 flowchart LR
-    mv[MajorityVoteNode] 
+    batch[TranslateTextNode]
 ```
 
-The MajorityVoteNode:
-1. Makes multiple independent attempts to solve the same problem
-2. Collects structured answers from each attempt
-3. Determines the most frequent answer as the final solution
-4. Returns the consensus answer
+The `TranslateTextNode`:
+1. Prepares batches for multiple language translations
+2. Executes translations in parallel using the model
+3. Saves the translated content to individual files
+4. Maintains the original markdown structure
 
-This approach helps overcome occasional reasoning errors that might occur in individual attempts.
+This approach demonstrates how PocketFlow can efficiently process multiple related tasks in parallel.
 
 ## Example Output
 
-Below is an example of how the majority vote approach uses Claude 3.7 Sonnet to solve this complex problem:
+When you run the translation process, you'll see output similar to this:
 
 ```
 Translated Chinese text
-
 Translated Spanish text
 Translated Japanese text
 Translated German text
@@ -72,9 +68,10 @@ Translations saved to: translations
 ============================
 ```
 
-
-
 ## Files
 
-- [`main.py`](./main.py): Implementation of the majority vote node and flow
+- [`main.py`](./main.py): Implementation of the batch translation node
 - [`utils.py`](./utils.py): Simple wrapper for calling the Anthropic model
+- [`requirements.txt`](./requirements.txt): Project dependencies
+
+The translations are saved to the `translations` directory, with each file named according to the target language.
