@@ -38,6 +38,8 @@ jobs:
           version: 10
           run_install: false # We don't need to install root dependencies for this check
 
+      - run: pnpm add human-id
+
       # Need to determine which paths were changed to conditionally run the checks
       # This uses the dorny/paths-filter action to check changed files
       - uses: dorny/paths-filter@v3
@@ -85,6 +87,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const humanId = require('human-id')
+
+            const getNewChangesetTemplate = (changedPackages: string[], title: string) =>
+              encodeURIComponent(`---
+            ${changedPackages.map((x) => `"${x}": patch`).join("\n")}
+            ---
+
+            ${title}
+            `);
+
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
