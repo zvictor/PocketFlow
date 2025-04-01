@@ -36,10 +36,12 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 10
-          run_install: false # We don't need to install root dependencies for this check
+          run_install: false
+
+      - name: Install human-id
+        run: pnpm install human-id
 
       # Need to determine which paths were changed to conditionally run the checks
-      # This uses the dorny/paths-filter action to check changed files
       - uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -103,56 +105,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // Generate a random ID for the changeset file
-            function generateId() {
-              const adjectives = ['rare', 'calm', 'tasty', 'healthy', 'afraid', 'strange', 'two', 'happy'];
-              const nouns = ['ghosts', 'snails', 'rocks', 'cows', 'walls', 'cars', 'lizards', 'lions'];
-              const verbs = ['talk', 'dream', 'sparkle', 'smile', 'exist', 'rush', 'sing', 'jump'];
-              
-              const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-              const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-              const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
-              
-              return `${randomAdjective}-${randomNoun}-${randomVerb}`.toLowerCase();
-            }
-            
-            const getNewChangesetTemplate = (title) =>
-              encodeURIComponent(`---
-"python-package": patch
----
+            const generateChangesetComment = require('./.github/scripts/generate-changeset-comment.js');
+            const commentBody = generateChangesetComment(context, 'Python');
 
-${title}
-`);
-
-            const changesetUrl = `${
-              context.payload.pull_request.head.repo.html_url
-            }/new/${
-              context.payload.pull_request.head.ref
-            }?filename=python/.changeset/${generateId()}.md&value=${getNewChangesetTemplate(
-              context.payload.pull_request.title
-            )}`;
-            
-            const commentBody = `## Missing Python Changeset 🐍
-            
-            Changes to the Python package were detected, but no changeset was found.
-            Merging this PR will not cause a version bump for the Python package.
-            
-            If these changes should not result in a new version, you're good to go. **If these changes should result in a version bump, you need to add a changeset.**
-
-            [Click here to learn what changesets are, and how to add one](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md).
-
-            [Click here if you're a maintainer who wants to add a changeset to this PR](${changesetUrl})
-            
-            Alternatively, you can add a changeset by running:
-            \`\`\`
-            cd python
-            pnpm changeset
-            \`\`\`
-            
-            This will help document your changes and ensure proper versioning.`;
-            
             const commentId = ${{ steps.find-python-comment.outputs.comment-id }};
-            
+
             if (commentId) {
               await github.rest.issues.updateComment({
                 owner: context.repo.owner,
@@ -175,56 +132,11 @@ ${title}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // Generate a random ID for the changeset file
-            function generateId() {
-              const adjectives = ['rare', 'calm', 'tasty', 'healthy', 'afraid', 'strange', 'two', 'happy'];
-              const nouns = ['ghosts', 'snails', 'rocks', 'cows', 'walls', 'cars', 'lizards', 'lions'];
-              const verbs = ['talk', 'dream', 'sparkle', 'smile', 'exist', 'rush', 'sing', 'jump'];
-              
-              const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-              const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-              const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
-              
-              return `${randomAdjective}-${randomNoun}-${randomVerb}`.toLowerCase();
-            }
-            
-            const getNewChangesetTemplate = (title) =>
-              encodeURIComponent(`---
-"typescript-package": patch
----
+            const generateChangesetComment = require('./.github/scripts/generate-changeset-comment.js');
+            const commentBody = generateChangesetComment(context, 'TypeScript');
 
-${title}
-`);
-
-            const changesetUrl = `${
-              context.payload.pull_request.head.repo.html_url
-            }/new/${
-              context.payload.pull_request.head.ref
-            }?filename=typescript/.changeset/${generateId()}.md&value=${getNewChangesetTemplate(
-              context.payload.pull_request.title
-            )}`;
-            
-            const commentBody = `## Missing TypeScript Changeset 📝
-            
-            Changes to the TypeScript package were detected, but no changeset was found.
-            Merging this PR will not cause a version bump for the TypeScript package.
-            
-            If these changes should not result in a new version, you're good to go. **If these changes should result in a version bump, you need to add a changeset.**
-
-            [Click here to learn what changesets are, and how to add one](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md).
-
-            [Click here if you're a maintainer who wants to add a changeset to this PR](${changesetUrl})
-            
-            Alternatively, you can add a changeset by running:
-            \`\`\`
-            cd typescript
-            pnpm changeset
-            \`\`\`
-            
-            This will help document your changes and ensure proper versioning.`;
-            
             const commentId = ${{ steps.find-typescript-comment.outputs.comment-id }};
-            
+
             if (commentId) {
               await github.rest.issues.updateComment({
                 owner: context.repo.owner,
