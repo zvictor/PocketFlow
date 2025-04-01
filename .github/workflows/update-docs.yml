@@ -3,10 +3,9 @@ name: Update Docs on gh-pages
 on:
   push:
     branches:
-      - '*'
-    #   - main
-    # paths:
-    #   - 'docs/**'
+      - main
+    paths:
+      - 'docs/**'
 
 permissions:
   contents: write # Needed to push to gh-pages branch
