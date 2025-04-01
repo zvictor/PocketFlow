@@ -1,0 +1,64 @@
+name: Check for Changesets
+
+on:
+  pull_request:
+    branches:
+      - '*'
+    paths:
+      - 'python/**'
+      - 'typescript/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check for missing changesets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        # Fetch depth 0 is required for changeset action to correctly compare branches
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23' # Match the version used in typescript-publish.yml
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10 # Match user's pnpm version
+          run_install: false # We don't need to install root dependencies for this check
+
+      # Need to determine which paths were changed to conditionally run the checks
+      # This uses the dorny/paths-filter action to check changed files
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            python:
+              - 'python/**'
+            typescript:
+              - 'typescript/**'
+
+      - name: Check for Python changesets
+        # Only run this step if python files were changed
+        if: steps.filter.outputs.python == 'true'
+        uses: changesets/action@v1
+        with:
+          cwd: ./python
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for TypeScript changesets
+        # Only run this step if typescript files were changed
+        if: steps.filter.outputs.typescript == 'true'
+        uses: changesets/action@v1
+        with:
+          cwd: ./typescript
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
