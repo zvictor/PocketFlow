@@ -1,6 +1,6 @@
-# PocketFlow Communication Example
+# BrainyFlow Communication Example
 
-This example demonstrates the [Communication](https://the-pocket.github.io/PocketFlow/communication.html) concept in PocketFlow, specifically focusing on the Shared Store pattern.
+This example demonstrates the [Communication](https://brainy.gitbook.io/flow/communication) concept in BrainyFlow, specifically focusing on the Shared Store pattern.
 
 ## Overview
 
@@ -14,7 +14,7 @@ The example implements a simple word counter that shows how nodes can communicat
 ## Project Structure
 
 ```
-pocketflow-communication/
+python-communication/
 ├── README.md
 ├── requirements.txt
 ├── main.py
@@ -35,6 +35,7 @@ python main.py
 ```
 
 Enter text when prompted. The program will:
+
 1. Count words in the text
 2. Store statistics in the shared store
 3. Display running statistics (total texts, total words, average)
@@ -49,4 +50,4 @@ The example uses three nodes:
 2. `WordCounter`: Counts words and updates statistics in the shared store
 3. `ShowStats`: Displays statistics from the shared store
 
-This demonstrates how nodes can share and maintain state using the shared store pattern. 
+This demonstrates how nodes can share and maintain state using the shared store pattern.

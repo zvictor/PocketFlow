@@ -1,14 +1,16 @@
-# SQLite Database with PocketFlow
+# SQLite Database with BrainyFlow
 
-This example demonstrates how to properly integrate SQLite database operations with PocketFlow, focusing on:
+This example demonstrates how to properly integrate SQLite database operations with BrainyFlow, focusing on:
 
 1. Clean code organization with separation of concerns:
+
    - Tools layer for database operations (`tools/database.py`)
-   - Node implementation for PocketFlow integration (`nodes.py`)
+   - Node implementation for BrainyFlow integration (`nodes.py`)
    - Flow configuration (`flow.py`)
    - Safe SQL query execution with parameter binding
 
 2. Best practices for database operations:
+
    - Connection management with proper closing
    - SQL injection prevention using parameterized queries
    - Error handling and resource cleanup
@@ -23,10 +25,10 @@ This example demonstrates how to properly integrate SQLite database operations w
 ## Project Structure
 
 ```
-pocketflow-tool-database/
+python-tool-database/
 ├── tools/
 │   └── database.py    # SQLite database operations
-├── nodes.py          # PocketFlow node implementation
+├── nodes.py          # BrainyFlow node implementation
 ├── flow.py          # Flow configuration
 └── main.py          # Example usage
 ```
@@ -34,12 +36,14 @@ pocketflow-tool-database/
 ## Setup
 
 1. Create a virtual environment:
+
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 2. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -47,11 +51,13 @@ pip install -r requirements.txt
 ## Usage
 
 Run the example:
+
 ```bash
 python main.py
 ```
 
 This will:
+
 1. Initialize a SQLite database with a tasks table
 2. Create an example task
 3. List all tasks in the database
@@ -60,16 +66,18 @@ This will:
 ## Key Concepts Demonstrated
 
 1. **Database Operations**
+
    - Safe connection handling
    - Query parameterization
    - Schema management
 
 2. **Code Organization**
-   - Clear separation between database operations and PocketFlow components
+
+   - Clear separation between database operations and BrainyFlow components
    - Modular project structure
    - Type hints and documentation
 
-3. **PocketFlow Integration**
+3. **BrainyFlow Integration**
    - Node implementation with prep->exec->post lifecycle
    - Flow configuration
    - Shared store usage for data passing
@@ -83,7 +91,7 @@ Task Status: Task created successfully
 All Tasks:
 - ID: 1
   Title: Example Task
-  Description: This is an example task created using PocketFlow
+  Description: This is an example task created using BrainyFlow
   Status: pending
   Created: 2024-03-02 12:34:56
 ```

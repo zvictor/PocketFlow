@@ -1,5 +1,5 @@
 import pandas as pd
-from pocketflow import BatchNode
+from brainyflow import BatchNode
 
 class CSVProcessor(BatchNode):
     """BatchNode that processes a large CSV file in chunks."""

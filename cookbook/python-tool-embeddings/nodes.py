@@ -1,4 +1,4 @@
-from pocketflow import Node
+from brainyflow import Node
 from tools.embeddings import get_embedding
 
 class EmbeddingNode(Node):

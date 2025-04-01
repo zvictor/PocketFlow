@@ -1,4 +1,4 @@
-from pocketflow import Flow
+from brainyflow import Flow
 from nodes import CrawlWebsiteNode, AnalyzeContentBatchNode, GenerateReportNode
 
 def create_flow() -> Flow:

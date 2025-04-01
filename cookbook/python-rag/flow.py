@@ -1,4 +1,4 @@
-from pocketflow import Flow
+from brainyflow import Flow
 from nodes import EmbedDocumentsNode, CreateIndexNode, EmbedQueryNode, RetrieveDocumentNode, ChunkDocumentsNode, GenerateAnswerNode
 
 def get_offline_flow():

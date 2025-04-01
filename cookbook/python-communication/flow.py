@@ -1,6 +1,6 @@
 """Flow configuration for the communication example."""
 
-from pocketflow import Flow
+from brainyflow import Flow
 from nodes import TextInput, WordCounter, ShowStats, EndNode
 
 def create_flow():

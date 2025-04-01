@@ -3,7 +3,7 @@ import os
 import asyncio
 from PIL import Image, ImageFilter
 import numpy as np
-from pocketflow import AsyncNode
+from brainyflow import AsyncNode
 
 class LoadImage(AsyncNode):
     """Node that loads an image from file."""

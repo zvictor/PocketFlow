@@ -10,16 +10,19 @@ This project demonstrates a batch processing implementation that enables LLMs to
 ## Getting Started
 
 1. Install the required packages:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 2. Set up your API key:
+
 ```bash
 export ANTHROPIC_API_KEY="your-api-key-here"
 ```
 
 3. Run the translation process:
+
 ```bash
 python main.py
 ```
@@ -34,12 +37,13 @@ flowchart LR
 ```
 
 The `TranslateTextNode`:
+
 1. Prepares batches for multiple language translations
 2. Executes translations in parallel using the model
 3. Saves the translated content to individual files
 4. Maintains the original markdown structure
 
-This approach demonstrates how PocketFlow can efficiently process multiple related tasks in parallel.
+This approach demonstrates how BrainyFlow can efficiently process multiple related tasks in parallel.
 
 ## Example Output
 

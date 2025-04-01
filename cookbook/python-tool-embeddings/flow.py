@@ -1,4 +1,4 @@
-from pocketflow import Flow
+from brainyflow import Flow
 from nodes import EmbeddingNode
 
 def create_embedding_flow():

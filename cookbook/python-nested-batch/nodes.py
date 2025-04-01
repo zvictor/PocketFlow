@@ -1,5 +1,5 @@
 import os
-from pocketflow import Node
+from brainyflow import Node
 
 class LoadGrades(Node):
     """Node that loads grades from a student's file."""

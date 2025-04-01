@@ -1,6 +1,6 @@
 # Web Crawler with Content Analysis
 
-A web crawler tool built with PocketFlow that crawls websites and analyzes content using LLM.
+A web crawler tool built with BrainyFlow that crawls websites and analyzes content using LLM.
 
 ## Features
 
@@ -28,15 +28,18 @@ A web crawler tool built with PocketFlow that crawls websites and analyzes conte
 ## Usage
 
 Run the crawler:
+
 ```bash
 python main.py
 ```
 
 You will be prompted to:
+
 1. Enter the website URL to crawl
 2. Specify maximum number of pages to crawl (default: 10)
 
 The tool will then:
+
 1. Crawl the specified website
 2. Extract and analyze content using GPT-4
 3. Generate a report with findings
@@ -44,13 +47,13 @@ The tool will then:
 ## Project Structure
 
 ```
-pocketflow-tool-crawler/
+python-tool-crawler/
 ├── tools/
 │   ├── crawler.py     # Web crawling functionality
 │   └── parser.py      # Content analysis using LLM
 ├── utils/
 │   └── call_llm.py    # LLM API wrapper
-├── nodes.py           # PocketFlow nodes
+├── nodes.py           # BrainyFlow nodes
 ├── flow.py           # Flow configuration
 ├── main.py           # Main script
 └── requirements.txt   # Dependencies
@@ -65,7 +68,7 @@ pocketflow-tool-crawler/
 
 ## Dependencies
 
-- pocketflow: Flow-based processing
+- brainyflow: Flow-based processing
 - requests: HTTP requests
 - beautifulsoup4: HTML parsing
 - openai: GPT-4 API access

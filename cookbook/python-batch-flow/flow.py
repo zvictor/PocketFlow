@@ -1,4 +1,4 @@
-from pocketflow import Flow, BatchFlow
+from brainyflow import Flow, BatchFlow
 from nodes import LoadImage, ApplyFilter, SaveImage
 
 def create_base_flow():

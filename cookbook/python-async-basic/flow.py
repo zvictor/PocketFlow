@@ -1,6 +1,6 @@
 """AsyncFlow implementation for recipe finder."""
 
-from pocketflow import AsyncFlow, Node
+from brainyflow import AsyncFlow, Node
 from nodes import FetchRecipes, SuggestRecipe, GetApproval
 
 class NoOp(Node):

@@ -1,5 +1,5 @@
 import argparse
-from pocketflow import BatchNode, Flow
+from brainyflow import BatchNode, Flow
 import collections
 from utils import call_llm
 import yaml

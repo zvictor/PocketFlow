@@ -1,6 +1,6 @@
 # Resume Qualification - Map Reduce Example
 
-A PocketFlow example that demonstrates how to implement a Map-Reduce pattern for processing and evaluating resumes.
+A BrainyFlow example that demonstrates how to implement a Map-Reduce pattern for processing and evaluating resumes.
 
 ## Features
 

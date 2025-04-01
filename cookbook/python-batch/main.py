@@ -1,5 +1,5 @@
 import os
-from pocketflow import BatchNode, Flow
+from brainyflow import BatchNode, Flow
 from utils import call_llm
 
 class TranslateTextNode(BatchNode):

@@ -1,6 +1,6 @@
 import time
 import threading
-from pocketflow import Node, Flow
+from brainyflow import Node, Flow
 from utils import fake_stream_llm, stream_llm
 
 class StreamNode(Node):

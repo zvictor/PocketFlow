@@ -1,4 +1,4 @@
-from pocketflow import Flow
+from brainyflow import Flow
 from nodes import GetUserQuestionNode, RetrieveNode, AnswerNode, EmbedNode
 
 def create_chat_flow():

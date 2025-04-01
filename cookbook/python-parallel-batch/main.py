@@ -1,7 +1,7 @@
 import asyncio
 import time
 
-from pocketflow import AsyncBatchNode, AsyncParallelBatchNode, AsyncFlow
+from brainyflow import AsyncBatchNode, AsyncParallelBatchNode, AsyncFlow
 
 ####################################
 # Dummy async function (1s delay)

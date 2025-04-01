@@ -1,6 +1,6 @@
-# PocketFlow Tool: PDF Vision
+# BrainyFlow Tool: PDF Vision
 
-A PocketFlow example project demonstrating PDF processing with OpenAI's Vision API for OCR and text extraction.
+A BrainyFlow example project demonstrating PDF processing with OpenAI's Vision API for OCR and text extraction.
 
 ## Features
 
@@ -34,14 +34,14 @@ A PocketFlow example project demonstrating PDF processing with OpenAI's Vision A
 ## Project Structure
 
 ```
-pocketflow-tool-pdf-vision/
+python-tool-pdf-vision/
 ├── pdfs/           # Directory for PDF files to process
 ├── tools/
 │   ├── pdf.py     # PDF to image conversion
 │   └── vision.py  # Vision API integration
 ├── utils/
 │   └── call_llm.py # OpenAI client config
-├── nodes.py       # PocketFlow nodes
+├── nodes.py       # BrainyFlow nodes
 ├── flow.py        # Flow configuration
 └── main.py        # Example usage
 ```

@@ -1,4 +1,4 @@
-from pocketflow import Node, Flow, BatchNode
+from brainyflow import Node, Flow, BatchNode
 import numpy as np
 import faiss
 from utils import call_llm, get_embedding, get_simple_embedding, fixed_size_chunk

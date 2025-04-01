@@ -1,4 +1,4 @@
-from pocketflow import Node, Flow
+from brainyflow import Node, Flow
 from utils.call_llm import call_llm
 
 class Summarize(Node):

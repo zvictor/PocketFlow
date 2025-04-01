@@ -1,6 +1,6 @@
 # Article Writing Workflow
 
-A PocketFlow example that demonstrates an article writing workflow using a sequence of LLM calls.
+A BrainyFlow example that demonstrates an article writing workflow using a sequence of LLM calls.
 
 ## Features
 

@@ -1,6 +1,6 @@
 """Flow definitions for parallel image processing."""
 
-from pocketflow import AsyncFlow, AsyncParallelBatchFlow, AsyncBatchFlow
+from brainyflow import AsyncFlow, AsyncParallelBatchFlow, AsyncBatchFlow
 from nodes import LoadImage, ApplyFilter, SaveImage, NoOp
 
 def create_base_flow():

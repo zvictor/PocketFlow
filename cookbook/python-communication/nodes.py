@@ -1,6 +1,6 @@
 """Node implementations for the communication example."""
 
-from pocketflow import Node
+from brainyflow import Node
 
 class EndNode(Node):
     """Node that handles flow termination."""

@@ -1,4 +1,4 @@
-from pocketflow import Flow
+from brainyflow import Flow
 from nodes import ProcessPDFBatchNode
 
 def create_vision_flow():

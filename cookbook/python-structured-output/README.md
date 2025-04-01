@@ -1,6 +1,6 @@
 # Structured Output Demo
 
-A minimal demo application showing how to use PocketFlow to extract structured data from a resume using direct prompting and YAML formatting.
+A minimal demo application showing how to use BrainyFlow to extract structured data from a resume using direct prompting and YAML formatting.
 
 ## Features
 
@@ -10,18 +10,20 @@ A minimal demo application showing how to use PocketFlow to extract structured d
 ## Run It
 
 1. Make sure your OpenAI API key is set:
-    ```bash
-    export OPENAI_API_KEY="your-api-key-here"
-    ```
-    Alternatively, you can edit the `utils.py` file to include your API key directly.
+
+   ```bash
+   export OPENAI_API_KEY="your-api-key-here"
+   ```
+
+   Alternatively, you can edit the `utils.py` file to include your API key directly.
 
 2. Edit data.txt with the resume you want to parse (a sample resume is already included)
 
 3. Install requirements and run the application:
-    ```bash
-    pip install -r requirements.txt
-    python main.py
-    ```
+   ```bash
+   pip install -r requirements.txt
+   python main.py
+   ```
 
 ## How It Works
 
@@ -31,6 +33,7 @@ flowchart LR
 ```
 
 The Resume Parser application uses a single node that:
+
 1. Takes resume text from the shared state (loaded from data.txt)
 2. Sends the resume to an LLM with a prompt that requests YAML formatted output
 3. Extracts and validates the structured YAML data
@@ -41,7 +44,7 @@ The Resume Parser application uses a single node that:
 - [`main.py`](./main.py): Implementation of the ResumeParserNode
 - [`utils.py`](./utils.py): LLM utilities
 - [`data.txt`](./data.txt): Sample resume text file
- 
+
 ## Example Output
 
 ```

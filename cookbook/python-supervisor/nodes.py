@@ -1,4 +1,4 @@
-from pocketflow import Node
+from brainyflow import Node
 from utils import call_llm, search_web
 import yaml
 import random

@@ -1,4 +1,4 @@
-from pocketflow import Node, BatchNode
+from brainyflow import Node, BatchNode
 from tools.pdf import pdf_to_images
 from tools.vision import extract_text_from_image
 from typing import List, Dict, Any
@@ -113,7 +113,7 @@ class CombineResultsNode(Node):
 
 def create_single_pdf_flow():
     """Create a flow for processing a single PDF"""
-    from pocketflow import Flow
+    from brainyflow import Flow
     
     # Create nodes
     load_pdf = LoadPDFNode()

@@ -7,7 +7,7 @@ def main():
     # Prepare example task data
     shared = {
         "task_title": "Example Task",
-        "task_description": "This is an example task created using PocketFlow"
+        "task_description": "This is an example task created using BrainyFlow"
     }
     
     # Run the flow

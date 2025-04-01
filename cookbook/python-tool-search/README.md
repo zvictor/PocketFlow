@@ -1,6 +1,6 @@
 # Web Search with Analysis
 
-A web search tool built with PocketFlow that performs searches using SerpAPI and analyzes results using LLM.
+A web search tool built with BrainyFlow that performs searches using SerpAPI and analyzes results using LLM.
 
 ## Features
 
@@ -28,15 +28,18 @@ A web search tool built with PocketFlow that performs searches using SerpAPI and
 ## Usage
 
 Run the search tool:
+
 ```bash
 python main.py
 ```
 
 You will be prompted to:
+
 1. Enter your search query
 2. Specify number of results to fetch (default: 5)
 
 The tool will then:
+
 1. Perform the search using SerpAPI
 2. Analyze results using GPT-4
 3. Present a summary with key points and follow-up queries
@@ -44,13 +47,13 @@ The tool will then:
 ## Project Structure
 
 ```
-pocketflow-tool-search/
+python-tool-search/
 ├── tools/
 │   ├── search.py      # SerpAPI search functionality
 │   └── parser.py      # Result analysis using LLM
 ├── utils/
 │   └── call_llm.py    # LLM API wrapper
-├── nodes.py           # PocketFlow nodes
+├── nodes.py           # BrainyFlow nodes
 ├── flow.py           # Flow configuration
 ├── main.py           # Main script
 └── requirements.txt   # Dependencies
@@ -65,7 +68,7 @@ pocketflow-tool-search/
 
 ## Dependencies
 
-- pocketflow: Flow-based processing
+- brainyflow: Flow-based processing
 - google-search-results: SerpAPI client
 - openai: GPT-4 API access
 - pyyaml: YAML processing

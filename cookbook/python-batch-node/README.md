@@ -1,6 +1,6 @@
-# PocketFlow BatchNode Example
+# BrainyFlow BatchNode Example
 
-This example demonstrates the BatchNode concept in PocketFlow by implementing a CSV processor that handles large files by processing them in chunks.
+This example demonstrates the BatchNode concept in BrainyFlow by implementing a CSV processor that handles large files by processing them in chunks.
 
 ## What this Example Demonstrates
 
@@ -11,8 +11,9 @@ This example demonstrates the BatchNode concept in PocketFlow by implementing a 
   3. `post`: Combines results from all chunks
 
 ## Project Structure
+
 ```
-pocketflow-batch-node/
+python-batch-node/
 ├── README.md
 ├── requirements.txt
 ├── data/
@@ -60,4 +61,4 @@ Final Statistics:
 
 1. **Chunk-based Processing**: Shows how BatchNode handles large inputs by breaking them into manageable pieces
 2. **Independent Processing**: Demonstrates how each chunk is processed separately
-3. **Result Aggregation**: Shows how individual results are combined into a final output 
+3. **Result Aggregation**: Shows how individual results are combined into a final output

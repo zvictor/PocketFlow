@@ -3,7 +3,7 @@
 This project demonstrates a simple yet powerful LLM-powered research agent. This implementation is based directly on the tutorial: [LLM Agents are simply Graph — Tutorial For Dummies](https://zacharyhuang.substack.com/p/llm-agent-internal-as-a-graph-tutorial).
 
 👉 Run the tutorial in your browser: [Try Google Colab Notebook](
-https://colab.research.google.com/github/The-Pocket/PocketFlow/blob/main/cookbook/pocketflow-agent/demo.ipynb)
+https://colab.research.google.com/github/zvictor/BrainyFlow/tree/main/cookbook/python-agent/demo.ipynb)
 
 ## Features
 
