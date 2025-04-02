@@ -1,0 +1,19 @@
+{
+  "name": "typescript-chat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "chat": "tsx --env-file=.env chat.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.13.17",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "openai": "^4.91.1"
+  }
+}
