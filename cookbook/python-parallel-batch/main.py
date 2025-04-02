@@ -1,7 +1,7 @@
 import asyncio
 import time
 
-from brainyflow import SequentialBatchNode, ParallelBatchNode, AsyncFlow
+from brainyflow import SequentialBatchNode, ParallelBatchNode, Flow
 
 ####################################
 # Dummy async function (1s delay)
@@ -15,7 +15,7 @@ async def dummy_llm_summarize(text):
 # 1) SequentialBatchNode (sequential) version
 ###############################################
 
-class SummariesAsyncNode(SequentialBatchNode):
+class SummariesNode(SequentialBatchNode):
     """
     Processes items sequentially in an async manner.
     The next item won't start until the previous item has finished.
@@ -74,8 +74,8 @@ async def main():
     }
 
     # 1) Run the sequential version
-    seq_node = SummariesAsyncNode()
-    seq_flow = AsyncFlow(start=seq_node)
+    seq_node = SummariesNode()
+    seq_flow = Flow(start=seq_node)
 
     print("\n=== Running Sequential (SequentialBatchNode) ===")
     t0 = time.time()
@@ -84,7 +84,7 @@ async def main():
 
     # 2) Run the parallel version
     par_node = SummariesAsyncParallelNode()
-    par_flow = AsyncFlow(start=par_node)
+    par_flow = Flow(start=par_node)
 
     print("\n=== Running Parallel (ParallelBatchNode) ===")
     t2 = time.time()

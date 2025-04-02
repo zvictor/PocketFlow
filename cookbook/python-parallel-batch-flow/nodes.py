@@ -1,11 +1,11 @@
-"""AsyncNode implementations for image processing."""
+"""Node implementations for image processing."""
 import os
 import asyncio
 from PIL import Image, ImageFilter
 import numpy as np
-from brainyflow import AsyncNode
+from brainyflow import Node
 
-class LoadImage(AsyncNode):
+class LoadImage(Node):
     """Node that loads an image from file."""
     async def prep_async(self, shared):
         """Get image path from parameters."""
@@ -24,7 +24,7 @@ class LoadImage(AsyncNode):
         shared["image"] = exec_res
         return "apply_filter"
 
-class ApplyFilter(AsyncNode):
+class ApplyFilter(Node):
     """Node that applies a filter to an image."""
     async def prep_async(self, shared):
         """Get image and filter type."""
@@ -63,7 +63,7 @@ class ApplyFilter(AsyncNode):
         shared["filtered_image"] = exec_res
         return "save"
 
-class SaveImage(AsyncNode):
+class SaveImage(Node):
     """Node that saves the processed image."""
     async def prep_async(self, shared):
         """Prepare output path."""

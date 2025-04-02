@@ -1,8 +1,8 @@
-from brainyflow import AsyncNode
+from brainyflow import Node
 from utils import fetch_recipes, call_llm_async, get_user_input
 
-class FetchRecipes(AsyncNode):
-    """AsyncNode that fetches recipes."""
+class FetchRecipes(Node):
+    """Node that fetches recipes."""
     
     async def prep_async(self, shared):
         """Get ingredient from user."""
@@ -20,8 +20,8 @@ class FetchRecipes(AsyncNode):
         shared["ingredient"] = prep_res
         return "suggest"
 
-class SuggestRecipe(AsyncNode):
-    """AsyncNode that suggests a recipe using LLM."""
+class SuggestRecipe(Node):
+    """Node that suggests a recipe using LLM."""
     
     async def prep_async(self, shared):
         """Get recipes from shared store."""
@@ -39,8 +39,8 @@ class SuggestRecipe(AsyncNode):
         shared["suggestion"] = suggestion
         return "approve"
 
-class GetApproval(AsyncNode):
-    """AsyncNode that gets user approval."""
+class GetApproval(Node):
+    """Node that gets user approval."""
     
     async def prep_async(self, shared):
         """Get current suggestion."""

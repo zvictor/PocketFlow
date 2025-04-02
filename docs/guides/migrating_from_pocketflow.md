@@ -92,9 +92,11 @@ class MyNode(Node):
 
 _(Flow methods follow the same pattern)_
 
-### Step 3: Update Batch Processing Classes
+### Step 3: Rename Classes
 
-BrainyFlow clarifies sequential vs. parallel batch processing:
+As we got rid of separated async classes, `AsyncNode` and `AsyncFlow` are now just `Node` and `Flow`.
+
+BrainyFlow makes the choice between sequential vs. parallel batch processing explicit:
 
 - If you used `BatchNode` (or `AsyncBatchNode`) -> Use `SequentialBatchNode`.
 - If you used `BatchFlow` (or `AsyncBatchFlow`) -> Use `SequentialBatchFlow`.

@@ -1,8 +1,8 @@
 import asyncio
-from brainyflow import AsyncNode, AsyncFlow
+from brainyflow import Node, Flow
 from utils import call_llm
 
-class AsyncHinter(AsyncNode):
+class AsyncHinter(Node):
     async def prep_async(self, shared):
         # Wait for message from guesser (or empty string at start)
         guess = await shared["hinter_queue"].get()
@@ -30,7 +30,7 @@ class AsyncHinter(AsyncNode):
         await shared["guesser_queue"].put(exec_res)
         return "continue"
 
-class AsyncGuesser(AsyncNode):
+class AsyncGuesser(Node):
     async def prep_async(self, shared):
         # Wait for hint from hinter
         hint = await shared["guesser_queue"].get()
@@ -81,8 +81,8 @@ async def main():
     guesser = AsyncGuesser()
 
     # Set up flows
-    hinter_flow = AsyncFlow(start=hinter)
-    guesser_flow = AsyncFlow(start=guesser)
+    hinter_flow = Flow(start=hinter)
+    guesser_flow = Flow(start=guesser)
 
     # Connect nodes to themselves for looping
     hinter - "continue" >> hinter

@@ -18,7 +18,7 @@ When you run the example:
 
 ## How it Works
 
-1. **FetchRecipes (AsyncNode)**
+1. **FetchRecipes (Node)**
 
    ```python
    async def prep_async(self, shared):
@@ -31,7 +31,7 @@ When you run the example:
        return recipes
    ```
 
-2. **SuggestRecipe (AsyncNode)**
+2. **SuggestRecipe (Node)**
 
    ```python
    async def exec_async(self, recipes):
@@ -42,7 +42,7 @@ When you run the example:
        return suggestion
    ```
 
-3. **GetApproval (AsyncNode)**
+3. **GetApproval (Node)**
    ```python
    async def post_async(self, shared, prep_res, suggestion):
        # Async user input
@@ -85,7 +85,7 @@ Great choice! Here's your recipe...
    - LLM calls (potentially slow)
    - User input (waiting for response)
 
-2. **AsyncNode Methods**:
+2. **Node Methods**:
 
    - `prep_async`: Setup and data gathering
    - `exec_async`: Main async processing

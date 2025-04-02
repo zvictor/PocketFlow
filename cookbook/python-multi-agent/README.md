@@ -5,7 +5,7 @@ A BrainyFlow example that demonstrates how to implement asynchronous multi-agent
 ## Features
 
 - Implement asynchronous communication between two AI agents (Hinter and Guesser)
-- Use AsyncNode for non-blocking agent interactions
+- Use Node for non-blocking agent interactions
 - Create dynamic conversation flow through asyncio message queues
 - Demonstrate complex turn-based game mechanics with LLMs
 - Automatically terminate the game when the correct word is guessed

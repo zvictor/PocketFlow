@@ -1,6 +1,6 @@
 """Flow definitions for parallel image processing."""
 
-from brainyflow import AsyncFlow, ParallelBatchFlow, SequentialBatchFlow
+from brainyflow import Flow, ParallelBatchFlow, SequentialBatchFlow
 from nodes import LoadImage, ApplyFilter, SaveImage, NoOp
 
 def create_base_flow():

@@ -1,6 +1,6 @@
-"""AsyncFlow implementation for recipe finder."""
+"""Flow implementation for recipe finder."""
 
-from brainyflow import AsyncFlow, Node
+from brainyflow import Flow, Node
 from nodes import FetchRecipes, SuggestRecipe, GetApproval
 
 class NoOp(Node):
@@ -23,5 +23,5 @@ def create_flow():
     approve - "accept" >> end     # Properly end the flow
     
     # Create flow starting with fetch
-    flow = AsyncFlow(start=fetch)
+    flow = Flow(start=fetch)
     return flow 

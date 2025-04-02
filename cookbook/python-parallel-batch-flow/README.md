@@ -7,7 +7,7 @@ Demonstrates how ParallelBatchFlow processes multiple images with multiple filte
 ```mermaid
 graph TD
     subgraph ParallelBatchFlow[Image Processing Flow]
-        subgraph AsyncFlow[Per Image-Filter Flow]
+        subgraph Flow[Per Image-Filter Flow]
             A[Load Image] --> B[Apply Filter]
             B --> C[Save Image]
         end
