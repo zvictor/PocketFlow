@@ -36,3 +36,4 @@
 ## Guides
 
 - [Agentic Coding Guide](agentic_coding.md)
+- [Migrating from PocketFlow](guides/migrating_from_pocketflow.md)
