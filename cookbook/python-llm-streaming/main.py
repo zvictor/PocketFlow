@@ -32,7 +32,7 @@ class StreamNode(Node):
             if hasattr(chunk.choices[0].delta, 'content') and chunk.choices[0].delta.content is not None:
                 chunk_content = chunk.choices[0].delta.content
                 print(chunk_content, end="", flush=True)
-                time.sleep(0.1)  # simulate latency
+                await asyncio.sleep(0.1)  # simulate latency
         return interrupt_event, listener_thread
 
     async def post(self, shared, prep_res, exec_res):

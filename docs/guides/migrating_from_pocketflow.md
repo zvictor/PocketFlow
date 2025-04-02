@@ -1,8 +1,8 @@
-# Migrating from PocketFlow
+# Migrating from PocketFlow to BrainyFlow
 
 ## Overview
 
-PocketFlow has been updated to use asynchronous programming patterns throughout the codebase. This guide will help you migrate your existing PocketFlow code to the new BrainyFlow async interface.
+BrainyFlow is an asynchronous fork of PocketFlow, designed for enhanced performance and concurrency. This guide will help you migrate your existing PocketFlow code to BrainyFlow.
 
 ## Key Changes
 
@@ -19,9 +19,7 @@ PocketFlow has been updated to use asynchronous programming patterns throughout 
 3. **Batch processing changes**
 
    - `BatchNode` → `SequentialBatchNode` (sequential processing) or `ParallelBatchNode` (concurrent processing)
-
-4. **Sleep operations**
-   - `time.sleep()` → `await asyncio.sleep()`
+   - `BatchFlow` → `SequentialBatchFlow` (sequential processing) or `ParallelBatchFlow` (concurrent processing)
 
 ## Why Async?
 
@@ -34,17 +32,24 @@ The move to async brings several benefits:
 
 ## Migration Steps
 
-### Step 1: Import asyncio
+### Step 1: Update Imports
 
-Add `asyncio` to your imports:
+Replace PocketFlow imports with BrainyFlow imports:
 
 ```python
-import asyncio
+# Before
+from pocketflow import Node, Flow, BatchNode, BatchFlow # ... and other classes
+
+# After
+import asyncio # BrainyFlow requires asyncio
+from brainyflow import Node, Flow, SequentialBatchNode, ParallelBatchNode, SequentialBatchFlow, ParallelBatchFlow # ... and other classes
 ```
 
-### Step 2: Update Node implementations
+### Step 2: Update Method Definitions
 
-#### Before:
+All core methods in Nodes and Flows are now `async`. Add the `async` keyword to your method definitions and use `await` when calling them or other async functions. This includes `prep`, `exec`, `post`, and `exec_fallback`.
+
+#### Node Example (Before):
 
 ```python
 class MyNode(Node):
@@ -59,150 +64,80 @@ class MyNode(Node):
     def post(self, shared, prep_res, exec_res):
         # Post-processing logic
         return action
-```
 
-#### After:
-
-```python
-class MyNode(Node):
-    async def prep(self, shared):
-        # Preparation logic
-        return some_data
-
-    async def exec(self, prep_res):
-        # Execution logic
-        return result
-
-    async def post(self, shared, prep_res, exec_res):
-        # Post-processing logic
-        return action
-```
-
-### Step 3: Update Flow implementations
-
-#### Before:
-
-```python
-class MyFlow(Flow):
-    def prep(self, shared):
-        # Preparation logic
-        return some_data
-
-    def post(self, shared, prep_res, exec_res):
-        # Post-processing logic
-        return action
-```
-
-#### After:
-
-```python
-class MyFlow(Flow):
-    async def prep(self, shared):
-        # Preparation logic
-        return some_data
-
-    async def post(self, shared, prep_res, exec_res):
-        # Post-processing logic
-        return action
-```
-
-### Step 4: Update Batch processing
-
-#### Before:
-
-```python
-# For batch node processing
-class MyBatchNode(BatchNode):
-    def exec(self, item):
-        # Process single item
-        return processed_item
-
-# For batch flow processing
-class MyBatchFlow(BatchFlow):
-    def prep(self, shared):
-        # Return list of items to process
-        return items_list
-```
-
-#### After:
-
-```python
-# For sequential batch processing
-class MySequentialBatchNode(SequentialBatchNode):
-    async def exec(self, item):
-        # Process single item
-        return processed_item
-
-# For parallel batch processing
-class MyParallelBatchNode(ParallelBatchNode):
-    async def exec(self, item):
-        # Process single item
-        return processed_item
-
-# For sequential batch flow
-class MySequentialBatchFlow(SequentialBatchFlow):
-    async def prep(self, shared):
-        # Return list of items to process
-        return items_list
-
-# For parallel batch flow
-class MyParallelBatchFlow(ParallelBatchFlow):
-    async def prep(self, shared):
-        # Return list of items to process
-        return items_list
-```
-
-### Step 5: Update fallback handling
-
-#### Before:
-
-```python
-class MyNode(Node):
     def exec_fallback(self, prep_res, exc):
         # Handle exception
         return fallback_result
 ```
 
-#### After:
+#### Node Example (After):
 
 ```python
 class MyNode(Node):
+    async def prep(self, shared):
+        # Preparation logic
+        # If you call other async functions here, use await
+        return some_data
+
+    async def exec(self, prep_res):
+    async def post(self, shared, prep_res, exec_res):
+        # Post-processing logic
+        # If you call other async functions here, use await
+        return action
+
     async def exec_fallback(self, prep_res, exc):
         # Handle exception
+        # If you call other async functions here, use await
         return fallback_result
 ```
 
-### Step 6: Update sleep operations
+_(Flow `prep` and `post` methods follow the same pattern)_
 
-#### Before:
+### Step 3: Update Batch Processing Classes
 
-```python
-import time
+Replace `BatchNode` and `BatchFlow` with their BrainyFlow equivalents: `SequentialBatchNode`, `ParallelBatchNode`, `SequentialBatchFlow`, or `ParallelBatchFlow`. Choose based on whether you need sequential or parallel execution. Remember to make the relevant methods (`exec` for Batch Nodes, `prep`/`post` for Batch Flows) `async`.
 
-class MyNode(Node):
-    def exec(self, prep_res):
-        # Do something
-        time.sleep(1)  # Wait for 1 second
-        # Do something else
-        return result
-```
-
-#### After:
+#### Batch Example (Before):
 
 ```python
-import asyncio
+# Batch node processing
+class MyBatchNode(BatchNode):
+    def exec(self, item):
+        # Process single item sequentially
+        return processed_item
 
-class MyNode(Node):
-    async def exec(self, prep_res):
-        # Do something
-        await asyncio.sleep(1)  # Wait for 1 second
-        # Do something else
-        return result
+# Batch flow processing
+class MyBatchFlow(BatchFlow):
+    def prep(self, shared):
+        # Return list of items to process sequentially
+        return items_list
 ```
 
-### Step 7: Update code that runs nodes and flows
+#### Batch Example (After - Parallel):
 
-#### Before:
+```python
+# Parallel batch node processing
+class MyParallelBatchNode(ParallelBatchNode):
+    async def exec(self, item):
+        # Process single item concurrently
+        # Use await for async operations within
+        return processed_item
+
+# Parallel batch flow processing
+class MyParallelBatchFlow(ParallelBatchFlow):
+    async def prep(self, shared):
+        # Return list of items to process concurrently
+        # Use await for async operations within
+        return items_list
+```
+
+_(Use `SequentialBatchNode` / `SequentialBatchFlow` for sequential processing)_
+
+### Step 4: Update Code Execution
+
+Calls to `run()` methods on Nodes and Flows must now be awaited. You'll also need an async context (like an `async def main()` function) to run them.
+
+#### Execution Example (Before):
 
 ```python
 # Running a node
@@ -210,199 +145,87 @@ result = my_node.run(shared_data)
 
 # Running a flow
 result = my_flow.run(shared_data)
+
+# Main execution (if applicable)
+if __name__ == "__main__":
+    # setup and run flow/node
+    pass
 ```
 
-#### After:
-
-```python
-# Running a node
-result = await my_node.run(shared_data)
-
-# Running a flow
-result = await my_flow.run(shared_data)
-```
-
-## Migrating from Async Classes
-
-If you were previously using the async versions of classes (`AsyncNode`, `AsyncFlow`, etc.), the migration is straightforward:
-
-### Step 1: Replace class inheritance
-
-#### Before:
-
-```python
-class MyNode(AsyncNode):
-    async def prep_async(self, shared):
-        # ...
-
-    async def exec_async(self, prep_res):
-        # ...
-
-    async def post_async(self, shared, prep_res, exec_res):
-        # ...
-```
-
-#### After:
-
-```python
-class MyNode(Node):
-    async def prep(self, shared):
-        # ...
-
-    async def exec(self, prep_res):
-        # ...
-
-    async def post(self, shared, prep_res, exec_res):
-        # ...
-```
-
-### Step 2: Rename methods
-
-- `prep_async` → `prep`
-- `exec_async` → `exec`
-- `post_async` → `post`
-- `exec_fallback_async` → `exec_fallback`
-- `run_async` → `run`
-
-### Step 3: Update method calls
-
-#### Before:
-
-```python
-result = await my_node.run_async(shared_data)
-```
-
-#### After:
-
-```python
-result = await my_node.run(shared_data)
-```
-
-## Migrating Batch Processing
-
-The batch processing classes have been split into sequential and parallel versions:
-
-### Sequential vs Parallel Batch Nodes
-
-- Use `SequentialBatchNode` when you want to process items one after another
-- Use `ParallelBatchNode` when you want to process items concurrently
-
-### Sequential vs Parallel Batch Flows
-
-- Use `SequentialBatchFlow` when you want to run flows for each item one after another
-- Use `ParallelBatchFlow` when you want to run flows for each item concurrently
-
-### AsyncBatchNode and AsyncParallelBatchNode
-
-#### Before:
-
-```python
-class MyBatchNode(AsyncBatchNode):
-    async def exec_async(self, item):
-        # Process item
-        return result
-
-class MyParallelBatchNode(AsyncParallelBatchNode):
-    async def exec_async(self, item):
-        # Process item
-        return result
-```
-
-#### After:
-
-```python
-class MyBatchNode(SequentialBatchNode):
-    async def exec(self, item):
-        # Process item
-        return result
-
-class MyParallelBatchNode(ParallelBatchNode):
-    async def exec(self, item):
-        # Process item
-        return result
-```
-
-## Running Your Async Code
-
-To run your async code, you'll need to use an event loop:
+#### Execution Example (After):
 
 ```python
 import asyncio
 
 async def main():
-    # Create your nodes and flows
+    # Setup nodes and flows
     my_node = MyNode()
-    my_flow = MyFlow(my_node)
+    my_flow = Flow(my_node) # Assuming Flow is defined
+    shared_data = {}
 
-    # Run your flow
-    result = await my_flow.run(shared_data)
+    # Running a node
+    node_result = await my_node.run(shared_data)
 
-    # Process result
-    print(result)
+    # Running a flow
+    flow_result = await my_flow.run(shared_data)
 
-# Run the main function
+    print(f"Node Result: {node_result}")
+    print(f"Flow Result: {flow_result}")
+
+# Main execution
+if __name__ == "__main__":
+    asyncio.run(main())
+
+```
+
+## Migrating from PocketFlow Async Classes
+
+If you were using PocketFlow's async classes (`AsyncNode`, `AsyncFlow`, etc.), the migration involves:
+
+1.  **Change Base Classes:** Inherit from the standard BrainyFlow classes (`Node`, `Flow`, etc.) instead of the `Async*` versions.
+2.  **Rename Methods:** Remove the `_async` suffix from your method names (e.g., `prep_async` becomes `prep`).
+3.  **Update Calls:** Ensure all calls to `run` (previously `run_async`) are awaited.
+
+## Running Your BrainyFlow Code
+
+BrainyFlow code must be run within an async event loop. The standard way is using `asyncio.run()`:
+
+```python
+import asyncio
+
+async def main():
+    # ... your BrainyFlow setup and execution using await ...
+    pass
+
 if __name__ == "__main__":
     asyncio.run(main())
 ```
 
 ## Common Pitfalls
 
-### 1. Forgetting to await
+### 1. Forgetting `await`
 
-The most common mistake is forgetting to await async method calls:
+The most common mistake is forgetting to use `await` when calling BrainyFlow's `run` methods or any other async function within your node/flow methods:
 
 ```python
-# WRONG
-result = my_node.run(shared_data)  # This returns a coroutine, not the actual result
+# WRONG - Forgetting await
+result = my_node.run(shared_data)  # Returns a coroutine, not the result!
 
 # CORRECT
 result = await my_node.run(shared_data)
 ```
 
-### 2. Mixing sync and async code
+### 2. Blocking Calls in Async Methods
 
-Be careful when calling sync functions from async functions and vice versa:
+Avoid long-running synchronous operations (like `time.sleep()` or blocking I/O) inside your `async` methods. Use `await asyncio.sleep()` and async libraries for I/O instead.
 
-```python
-# WRONG
-async def my_async_function():
-    # This will block the event loop
-    time.sleep(1)
+### 3. Choosing the Wrong Batch Class
 
-# CORRECT
-async def my_async_function():
-    # This allows other tasks to run while waiting
-    await asyncio.sleep(1)
-```
-
-### 3. Using the wrong batch class
-
-Make sure you choose the right batch class for your needs:
-
-- `SequentialBatchNode`/`SequentialBatchFlow`: Items are processed one after another
-- `ParallelBatchNode`/`ParallelBatchFlow`: Items are processed concurrently
-
-### 4. Not handling exceptions properly
-
-Remember that with async code, exceptions need to be handled differently:
-
-```python
-# WRONG
-try:
-    my_node.run(shared_data)
-except Exception as e:
-    handle_exception(e)
-
-# CORRECT
-try:
-    await my_node.run(shared_data)
-except Exception as e:
-    handle_exception(e)
-```
+Ensure you select the correct batch class (`Sequential*` vs. `Parallel*`) based on whether you need items processed one by one or concurrently.
 
 ## Example: Complete Migration
 
-### Before:
+### Before (PocketFlow):
 
 ```python
 import time
@@ -434,7 +257,7 @@ class BatchProcessor(BatchNode):
 fetch_node = DataFetchNode()
 process_node = ProcessNode()
 flow = Flow(fetch_node)
-fetch_node.add_successor(process_node)
+fetch_node >> process_node
 
 # Run flow
 shared_data = {'url': 'https://example.com'}
@@ -442,11 +265,11 @@ result = flow.run(shared_data)
 print(result)
 ```
 
-### After:
+### After (BrainyFlow):
 
 ```python
 import asyncio
-from pocketflow import Node, Flow, SequentialBatchNode, ParallelBatchNode
+from brainyflow import Node, Flow, ParallelBatchNode
 
 class DataFetchNode(Node):
     async def prep(self, shared):
@@ -475,7 +298,7 @@ async def main():
     fetch_node = DataFetchNode()
     process_node = ProcessNode()
     flow = Flow(fetch_node)
-    fetch_node.add_successor(process_node)
+    fetch_node >> process_node
 
     # Run flow
     shared_data = {'url': 'https://example.com'}
@@ -489,6 +312,12 @@ if __name__ == "__main__":
 
 ## Conclusion
 
-Migrating to the new async interface requires adding `async`/`await` keywords to your methods and method calls, and updating your class inheritance if you were using the now-removed async classes. The benefits of this migration include improved performance, better concurrency, and a simplified codebase.
+Migrating from PocketFlow to BrainyFlow primarily involves:
 
-Remember to run your async code with `asyncio.run()` or another appropriate method for executing async functions.
+1.  Updating imports to `brainyflow` and adding `import asyncio`.
+2.  Adding `async` to your Node/Flow method definitions (`prep`, `exec`, `post`, `exec_fallback`).
+3.  Using `await` when calling `run()` methods and any other asynchronous operations within your methods.
+4.  Replacing `BatchNode`/`BatchFlow` with the appropriate `Sequential*` or `Parallel*` BrainyFlow classes.
+5.  Running your main execution logic within an `async def main()` function called by `asyncio.run()`.
+
+This transition enables you to leverage the performance and concurrency benefits of asynchronous programming in your workflows.
