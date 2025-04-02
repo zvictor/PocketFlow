@@ -1,4 +1,4 @@
-from brainyflow import Node, BatchNode
+from brainyflow import Node, SequentialBatchNode
 from utils import call_llm
 import yaml
 

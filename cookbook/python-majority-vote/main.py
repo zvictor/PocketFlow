@@ -1,10 +1,10 @@
 import argparse
-from brainyflow import BatchNode, Flow
+from brainyflow import SequentialBatchNode, Flow
 import collections
 from utils import call_llm
 import yaml
 
-class MajorityVoteNode(BatchNode):
+class MajorityVoteNode(SequentialBatchNode):
     async def prep(self, shared):
         question = shared.get("question", "(No question provided)")
         attempts_count = shared.get("num_tries", 3)

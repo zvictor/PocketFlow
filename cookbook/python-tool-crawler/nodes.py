@@ -1,4 +1,4 @@
-from brainyflow import Node, BatchNode
+from brainyflow import Node, SequentialBatchNode
 from tools.crawler import WebCrawler
 from tools.parser import analyze_site
 from typing import List, Dict
@@ -21,7 +21,7 @@ class CrawlWebsiteNode(Node):
         shared["crawl_results"] = exec_res
         return "default"
 
-class AnalyzeContentBatchNode(BatchNode):
+class AnalyzeContentBatchNode(SequentialBatchNode):
     """Node to analyze crawled content in batches"""
     
     async def prep(self, shared):

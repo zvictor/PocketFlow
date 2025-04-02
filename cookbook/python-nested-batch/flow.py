@@ -1,5 +1,5 @@
 import os
-from brainyflow import Flow, BatchFlow
+from brainyflow import Flow, SequentialBatchFlow
 from nodes import LoadGrades, CalculateAverage
 
 def create_base_flow():
@@ -14,8 +14,8 @@ def create_base_flow():
     # Create and return flow
     return Flow(start=load)
 
-class ClassBatchFlow(BatchFlow):
-    """BatchFlow for processing all students in a class."""
+class ClassBatchFlow(SequentialBatchFlow):
+    """SequentialBatchFlow for processing all students in a class."""
     
     async def prep(self, shared):
         """Generate parameters for each student in the class."""
@@ -38,8 +38,8 @@ class ClassBatchFlow(BatchFlow):
         print(f"Class {class_name.split('_')[1].upper()} Average: {class_average:.2f}\n")
         return "default"
 
-class SchoolBatchFlow(BatchFlow):
-    """BatchFlow for processing all classes in the school."""
+class SchoolBatchFlow(SequentialBatchFlow):
+    """SequentialBatchFlow for processing all classes in the school."""
     
     async def prep(self, shared):
         """Generate parameters for each class."""

@@ -1,8 +1,8 @@
 import pandas as pd
-from brainyflow import BatchNode
+from brainyflow import SequentialBatchNode
 
-class CSVProcessor(BatchNode):
-    """BatchNode that processes a large CSV file in chunks."""
+class CSVProcessor(SequentialBatchNode):
+    """SequentialBatchNode that processes a large CSV file in chunks."""
     
     def __init__(self, chunk_size=1000):
         """Initialize with chunk size."""

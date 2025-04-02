@@ -1,9 +1,9 @@
 import os
 import asyncio
-from brainyflow import BatchNode, Flow
+from brainyflow import SequentialBatchNode, Flow
 from utils import call_llm
 
-class TranslateTextNode(BatchNode):
+class TranslateTextNode(SequentialBatchNode):
     async def prep(self, shared):
         text = shared.get("text", "(No text provided)")
         languages = shared.get("languages", ["Chinese", "Spanish", "Japanese", "German", 

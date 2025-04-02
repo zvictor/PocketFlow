@@ -1,6 +1,6 @@
 # Sequential vs Parallel Processing
 
-Demonstrates how AsyncParallelBatchNode accelerates processing by 3x over AsyncBatchNode.
+Demonstrates how ParallelBatchNode accelerates processing by 3x over SequentialBatchNode.
 
 ## Features
 
@@ -18,12 +18,12 @@ python main.py
 ## Output
 
 ```
-=== Running Sequential (AsyncBatchNode) ===
+=== Running Sequential (SequentialBatchNode) ===
 [Sequential] Summarizing file1.txt...
 [Sequential] Summarizing file2.txt...
 [Sequential] Summarizing file3.txt...
 
-=== Running Parallel (AsyncParallelBatchNode) ===
+=== Running Parallel (ParallelBatchNode) ===
 [Parallel] Summarizing file1.txt...
 [Parallel] Summarizing file2.txt...
 [Parallel] Summarizing file3.txt...

@@ -1,19 +1,19 @@
 # Parallel Image Processor
 
-Demonstrates how AsyncParallelBatchFlow processes multiple images with multiple filters >8x faster than sequential processing.
+Demonstrates how ParallelBatchFlow processes multiple images with multiple filters >8x faster than sequential processing.
 
 ## Features
 
-  ```mermaid
-  graph TD
-      subgraph AsyncParallelBatchFlow[Image Processing Flow]
-          subgraph AsyncFlow[Per Image-Filter Flow]
-              A[Load Image] --> B[Apply Filter]
-              B --> C[Save Image]
-          end
-      end
-  ```
-  
+```mermaid
+graph TD
+    subgraph ParallelBatchFlow[Image Processing Flow]
+        subgraph AsyncFlow[Per Image-Filter Flow]
+            A[Load Image] --> B[Apply Filter]
+            B --> C[Save Image]
+        end
+    end
+```
+
 - Processes images with multiple filters in parallel
 - Applies three different filters (grayscale, blur, sepia)
 - Shows significant speed improvement over sequential processing
@@ -55,7 +55,8 @@ Processing complete! Check the output/ directory for results.
 ## Key Points
 
 - **Sequential**: Total time = sum of all item times
+
   - Good for: Rate-limited APIs, maintaining order
 
 - **Parallel**: Total time ≈ longest single item time
-  - Good for: I/O-bound tasks, independent operations 
+  - Good for: I/O-bound tasks, independent operations

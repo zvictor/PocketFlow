@@ -1,6 +1,6 @@
 """Flow definitions for parallel image processing."""
 
-from brainyflow import AsyncFlow, AsyncParallelBatchFlow, AsyncBatchFlow
+from brainyflow import AsyncFlow, ParallelBatchFlow, SequentialBatchFlow
 from nodes import LoadImage, ApplyFilter, SaveImage, NoOp
 
 def create_base_flow():
@@ -19,7 +19,7 @@ def create_base_flow():
     # Create flow
     return load
 
-class ImageBatchFlow(AsyncBatchFlow):
+class ImageBatchFlow(SequentialBatchFlow):
     """Flow that processes multiple images with multiple filters in batch."""
     
     async def prep_async(self, shared):
@@ -41,7 +41,7 @@ class ImageBatchFlow(AsyncBatchFlow):
         print(f"Total combinations: {len(params)}")
         return params
 
-class ImageParallelBatchFlow(AsyncParallelBatchFlow):
+class ImageParallelBatchFlow(ParallelBatchFlow):
     """Flow that processes multiple images with multiple filters in parallel."""
 
     async def prep_async(self, shared):

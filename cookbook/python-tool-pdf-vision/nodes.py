@@ -1,11 +1,11 @@
-from brainyflow import Node, BatchNode
+from brainyflow import Node, SequentialBatchNode
 from tools.pdf import pdf_to_images
 from tools.vision import extract_text_from_image
 from typing import List, Dict, Any
 from pathlib import Path
 import os
 
-class ProcessPDFBatchNode(BatchNode):
+class ProcessPDFBatchNode(SequentialBatchNode):
     """Node for processing multiple PDFs from a directory"""
     
     async def prep(self, shared):

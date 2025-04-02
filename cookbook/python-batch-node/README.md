@@ -1,11 +1,11 @@
-# BrainyFlow BatchNode Example
+# BrainyFlow SequentialBatchNode Example
 
-This example demonstrates the BatchNode concept in BrainyFlow by implementing a CSV processor that handles large files by processing them in chunks.
+This example demonstrates the SequentialBatchNode concept in BrainyFlow by implementing a CSV processor that handles large files by processing them in chunks.
 
 ## What this Example Demonstrates
 
-- How to use BatchNode to process large inputs in chunks
-- The three key methods of BatchNode:
+- How to use SequentialBatchNode to process large inputs in chunks
+- The three key methods of SequentialBatchNode:
   1. `prep`: Splits input into chunks
   2. `exec`: Processes each chunk independently
   3. `post`: Combines results from all chunks
@@ -20,7 +20,7 @@ python-batch-node/
 │   └── sales.csv      # Sample large CSV file
 ├── main.py            # Entry point
 ├── flow.py            # Flow definition
-└── nodes.py           # BatchNode implementation
+└── nodes.py           # SequentialBatchNode implementation
 ```
 
 ## How it Works
@@ -59,6 +59,6 @@ Final Statistics:
 
 ## Key Concepts Illustrated
 
-1. **Chunk-based Processing**: Shows how BatchNode handles large inputs by breaking them into manageable pieces
+1. **Chunk-based Processing**: Shows how SequentialBatchNode handles large inputs by breaking them into manageable pieces
 2. **Independent Processing**: Demonstrates how each chunk is processed separately
 3. **Result Aggregation**: Shows how individual results are combined into a final output

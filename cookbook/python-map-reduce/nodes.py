@@ -1,4 +1,4 @@
-from brainyflow import Node, BatchNode
+from brainyflow import Node, SequentialBatchNode
 from utils import call_llm
 import yaml
 import os
@@ -23,7 +23,7 @@ class ReadResumesNode(Node):
         return "default"
 
 
-class EvaluateResumesNode(BatchNode):
+class EvaluateResumesNode(SequentialBatchNode):
     """Batch processing: Evaluate each resume to determine if the candidate qualifies."""
     
     async def prep(self, shared):

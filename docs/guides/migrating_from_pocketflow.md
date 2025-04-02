@@ -96,8 +96,8 @@ _(Flow methods follow the same pattern)_
 
 BrainyFlow clarifies sequential vs. parallel batch processing:
 
-- If you used `BatchNode` -> Use `SequentialBatchNode`.
-- If you used `BatchFlow` -> Use `SequentialBatchFlow`.
+- If you used `BatchNode` (or `AsyncBatchNode`) -> Use `SequentialBatchNode`.
+- If you used `BatchFlow` (or `AsyncBatchFlow`) -> Use `SequentialBatchFlow`.
 - If you used `AsyncParallelBatchNode` -> Use `ParallelBatchNode`.
 - If you used `AsyncParallelBatchFlow` -> Use `ParallelBatchFlow`.
 

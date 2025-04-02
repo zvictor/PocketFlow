@@ -1,6 +1,6 @@
-# BrainyFlow Nested BatchFlow Example
+# BrainyFlow Nested SequentialBatchFlow Example
 
-This example demonstrates Nested BatchFlow using a simple school grades calculator.
+This example demonstrates Nested SequentialBatchFlow using a simple school grades calculator.
 
 ## What this Example Does
 
@@ -23,12 +23,12 @@ school/
 
 ## How it Works
 
-1. **Outer BatchFlow (SchoolBatchFlow)**
+1. **Outer SequentialBatchFlow (SchoolBatchFlow)**
 
    - Processes each class folder
    - Returns parameters like: `{"class": "class_a"}`
 
-2. **Inner BatchFlow (ClassBatchFlow)**
+2. **Inner SequentialBatchFlow (ClassBatchFlow)**
 
    - Processes each student file in a class
    - Returns parameters like: `{"student": "student1.txt"}`
@@ -63,6 +63,6 @@ School Average: 8.15
 
 ## Key Concepts
 
-1. **Nested BatchFlow**: One BatchFlow inside another
+1. **Nested SequentialBatchFlow**: One SequentialBatchFlow inside another
 2. **Parameter Inheritance**: Inner flow gets parameters from outer flow
 3. **Hierarchical Processing**: Process data in a tree-like structure

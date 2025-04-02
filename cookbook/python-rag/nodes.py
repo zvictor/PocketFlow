@@ -1,10 +1,10 @@
-from brainyflow import Node, Flow, BatchNode
+from brainyflow import Node, Flow, SequentialBatchNode
 import numpy as np
 import faiss
 from utils import call_llm, get_embedding, get_simple_embedding, fixed_size_chunk
 
 # Nodes for the offline flow
-class ChunkDocumentsNode(BatchNode):
+class ChunkDocumentsNode(SequentialBatchNode):
     async def prep(self, shared):
         """Read texts from shared store"""
         return shared["texts"]
@@ -26,7 +26,7 @@ class ChunkDocumentsNode(BatchNode):
         print(f"✅ Created {len(all_chunks)} chunks from {len(prep_res)} documents")
         return "default"
     
-class EmbedDocumentsNode(BatchNode):
+class EmbedDocumentsNode(SequentialBatchNode):
     async def prep(self, shared):
         """Read texts from shared store and return as an iterable"""
         return shared["texts"]

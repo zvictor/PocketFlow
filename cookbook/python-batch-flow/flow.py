@@ -1,4 +1,4 @@
-from brainyflow import Flow, BatchFlow
+from brainyflow import Flow, SequentialBatchFlow
 from nodes import LoadImage, ApplyFilter, SaveImage
 
 def create_base_flow():
@@ -15,8 +15,8 @@ def create_base_flow():
     # Create and return flow
     return Flow(start=load)
 
-class ImageBatchFlow(BatchFlow):
-    """BatchFlow for processing multiple images with different filters."""
+class ImageBatchFlow(SequentialBatchFlow):
+    """SequentialBatchFlow for processing multiple images with different filters."""
     
     async def prep(self, shared):
         """Generate parameters for each image-filter combination."""
@@ -42,7 +42,7 @@ def create_flow():
     # Create base flow for single image processing
     base_flow = create_base_flow()
     
-    # Wrap in BatchFlow for multiple images
+    # Wrap in SequentialBatchFlow for multiple images
     batch_flow = ImageBatchFlow(start=base_flow)
     
     return batch_flow 
