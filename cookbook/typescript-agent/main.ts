@@ -2,7 +2,7 @@ import { createAgentFlow } from "./flow";
 import { SearchAgentSharedContext } from "./nodes";
 
 async function main() {
-    const question = "what is agentic ai?";
+    const question = "who is the ceo of microsoft?";
     const agentFlow = createAgentFlow();
     const sharedContext: SearchAgentSharedContext = {
         question: question,
@@ -12,5 +12,4 @@ async function main() {
 
 main().catch((error) => {
     console.error("Error running the agent:", error);
-}
-);
+});

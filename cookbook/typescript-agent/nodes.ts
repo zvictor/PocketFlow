@@ -32,11 +32,12 @@ export class DecideNode extends Node {
 
     async exec(input: { context: string, question: string }) {
         const { context, question } = input;
-
+        const now = new Date();
         console.log("Deciding whether to search or answer the question...");
 
         const prompt = `
         ### Context
+        Current date is ${now.toISOString()}
         You are helpful assistance that can searching the web to gather real time data.
         Question: ${question}
         Context: ${context}
@@ -68,8 +69,9 @@ export class DecideNode extends Node {
         1. Use proper indentation (4 spaces) for all multi-line fields
         2. Use the | character for multi-line text fields
         3. Keep single-line fields without the | character
+        4. thinking about search query, make sure that you understand the question and use query that appropriate for search engine, not just copying the question
         `
-        const response = await callLLM([{role: 'user', content: prompt}]);
+        const response = await callLLM([{ role: 'user', content: prompt }]);
         const yamlStr = response!.split("```yaml")[1].split("```")[0].trim();
         const decision = parse(yamlStr) as LLMDecision;
 
@@ -86,17 +88,17 @@ export class DecideNode extends Node {
             console.log("No decision made.");
             return;
         }
-        
+
         if (execRes.action === 'search') {
             shared.searchQuery = execRes.searchQuery;
             console.log(`Searching for: ${execRes.searchQuery}`);
             console.log(`Reason: ${execRes.reason}`);
         } else {
-            shared.answer = execRes.answer;
+            shared.context = execRes.answer;
             console.log(`Answering: ${execRes.answer}`);
             console.log(`Reason: ${execRes.reason}`);
         }
-        
+
         return execRes.action;
     }
 }
@@ -107,7 +109,7 @@ export class SearchNode extends Node {
     }
 
     async exec(searchQuery: string) {
-        console.log(`Searching for: ${searchQuery}`);
+        console.log(`Calling web search tool.`);
         const result = await webSearch(searchQuery);
         return result as SearchResult[];
     }
@@ -133,10 +135,10 @@ export class AnswerNode extends Node {
     async prep(shared: SearchAgentSharedContext) {
         const context = shared.context || "No previous context."
         const question = shared.question
-        return {question, context};
+        return { question, context };
     }
 
-    async exec(input: { question: string, context: string}) {
+    async exec(input: { question: string, context: string }) {
         const { question, context } = input;
         console.log("Answering the question...");
         const prompt = `
@@ -148,7 +150,7 @@ export class AnswerNode extends Node {
         ## Your Answer:
         Provide a comprehensive answer using the research results.
         `
-        const response = await callLLM([{role: 'user', content: prompt}]);
+        const response = await callLLM([{ role: 'user', content: prompt }]);
         return response;
     }
 
