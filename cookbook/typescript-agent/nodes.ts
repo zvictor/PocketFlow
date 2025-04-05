@@ -1,6 +1,6 @@
 import { parse } from 'yaml'
 import { Node } from "../../typescript/brainyflow";
-import { callLLM, web_search } from "./utils";
+import { callLLM, webSearch } from "./utils";
 
 export interface SearchAgentSharedContext {
     question: string
@@ -108,7 +108,7 @@ export class SearchNode extends Node {
 
     async exec(searchQuery: string) {
         console.log(`Searching for: ${searchQuery}`);
-        const result = await web_search(searchQuery);
+        const result = await webSearch(searchQuery);
         return result as SearchResult[];
     }
 

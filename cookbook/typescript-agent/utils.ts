@@ -20,12 +20,12 @@ export async function callLLM(messages: Message[]) {
  return response.choices[0].message.content
 }
 
-export async function web_search(query: string) {
+export async function webSearch(query: string) {
   const ddgs = new DDGS()
   const result = await ddgs.text({
     keywords: query,
     maxResults: 5,
   })
-  
+
   return result
 }
